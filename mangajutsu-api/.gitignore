@@ -34,3 +34,4 @@ build/
 
 ### Confidentials ###
 application.properties
+hibernate.cfg.xml
