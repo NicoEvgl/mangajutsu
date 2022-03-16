@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+<head th:insert="fragments/header :: head"></head>
+<body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page personalSpace-page">
+        <section class="clean-block clean-services dark">
+            <div class="container">
+                <div class="block-heading">
+                    <h2 class="text-info">Espace Personnel</h2>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="card shadow mb-3">
+                            <div class="card-body">
+                                <table class="table text-center my-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Prénom</th>
+                                            <th>Nom</th>
+                                            <th>Pseudo</th>
+                                            <th>Email</th> 
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td th:text="${loggedInUser.firstName}"></td>
+                                            <td th:text="${loggedInUser.lastName}"></td>
+                                            <td th:text="${loggedInUser.username}"></td>
+                                            <td th:text="${loggedInUser.email}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer th:insert="fragments/footer :: footer"></footer>
+    <div th:insert="fragments/footer :: scripts"></div>
+</body>
+</html>
