@@ -12,26 +12,28 @@
                 </div>
                 <form class="form-group" action="#" th:action="@{/register}" th:object="${user}" method="post">
                     <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                        <ul>
+                            <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+                        </ul>
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="Prénom" required="true" th:errorclass="is-invalid">
+                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="Prénom" th:errorclass="is-invalid">
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" th:field="*{lastName}" placeholder="Nom" required="true" th:errorclass="is-invalid">
+                            <input type="text" class="form-control" th:field="*{lastName}" placeholder="Nom" th:errorclass="is-invalid">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <input type="text" class="form-control" th:field="*{username}" id="inlineFormInputGroupUsername" placeholder="Nom d'utilisateur" required="true" th:errorclass="is-invalid">
+                            <input type="text" class="form-control" th:field="*{username}" id="inlineFormInputGroupUsername" placeholder="Nom d'utilisateur" th:errorclass="is-invalid">
                         </div>
                         <div class="form-group col-md-6">
-                            <input type="email" class="form-control" th:field="*{email}" id="inputEmail14" placeholder="Email" required="true" th:errorclass="is-invalid">
+                            <input type="email" class="form-control" th:field="*{email}" id="inputEmail14" placeholder="Email" th:errorclass="is-invalid">
                         </div>
                         <div class="form-group col-md-6">
                             <input type="password" class="form-control" th:field="*{password}" id="inputPassword4" placeholder="Mot de passe" minlenght="6" pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
-                            title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre" required="true" th:errorclass="is-invalid">
+                            title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre" th:errorclass="is-invalid">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">S'inscrire</button>

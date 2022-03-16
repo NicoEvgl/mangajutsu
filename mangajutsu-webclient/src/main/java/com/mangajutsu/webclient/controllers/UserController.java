@@ -27,7 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String userRegistration(final @Valid UserModel user, final BindingResult bindingResult, final Model model) {
+    public String userRegistration(final @Valid @ModelAttribute("user") UserModel user,
+            final BindingResult bindingResult, final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "register";
@@ -40,7 +41,7 @@ public class UserController {
             return "register";
         }
         model.addAttribute("user", user);
-        return "home";
+        return "/login";
     }
 
     @GetMapping("/login")
