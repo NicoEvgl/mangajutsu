@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+    <head th:insert="fragments/header :: head"></head>
+    <body>
+        <header th:replace="fragments/header :: header"></header>
+        <main class="page login-page">
+            <section class="clean-block clean-form dark">
+                <div class="container">
+                    <div class="block-heading">
+                        <h3 class="text-info">Se connecter</h3>
+                    </div>
+                </div>
+                <form class="form-group" th:action="@{/login}" th:object="${user}" method="post">
+                    <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                        <p th:each="err : ${#fields.errors('*')}" th:text="${err}"></p>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" th:field="*{username}" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Nom d'utilisateur" required="true" th:errorclass="is-invalid">
+                    </div>
+                        <div class="form-group">
+                        <input type="password" class="form-control" th:field="*{password}" id="exampleInputPassword1" placeholder="Mot de passe" minlenght="6" pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
+                        title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre" required="true" th:errorclass="is-invalid">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Se connecter</button>
+                    <div class="text-center">
+                        <p>
+                            Pas encore de compte ?
+                            <a th:href="@{/register}">
+                                <button type="button" class="btn btn-link btn-block">S'inscrire</button>
+                            </a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </main>
+        <footer th:insert="fragments/footer :: footer"></footer>
+        <div th:insert="fragments/footer :: scripts"></div>
+    </body>
+</html>
