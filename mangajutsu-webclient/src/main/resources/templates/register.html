@@ -10,7 +10,7 @@
                         <h3 class="text-info">S'inscrire</h3>
                     </div>
                 </div>
-                <form class="form-group" action="#" th:action="@{/register}" th:object="${user}" method="post">
+                <form class="form-group" th:action="@{/register}" th:object="${user}" method="post">
                     <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
                         <ul>
                             <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
@@ -18,22 +18,44 @@
                     </div>
                     <div class="form-row">
                         <div class="col">
-                            <input type="text" class="form-control" th:field="*{firstName}" placeholder="Prénom" th:errorclass="is-invalid">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" th:field="*{lastName}" placeholder="Nom" th:errorclass="is-invalid">
+                            </div>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" th:field="*{lastName}" placeholder="Nom" th:errorclass="is-invalid">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" th:field="*{firstName}" placeholder="Prénom" th:errorclass="is-invalid">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="icon-people"></span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" th:field="*{username}" id="inlineFormInputGroupUsername" placeholder="Nom d'utilisateur" th:errorclass="is-invalid">
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" th:field="*{email}" id="inputEmail14" placeholder="Email" th:errorclass="is-invalid">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="icon-envelope"></span>
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <input type="email" class="form-control" th:field="*{email}" id="inputEmail14" placeholder="Email" th:errorclass="is-invalid">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" th:field="*{username}" id="inlineFormInputGroupUsername" placeholder="Nom d'utilisateur" th:errorclass="is-invalid">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="icon-user"></span>
+                            </div>
                         </div>
-                        <div class="form-group col-md-6">
-                            <input type="password" class="form-control" th:field="*{password}" id="inputPassword4" placeholder="Mot de passe" minlenght="6" pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
-                            title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre" th:errorclass="is-invalid">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" th:field="*{password}" id="inputPassword4" placeholder="Mot de passe" minlenght="6" pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
+                        title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre" th:errorclass="is-invalid">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="icon-key"></span>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary">S'inscrire</button>
