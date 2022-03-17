@@ -10,16 +10,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserModel implements UserDetails {
     private Integer userId;
-    @NotEmpty(message = "Le prénom doit être saisi")
+    @NotEmpty(message = "{registration.validation.firstName}")
     private String firstName;
-    @NotEmpty(message = "Le nom doit être saisi")
+    @NotEmpty(message = "{registration.validation.lastName}")
     private String lastName;
-    @NotEmpty(message = "Le pseudo doit être saisi")
+    @NotEmpty(message = "{registration.validation.username}")
     private String username;
-    @NotEmpty(message = "L'\'email doit être saisi")
-    @Email(message = "Veuillez renseigner une adresse email valide")
+    @NotEmpty(message = "{registration.validation.email}")
+    @Email(message = "{registration.validation.email}")
     private String email;
-    @NotEmpty(message = "Le mot de passe doit être saisi")
+    @NotEmpty(message = "{registration.validation.password}")
     private String password;
 
     // GETTERS AND SETTERS //

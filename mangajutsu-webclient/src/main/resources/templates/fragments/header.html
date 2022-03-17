@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head th:fragment="head">
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,33 +21,30 @@
                     <a class="navbar-brand" th:href="@{/index}">
                         <img th:src="@{/img/navbar_icon.png}" alt="Library icon" style="width: 50px; height:auto"/>
                     </a>
-                </div>
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarTogglerDemo02">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" sec:authorize="isAuthenticated()">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/personalSpace}" sec:authentication="name"></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/}">Catalogue</a>
-                        </li>
-                        <li class="nav-item">
-                            <form id="logoutForm" th:action="@{/logout}" method="post">
-                                <input class="btn" type="submit" value="Se déconnecter" name="logout">
-                            </form>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" sec:authorize="isAnonymous()">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/register}">S'inscrire</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/login}">Se connecter</a>
-                        </li>
-                    </ul>
+                    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarTogglerDemo02">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" sec:authorize="isAuthenticated()">
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/personalSpace}" sec:authentication="name"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/}" th:text="#{navbar.item.catalog}"></a>
+                            </li>
+                            <li class="nav-item">
+                                <form id="logoutForm" th:action="@{/logout}" method="post">
+                                    <input class="btn" type="submit" th:value="#{navbar.item.logout}" name="logout">
+                                </form>
+                            </li>
+                        </ul>
+                        <select class="form-control select2 select2-hidden-accessible" style="width: 17%" data-select2-id="1"
+                        tabindex="-1" aria-hidden="true" id="locale">
+                            <option value="fr" th:text="#{lang.fr}" th:selected="__${#locale}__=='fr'"></option>
+                            <option value="en" th:text="#{lang.en}" th:selected="__${#locale}__=='en'"></option>
+                        </select>
+                    </div>
                 </div>
             </nav>
         </header>

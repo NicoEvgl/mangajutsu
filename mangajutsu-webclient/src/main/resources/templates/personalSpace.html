@@ -7,7 +7,7 @@
         <section class="clean-block clean-services dark">
             <div class="container">
                 <div class="block-heading">
-                    <h2 class="text-info">Espace Personnel</h2>
+                    <h2 class="text-info" th:text="#{personalSpace.name}"></h2>
                 </div>
                 <div class="row">
                     <div class="col">
@@ -16,10 +16,10 @@
                                 <table class="table text-center my-0">
                                     <thead>
                                         <tr>
-                                            <th>Prénom</th>
-                                            <th>Nom</th>
-                                            <th>Pseudo</th>
-                                            <th>Email</th> 
+                                            <th th:text="#{form.input.firstName}"></th>
+                                            <th th:text="#{form.input.lastName}"></th>
+                                            <th th:text="#{form.input.username}"></th>
+                                            <th th:text="#{form.input.email}"></th> 
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <head th:replace="fragments/header :: head"></head>
     <body>
         <header th:replace="fragments/header :: header"></header>
@@ -7,7 +7,7 @@
             <section class="clean-block clean-form dark">
                 <div class="container">
                     <div class="block-heading">
-                        <h3 class="text-info">S'inscrire</h3>
+                        <h3 class="text-info" th:text="#{form.register.name}"></h3>
                     </div>
                 </div>
                 <form class="form-group" th:action="@{/register}" th:object="${user}" method="post">
@@ -19,12 +19,12 @@
                     <div class="form-row">
                         <div class="col">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" th:field="*{lastName}" placeholder="Nom" th:errorclass="is-invalid">
+                                <input type="text" class="form-control" th:field="*{lastName}" th:placeholder="#{form.input.lastName}" th:errorclass="is-invalid">
                             </div>
                         </div>
                         <div class="col">
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" th:field="*{firstName}" placeholder="Prénom" th:errorclass="is-invalid">
+                                <input type="text" class="form-control" th:field="*{firstName}" th:placeholder="#{form.input.firstName}" th:errorclass="is-invalid">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="icon-people"></span>
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" class="form-control" th:field="*{email}" id="inputEmail14" placeholder="Email" th:errorclass="is-invalid">
+                        <input type="email" class="form-control" th:field="*{email}" id="inputEmail14" th:placeholder="#{form.input.email}" th:errorclass="is-invalid">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="icon-envelope"></span>
@@ -42,7 +42,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" th:field="*{username}" id="inlineFormInputGroupUsername" placeholder="Nom d'utilisateur" th:errorclass="is-invalid">
+                        <input type="text" class="form-control" th:field="*{username}" id="inlineFormInputGroupUsername" th:placeholder="#{form.input.username}" th:errorclass="is-invalid">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="icon-user"></span>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" th:field="*{password}" id="inputPassword4" placeholder="Mot de passe" minlenght="6" pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
+                        <input type="password" class="form-control" th:field="*{password}" id="inputPassword4" th:placeholder="#{form.input.password}" minlenght="6" pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
                         title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre" th:errorclass="is-invalid">
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -58,7 +58,13 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">S'inscrire</button>
+                    <button type="submit" class="btn btn-primary" th:text="#{form.register.name}"></button>
+                    <div class="text-center">
+                        <p th:text="#{form.text.alreadyAccount}"></p>
+                        <a th:href="@{/login}">
+                            <button type="button" class="btn btn-link btn-block" th:text="#{form.login.name}"></button>
+                        </a>
+                    </div>
                 </form>
             </section>
         </main>

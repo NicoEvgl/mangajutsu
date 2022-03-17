@@ -36,7 +36,7 @@ public class UserController {
         try {
             mangajutsuProxy.userRegistration(user);
         } catch (FeignException e) {
-            bindingResult.rejectValue("username", "user.username", "Ce nom d'utilisateur existe déjà");
+            bindingResult.rejectValue("username", "user.username", "Username already exist");
             model.addAttribute("user", user);
             return "register";
         }
