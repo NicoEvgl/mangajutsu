@@ -2,21 +2,12 @@ package com.mangajutsu.api.models;
 
 import java.io.Serializable;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-
 public class UserModel implements Serializable {
     private Integer userId;
-    @NotEmpty(message = "Le prénom doit être saisi")
     private String firstName;
-    @NotEmpty(message = "Le nom doit être saisi")
     private String lastName;
-    @NotEmpty(message = "Le pseudo doit être saisi")
     private String username;
-    @NotEmpty(message = "L'email doit être saisi")
-    @Email(message = "Veuillez renseigner une adresse email valide")
     private String email;
-    @NotEmpty(message = "Le mot de passe doit être saisi")
     private String password;
 
     // GETTERS AND SETTERS //

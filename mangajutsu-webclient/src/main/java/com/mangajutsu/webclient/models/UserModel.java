@@ -16,7 +16,7 @@ public class UserModel implements UserDetails {
     private String lastName;
     @NotEmpty(message = "Le pseudo doit être saisi")
     private String username;
-    @NotEmpty(message = "L'email doit être saisi")
+    @NotEmpty(message = "L'\'email doit être saisi")
     @Email(message = "Veuillez renseigner une adresse email valide")
     private String email;
     @NotEmpty(message = "Le mot de passe doit être saisi")
