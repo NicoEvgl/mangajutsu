@@ -45,7 +45,13 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(@ModelAttribute("user") UserModel user, Model model) {
+    public String login(@RequestParam(value = "error", defaultValue = "false") boolean loginError,
+            @ModelAttribute("user") UserModel user,
+            Model model) {
+        if (loginError) {
+            model.addAttribute("user", user);
+            return "login";
+        }
         model.addAttribute("user", user);
         return "login";
     }
