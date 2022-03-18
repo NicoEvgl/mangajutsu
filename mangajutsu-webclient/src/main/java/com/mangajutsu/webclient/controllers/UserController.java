@@ -2,6 +2,8 @@ package com.mangajutsu.webclient.controllers;
 
 import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,9 @@ public class UserController {
     @Autowired
     private MangajutsuProxy mangajutsuProxy;
 
+    @Autowired
+    private MessageSource messageSource;
+
     @GetMapping(value = "/register")
     public String register(final Model model) {
         model.addAttribute("user", new UserModel());
@@ -29,6 +34,7 @@ public class UserController {
     @PostMapping("/register")
     public String userRegistration(final @Valid @ModelAttribute("user") UserModel user,
             final BindingResult bindingResult, final Model model) {
+        String errorMessage = messageSource.getMessage("error.register", null, LocaleContextHolder.getLocale());
         if (bindingResult.hasErrors()) {
             model.addAttribute("user", user);
             return "register";
@@ -36,7 +42,7 @@ public class UserController {
         try {
             mangajutsuProxy.userRegistration(user);
         } catch (FeignException e) {
-            bindingResult.rejectValue("username", "user.username", "Username already exist");
+            bindingResult.rejectValue("username", "user.username", errorMessage);
             model.addAttribute("user", user);
             return "register";
         }
