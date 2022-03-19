@@ -23,13 +23,16 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (username.trim().isEmpty()) {
-            throw new UsernameNotFoundException("Le pseudo est vide");
+            throw new UsernameNotFoundException("Username is empty");
         }
         final UserModel user = mangajutsuProxy.findUserByUsername(username);
         if (user == null) {
-            throw new UsernameNotFoundException("Le pseudo " + username + " est inconnu");
+            throw new UsernameNotFoundException(username + " is unknown");
         }
 
-        return user;
+        UserDetails userDetails = new UserModel(user.getUserId(), user.getFirstName(), user.getLastName(),
+                user.getUsername(), user.getEmail(), user.getPassword(), user.getUserRoles(), user.getAuthorities());
+
+        return userDetails;
     }
 }
