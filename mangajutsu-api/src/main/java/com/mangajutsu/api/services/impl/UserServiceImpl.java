@@ -1,6 +1,8 @@
 package com.mangajutsu.api.services.impl;
 
+import com.mangajutsu.api.dao.entities.RoleEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
+import com.mangajutsu.api.dao.repositories.RoleRepository;
 import com.mangajutsu.api.dao.repositories.UserRepository;
 import com.mangajutsu.api.exceptions.UserAlreadyExistException;
 import com.mangajutsu.api.models.UserModel;
@@ -20,7 +22,15 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     public void register(UserModel user) throws UserAlreadyExistException {
@@ -31,6 +41,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
         encodePassword(userEntity, user);
+        updateCustomerRole(userEntity);
         userRepository.save(userEntity);
     }
 
@@ -56,8 +67,8 @@ public class UserServiceImpl implements UserService {
         userEntity.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
     }
 
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
+    private void updateCustomerRole(UserEntity userEntity) {
+        RoleEntity role = roleRepository.findByCode("customer");
+        userEntity.addUserRoles(role);
     }
 }
