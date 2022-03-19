@@ -20,6 +20,7 @@
                                             <th th:text="#{form.input.lastName}"></th>
                                             <th th:text="#{form.input.username}"></th>
                                             <th th:text="#{form.input.email}"></th> 
+                                            <th th:text="#{form.input.role}"></th> 
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -28,6 +29,7 @@
                                             <td th:text="${loggedInUser.lastName}"></td>
                                             <td th:text="${loggedInUser.username}"></td>
                                             <td th:text="${loggedInUser.email}"></td>
+                                            <td th:each="role : ${loggedInUser.userRoles}" th:text="${role.code.toUpperCase()}"></td>
                                         </tr>
                                     </tbody>
                                 </table>
