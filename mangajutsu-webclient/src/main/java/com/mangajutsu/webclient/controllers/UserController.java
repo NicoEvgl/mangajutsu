@@ -26,8 +26,8 @@ public class UserController {
     private MessageSource messageSource;
 
     @GetMapping(value = "/register")
-    public String register(final Model model) {
-        model.addAttribute("user", new UserModel());
+    public String register(@ModelAttribute("user") UserModel user, final Model model) {
+        model.addAttribute("user", user);
         return "register";
     }
 
