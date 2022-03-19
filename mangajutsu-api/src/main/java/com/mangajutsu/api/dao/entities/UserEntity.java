@@ -2,13 +2,16 @@ package com.mangajutsu.api.dao.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "user", schema = "public")
+@Table(name = "customer", schema = "public")
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "customer_id", nullable = false)
     private Integer userId;
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
@@ -21,10 +24,14 @@ public class UserEntity implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    public UserEntity() {
-    }
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<RoleEntity> userRoles = new HashSet<>();
 
-    // GETTERS AND SETTERS //
+    // Getters & Setters //
 
     public Integer getUserId() {
         return userId;
@@ -72,5 +79,40 @@ public class UserEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<RoleEntity> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<RoleEntity> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserEntity userEntity = (UserEntity) obj;
+        return Objects.equals(email, userEntity.email);
+    }
+
+    public void addUserRoles(RoleEntity role) {
+        userRoles.add(role);
+        role.getUsers().add(this);
+    }
+
+    public void removeUserGroups(RoleEntity role) {
+        userRoles.remove(role);
+        role.getUsers().remove(this);
     }
 }

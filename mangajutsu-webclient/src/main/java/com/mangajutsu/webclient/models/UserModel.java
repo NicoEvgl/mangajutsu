@@ -1,6 +1,7 @@
 package com.mangajutsu.webclient.models;
 
 import java.util.Collection;
+import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -22,7 +23,54 @@ public class UserModel implements UserDetails {
     @NotEmpty(message = "{registration.validation.password}")
     private String password;
 
-    // GETTERS AND SETTERS //
+    private RoleModel roleModel;
+    private Set<RoleModel> userRoles;
+
+    private final Collection<? extends GrantedAuthority> authorities;
+
+    public UserModel(Integer userId, @NotEmpty(message = "{registration.validation.firstName}") String firstName,
+            @NotEmpty(message = "{registration.validation.lastName}") String lastName,
+            @NotEmpty(message = "{registration.validation.username}") String username,
+            @NotEmpty(message = "{registration.validation.email}") @Email(message = "{registration.validation.email}") String email,
+            @NotEmpty(message = "{registration.validation.password}") String password,
+            Set<RoleModel> userRoles,
+            Collection<? extends GrantedAuthority> authorities) {
+        this.userId = userId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.userRoles = userRoles;
+        this.authorities = authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    // Getters and Setters //
 
     public Integer getUserId() {
         return userId;
@@ -52,26 +100,6 @@ public class UserModel implements UserDetails {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
@@ -84,11 +112,6 @@ public class UserModel implements UserDetails {
         this.email = email;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -97,17 +120,28 @@ public class UserModel implements UserDetails {
         this.password = password;
     }
 
-    // METHOD TO STRING //
+    public RoleModel getRoleModel() {
+        return roleModel;
+    }
+
+    public void setRoleModel(RoleModel roleModel) {
+        this.roleModel = roleModel;
+    }
+
+    public Set<RoleModel> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<RoleModel> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    // to String() //
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "User [ id=" + userId + ", authorities=" + authorities + ", email=" + email + ", firstName=" + firstName
+                + ", lastName="
+                + lastName + ", username=" + username + ", password=" + password + "]";
     }
 }
