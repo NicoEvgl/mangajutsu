@@ -1,6 +1,9 @@
 package com.mangajutsu.api.models;
 
 import java.io.Serializable;
+import java.util.Set;
+
+import com.mangajutsu.api.dao.entities.RoleEntity;
 
 public class UserModel implements Serializable {
     private Integer userId;
@@ -9,6 +12,8 @@ public class UserModel implements Serializable {
     private String username;
     private String email;
     private String password;
+
+    private Set<RoleEntity> userRoles;
 
     // GETTERS AND SETTERS //
 
@@ -58,5 +63,13 @@ public class UserModel implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<RoleEntity> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<RoleEntity> userRoles) {
+        this.userRoles = userRoles;
     }
 }

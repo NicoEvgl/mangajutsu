@@ -1,12 +1,15 @@
 package com.mangajutsu.webclient.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserModel implements UserDetails {
@@ -23,7 +26,6 @@ public class UserModel implements UserDetails {
     @NotEmpty(message = "{registration.validation.password}")
     private String password;
 
-    private RoleModel roleModel;
     private Set<RoleModel> userRoles;
 
     private final Collection<? extends GrantedAuthority> authorities;
@@ -67,6 +69,11 @@ public class UserModel implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<RoleModel> userRoles = getUserRoles();
+        Collection<GrantedAuthority> authorities = new ArrayList<>(userRoles.size());
+        for (RoleModel userRole : userRoles) {
+            authorities.add(new SimpleGrantedAuthority(userRole.getCode().toUpperCase()));
+        }
         return authorities;
     }
 
@@ -118,14 +125,6 @@ public class UserModel implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public RoleModel getRoleModel() {
-        return roleModel;
-    }
-
-    public void setRoleModel(RoleModel roleModel) {
-        this.roleModel = roleModel;
     }
 
     public Set<RoleModel> getUserRoles() {

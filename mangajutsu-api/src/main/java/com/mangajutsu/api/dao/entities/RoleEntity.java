@@ -1,6 +1,5 @@
 package com.mangajutsu.api.dao.entities;
 
-import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -25,7 +24,7 @@ public class RoleEntity {
     @Column(name = "code", unique = true)
     private String code;
     @Column(name = "role_name", unique = true)
-    private String role_name;
+    private String roleName;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "userRoles")
@@ -48,12 +47,12 @@ public class RoleEntity {
         this.code = code;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setRole_name(String roleName) {
+        this.roleName = roleName;
     }
 
     public Set<UserEntity> getUsers() {
@@ -63,23 +62,4 @@ public class RoleEntity {
     public void setUsers(Set<UserEntity> users) {
         this.users = users;
     }
-
-    // hashCode(), equals() //
-    @Override
-    public int hashCode() {
-        return Objects.hash(roleId);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        RoleEntity roleEntity = (RoleEntity) obj;
-        return Objects.equals(roleId, roleEntity.roleId);
-    }
-
 }

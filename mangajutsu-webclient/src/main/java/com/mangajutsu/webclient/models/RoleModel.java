@@ -43,42 +43,4 @@ public class RoleModel implements Serializable {
     public String toString() {
         return "Role [ id=" + roleId + ", code=" + code + ", roleName=" + roleName + "]";
     }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((code == null) ? 0 : code.hashCode());
-        result = prime * result + ((roleId == null) ? 0 : roleId.hashCode());
-        result = prime * result + ((roleName == null) ? 0 : roleName.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        RoleModel other = (RoleModel) obj;
-        if (code == null) {
-            if (other.code != null)
-                return false;
-        } else if (!code.equals(other.code))
-            return false;
-        if (roleId == null) {
-            if (other.roleId != null)
-                return false;
-        } else if (!roleId.equals(other.roleId))
-            return false;
-        if (roleName == null) {
-            if (other.roleName != null)
-                return false;
-        } else if (!roleName.equals(other.roleName))
-            return false;
-        return true;
-    }
-
 }
