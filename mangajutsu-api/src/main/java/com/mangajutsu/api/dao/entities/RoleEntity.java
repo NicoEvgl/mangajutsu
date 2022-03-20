@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "role")
 public class RoleEntity {
@@ -25,6 +27,7 @@ public class RoleEntity {
     @Column(name = "role_name", unique = true)
     private String role_name;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "userRoles")
     private Set<UserEntity> users;
 
