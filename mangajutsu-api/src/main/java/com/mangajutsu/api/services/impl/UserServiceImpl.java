@@ -1,6 +1,8 @@
 package com.mangajutsu.api.services.impl;
 
+import com.mangajutsu.api.dao.entities.RoleEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
+import com.mangajutsu.api.dao.repositories.RoleRepository;
 import com.mangajutsu.api.dao.repositories.UserRepository;
 import com.mangajutsu.api.exceptions.UserAlreadyExistException;
 import com.mangajutsu.api.models.UserModel;

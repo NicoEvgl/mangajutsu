@@ -3,6 +3,7 @@ package com.mangajutsu.api.dao.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -86,5 +87,22 @@ public class UserEntity implements Serializable {
 
     public void setUserRoles(Set<RoleEntity> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserEntity userEntity = (UserEntity) obj;
+        return Objects.equals(email, userEntity.email);
     }
 }
