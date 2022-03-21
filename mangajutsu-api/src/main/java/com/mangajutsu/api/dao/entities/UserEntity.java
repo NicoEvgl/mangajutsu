@@ -105,14 +105,4 @@ public class UserEntity implements Serializable {
         UserEntity userEntity = (UserEntity) obj;
         return Objects.equals(email, userEntity.email);
     }
-
-    public void addUserRoles(RoleEntity role) {
-        userRoles.add(role);
-        role.getUsers().add(this);
-    }
-
-    public void removeUserGroups(RoleEntity role) {
-        userRoles.remove(role);
-        role.getUsers().remove(this);
-    }
 }
