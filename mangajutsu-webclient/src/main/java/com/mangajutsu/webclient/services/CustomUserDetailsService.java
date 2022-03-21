@@ -1,9 +1,16 @@
 package com.mangajutsu.webclient.services;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Set;
+
+import com.mangajutsu.webclient.models.RoleModel;
 import com.mangajutsu.webclient.models.UserModel;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -34,5 +41,13 @@ public class CustomUserDetailsService implements UserDetailsService {
                 user.getUsername(), user.getEmail(), user.getPassword(), user.getUserRoles(), user.getAuthorities());
 
         return userDetails;
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(Set<RoleModel> userRoles) {
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        for (RoleModel role : userRoles) {
+            authorities.add(new SimpleGrantedAuthority(role.getCode().toUpperCase()));
+        }
+        return authorities;
     }
 }

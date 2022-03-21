@@ -23,7 +23,6 @@ public class UserModel implements UserDetails {
     @NotEmpty(message = "{registration.validation.password}")
     private String password;
 
-    private RoleModel roleModel;
     private Set<RoleModel> userRoles;
 
     private final Collection<? extends GrantedAuthority> authorities;
@@ -118,14 +117,6 @@ public class UserModel implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public RoleModel getRoleModel() {
-        return roleModel;
-    }
-
-    public void setRoleModel(RoleModel roleModel) {
-        this.roleModel = roleModel;
     }
 
     public Set<RoleModel> getUserRoles() {

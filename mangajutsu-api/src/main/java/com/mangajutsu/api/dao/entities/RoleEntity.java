@@ -1,6 +1,6 @@
 package com.mangajutsu.api.dao.entities;
 
-import java.util.Objects;
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "role")
-public class RoleEntity {
+public class RoleEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +24,8 @@ public class RoleEntity {
 
     @Column(name = "code", unique = true)
     private String code;
-    @Column(name = "role_name", unique = true)
-    private String role_name;
+    @Column(name = "name_role", unique = true)
+    private String nameRole;
 
     @JsonIgnore
     @ManyToMany(mappedBy = "userRoles")
@@ -48,12 +48,12 @@ public class RoleEntity {
         this.code = code;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getNameRole() {
+        return nameRole;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setNameRole(String nameRole) {
+        this.nameRole = nameRole;
     }
 
     public Set<UserEntity> getUsers() {
@@ -63,23 +63,4 @@ public class RoleEntity {
     public void setUsers(Set<UserEntity> users) {
         this.users = users;
     }
-
-    // hashCode(), equals() //
-    @Override
-    public int hashCode() {
-        return Objects.hash(roleId);
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        RoleEntity roleEntity = (RoleEntity) obj;
-        return Objects.equals(roleId, roleEntity.roleId);
-    }
-
 }
