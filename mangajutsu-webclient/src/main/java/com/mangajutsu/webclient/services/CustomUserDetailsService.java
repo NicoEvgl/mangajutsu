@@ -38,7 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         UserDetails userDetails = new UserModel(user.getUserId(), user.getFirstName(), user.getLastName(),
-                user.getUsername(), user.getEmail(), user.getPassword(), user.getUserRoles(), user.getAuthorities());
+                user.getUsername(), user.getEmail(), user.getPassword(), user.getUserRoles(),
+                getAuthorities(user.getUserRoles()));
 
         return userDetails;
     }

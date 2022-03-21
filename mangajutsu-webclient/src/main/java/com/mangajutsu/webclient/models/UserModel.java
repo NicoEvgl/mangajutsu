@@ -6,8 +6,16 @@ import java.util.Set;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+import com.mangajutsu.webclient.validators.FieldMatchValidator;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+@FieldMatchValidator.List({
+        @FieldMatchValidator(first = "password", second = "confirmPassword", message = "{registration.validation.confirm-password}"),
+        // @FieldMatchValidator(first = "email", second = "confirmEmail", message = "The
+        // email fields must match")
+})
 
 public class UserModel implements UserDetails {
     private Integer userId;
@@ -22,6 +30,8 @@ public class UserModel implements UserDetails {
     private String email;
     @NotEmpty(message = "{registration.validation.password}")
     private String password;
+    @NotEmpty(message = "{registration.validation.password}")
+    private String confirmPassword;
 
     private Set<RoleModel> userRoles;
 
@@ -119,6 +129,14 @@ public class UserModel implements UserDetails {
         this.password = password;
     }
 
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
     public Set<RoleModel> getUserRoles() {
         return userRoles;
     }
@@ -135,4 +153,5 @@ public class UserModel implements UserDetails {
                 + ", lastName="
                 + lastName + ", username=" + username + ", password=" + password + "]";
     }
+
 }
