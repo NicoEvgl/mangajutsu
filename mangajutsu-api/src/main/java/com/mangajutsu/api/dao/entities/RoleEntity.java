@@ -22,8 +22,13 @@ public class RoleEntity {
     private Integer roleId;
     @Column(name = "code", unique = true)
     private String code;
+<<<<<<< HEAD
     @Column(name = "name_role", unique = true)
     private String nameRole;
+=======
+    @Column(name = "role_name", unique = true)
+    private String roleName;
+>>>>>>> 3368934ee88b2f8978dcd2b3c3a06044701e6350
 
     @JsonIgnore
     @ManyToMany(mappedBy = "userRoles")
@@ -46,12 +51,21 @@ public class RoleEntity {
         this.code = code;
     }
 
+<<<<<<< HEAD
     public String getNameRole() {
         return nameRole;
     }
 
     public void setNameRole(String nameRole) {
         this.nameRole = nameRole;
+=======
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRole_name(String roleName) {
+        this.roleName = roleName;
+>>>>>>> 3368934ee88b2f8978dcd2b3c3a06044701e6350
     }
 
     public Set<UserEntity> getUsers() {
