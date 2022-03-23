@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 import com.mangajutsu.webclient.models.UserModel;
+import com.mangajutsu.webclient.models.UserPrincipal;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
 
 @Controller
@@ -65,7 +66,7 @@ public class UserController {
     @GetMapping("/personalSpace")
     public String personalSpace(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserModel loggedInUser = (UserModel) authentication.getPrincipal();
+        UserPrincipal loggedInUser = (UserPrincipal) authentication.getPrincipal();
 
         model.addAttribute("loggedInUser", loggedInUser);
         return "personalSpace";
