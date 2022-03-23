@@ -34,6 +34,7 @@ public class UserModel implements Serializable {
     private String password;
     @NotEmpty(message = "{registration.validation.password}")
     private String confirmPassword;
+    private boolean enabled;
 
     private Set<RoleModel> userRoles;
 
@@ -106,13 +107,22 @@ public class UserModel implements Serializable {
     public void setUserRoles(Set<RoleModel> userRoles) {
         this.userRoles = userRoles;
     }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     // to String() //
 
     @Override
     public String toString() {
-        return "User [ id=" + id + ", email=" + email + ", firstName=" + firstName
-                + ", lastName="
-                + lastName + ", username=" + username + ", password=" + password + "]";
+        return "User [email=" + email + ", enabled=" + enabled + ", firstName=" + firstName + ", id=" + id
+                + ", lastName=" + lastName + ", password=" + password + ", userRoles=" + userRoles + ", username="
+                + username + "]";
     }
 
     @Override

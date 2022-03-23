@@ -10,18 +10,20 @@ import java.util.Set;
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, columnDefinition = "integer not null")
     private Integer id;
-    @Column(name = "first_name", nullable = false, length = 50)
+    @Column(name = "first_name", nullable = false, length = 50, columnDefinition = "varchar(50) not null")
     private String firstName;
-    @Column(name = "last_name", nullable = false, length = 50)
+    @Column(name = "last_name", nullable = false, length = 50, columnDefinition = "varchar(50) not null")
     private String lastName;
-    @Column(name = "username", unique = true, nullable = false, length = 50)
+    @Column(name = "username", unique = true, nullable = false, length = 50, columnDefinition = "varchar(50) not null")
     private String username;
-    @Column(name = "email", unique = true, nullable = false, length = 50)
+    @Column(name = "email", unique = true, nullable = false, length = 50, columnDefinition = "varchar(50) not null")
     private String email;
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, columnDefinition = "varchar not null")
     private String password;
+    @Column(name = "account_verified", columnDefinition = "boolean default false")
+    private boolean enabled;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -82,5 +84,13 @@ public class UserEntity implements Serializable {
 
     public void setUserRoles(Set<RoleEntity> userRoles) {
         this.userRoles = userRoles;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
