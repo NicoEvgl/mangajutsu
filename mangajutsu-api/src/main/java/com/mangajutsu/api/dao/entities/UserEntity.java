@@ -10,8 +10,8 @@ import java.util.Set;
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "customer_id", nullable = false)
-    private Integer userId;
+    @Column(name = "id", nullable = false)
+    private Integer id;
     @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 50)
@@ -27,17 +27,13 @@ public class UserEntity implements Serializable {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "customer_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<RoleEntity> userRoles = new HashSet<>();
 
     // Getters & Setters //
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public Integer getId() {
+        return id;
     }
 
     public String getFirstName() {

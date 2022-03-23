@@ -3,23 +3,20 @@ package com.mangajutsu.webclient.models;
 import java.io.Serializable;
 
 public class RoleModel implements Serializable {
-    private Integer roleId;
+    private Integer id;
     private String code;
-    private String roleName;
+    private String nameRole;
 
-    public RoleModel(Integer roleId, String code, String roleName) {
-        this.roleId = roleId;
+    public RoleModel(Integer id, String code, String nameRole) {
+        this.id = id;
         this.code = code;
-        this.roleName = roleName;
+        this.nameRole = nameRole;
     }
 
     // Getters & Setters //
-    public Integer getRoleId() {
-        return roleId;
-    }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public Integer getId() {
+        return id;
     }
 
     public String getCode() {
@@ -30,17 +27,17 @@ public class RoleModel implements Serializable {
         this.code = code;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getNameRole() {
+        return nameRole;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setNameRole(String nameRole) {
+        this.nameRole = nameRole;
     }
 
     // toString() //
     @Override
     public String toString() {
-        return "Role [ id=" + roleId + ", code=" + code + ", roleName=" + roleName + "]";
+        return "Role [ id=" + id + ", code=" + code + ", name_role=" + nameRole + "]";
     }
 }

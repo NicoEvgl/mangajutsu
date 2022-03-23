@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 })
 
 public class UserModel implements UserDetails {
-    private Integer userId;
+    private Integer id;
     @NotEmpty(message = "{registration.validation.firstName}")
     private String firstName;
     @NotEmpty(message = "{registration.validation.lastName}")
@@ -37,14 +37,14 @@ public class UserModel implements UserDetails {
 
     private final Collection<? extends GrantedAuthority> authorities;
 
-    public UserModel(Integer userId, @NotEmpty(message = "{registration.validation.firstName}") String firstName,
+    public UserModel(Integer id, @NotEmpty(message = "{registration.validation.firstName}") String firstName,
             @NotEmpty(message = "{registration.validation.lastName}") String lastName,
             @NotEmpty(message = "{registration.validation.username}") String username,
             @NotEmpty(message = "{registration.validation.email}") @Email(message = "{registration.validation.email}") String email,
             @NotEmpty(message = "{registration.validation.password}") String password,
             Set<RoleModel> userRoles,
             Collection<? extends GrantedAuthority> authorities) {
-        this.userId = userId;
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -81,12 +81,8 @@ public class UserModel implements UserDetails {
 
     // Getters and Setters //
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public Integer getId() {
+        return id;
     }
 
     public String getFirstName() {
@@ -149,9 +145,39 @@ public class UserModel implements UserDetails {
 
     @Override
     public String toString() {
-        return "User [ id=" + userId + ", authorities=" + authorities + ", email=" + email + ", firstName=" + firstName
+        return "User [ id=" + id + ", authorities=" + authorities + ", email=" + email + ", firstName=" + firstName
                 + ", lastName="
                 + lastName + ", username=" + username + ", password=" + password + "]";
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((username == null) ? 0 : username.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserModel other = (UserModel) obj;
+        if (email == null) {
+            if (other.email != null)
+                return false;
+        } else if (!email.equals(other.email))
+            return false;
+        if (username == null) {
+            if (other.username != null)
+                return false;
+        } else if (!username.equals(other.username))
+            return false;
+        return true;
+    }
 }

@@ -19,8 +19,8 @@ public class RoleEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id", nullable = false)
-    private Integer roleId;
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
     @Column(name = "code", unique = true)
     private String code;
@@ -32,12 +32,9 @@ public class RoleEntity implements Serializable {
     private Set<UserEntity> users;
 
     // Getters & Setters //
-    public Integer getRoleId() {
-        return roleId;
-    }
 
-    public void setRoleId(Integer roleId) {
-        this.roleId = roleId;
+    public Integer getId() {
+        return id;
     }
 
     public String getCode() {

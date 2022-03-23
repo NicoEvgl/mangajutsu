@@ -37,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username + " is unknown");
         }
 
-        UserDetails userDetails = new UserModel(user.getUserId(), user.getFirstName(), user.getLastName(),
+        UserDetails userDetails = new UserModel(user.getId(), user.getFirstName(), user.getLastName(),
                 user.getUsername(), user.getEmail(), user.getPassword(), user.getUserRoles(),
                 getAuthorities(user.getUserRoles()));
 
@@ -47,7 +47,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public Collection<? extends GrantedAuthority> getAuthorities(Set<RoleModel> userRoles) {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         for (RoleModel role : userRoles) {
-            authorities.add(new SimpleGrantedAuthority(role.getCode().toUpperCase()));
+            authorities.add(new SimpleGrantedAuthority(role.getNameRole().toUpperCase()));
         }
         return authorities;
     }

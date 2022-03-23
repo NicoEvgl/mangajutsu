@@ -3,7 +3,7 @@ package com.mangajutsu.api.models;
 import java.io.Serializable;
 
 public class UserModel implements Serializable {
-    private Integer userId;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String username;
@@ -12,12 +12,12 @@ public class UserModel implements Serializable {
 
     // GETTERS AND SETTERS //
 
-    public Integer getUserId() {
-        return userId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
