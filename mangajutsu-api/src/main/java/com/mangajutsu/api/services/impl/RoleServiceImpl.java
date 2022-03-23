@@ -16,7 +16,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void addCustomerRole(UserEntity userEntity) {
-        RoleEntity role = roleRepository.findByCode("customer");
+        RoleEntity role = roleRepository.findByNameRole("customer_role");
         userEntity.getUserRoles().add(role);
         role.getUsers().add(userEntity);
     }

@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleRepository extends PagingAndSortingRepository<RoleEntity, Integer> {
     RoleEntity findByCode(String code);
+
+    RoleEntity findByNameRole(String nameRole);
 }

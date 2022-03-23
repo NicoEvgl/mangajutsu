@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/login", "/register")
                 .permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().hasAnyAuthority("CUSTOMER_ROLE")
                 .and()
                 .formLogin(login -> login
                         .loginPage("/login")
@@ -50,8 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .deleteCookies("dummyCookie"));
+                .deleteCookies("JSESSIONID"));
     }
 
     @Override
