@@ -1,6 +1,7 @@
 package com.mangajutsu.api.dao.entities;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ public class UserEntity implements Serializable {
     private String email;
     @Column(name = "password", nullable = false, columnDefinition = "varchar not null")
     private String password;
-    @Column(name = "account_verified", columnDefinition = "boolean default false")
+    @Column(name = "enabled", columnDefinition = "boolean default false")
     private boolean enabled;
 
     @ManyToMany(cascade = {
@@ -31,6 +32,13 @@ public class UserEntity implements Serializable {
     })
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "customer_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<RoleEntity> userRoles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private Set<VerifTokenEntity> tokens;
+
+    public void addToken(final VerifTokenEntity token) {
+        tokens.add(token);
+    }
 
     // Getters & Setters //
 
@@ -92,5 +100,13 @@ public class UserEntity implements Serializable {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Set<VerifTokenEntity> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(Set<VerifTokenEntity> tokens) {
+        this.tokens = tokens;
     }
 }
