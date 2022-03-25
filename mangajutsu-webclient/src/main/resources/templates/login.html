@@ -43,6 +43,13 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input name="remember-me" type="checkbox">
+                            <label name="remember-me" for="remember-me">
+                                <span th:text="#{form.input.rememberMe}"></span>
+                            </label>
+                        </div>
                     <button type="submit" class="btn btn-primary" th:text="#{form.login.name}"></button>
                     <div class="text-center">
                         <p th:text="#{form.text.noAccount}"></p>

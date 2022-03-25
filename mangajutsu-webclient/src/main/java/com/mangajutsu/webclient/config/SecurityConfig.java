@@ -1,5 +1,7 @@
 package com.mangajutsu.webclient.config;
 
+import javax.sql.DataSource;
+
 import com.mangajutsu.webclient.services.CustomUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
@@ -27,17 +31,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Qualifier("customUserDetailsService")
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
                 .antMatchers("/login", "/register", "/register/verify")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin(login -> login
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/index").failureUrl("/login?error=true")
-                        .usernameParameter("username").passwordParameter("password"));
+                .formLogin(login -> {
+                    try {
+                        login
+                                .loginPage("/login")
+                                .defaultSuccessUrl("/index").failureUrl("/login?error=true")
+                                .usernameParameter("username").passwordParameter("password").and().rememberMe()
+                                .tokenRepository(persistentTokenRepository())
+                                .rememberMeCookieName("remember-me-mj-cookie").userDetailsService(userDetailsService)
+                                .tokenValiditySeconds(2592000);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
         http.sessionManagement()
                 .sessionFixation().migrateSession()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
@@ -85,5 +102,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+        return tokenRepository;
     }
 }
