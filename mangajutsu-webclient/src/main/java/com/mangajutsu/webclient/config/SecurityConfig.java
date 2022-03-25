@@ -29,11 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login", "/register")
+        http.authorizeRequests()
+                .antMatchers("/login", "/register", "/register/verify")
                 .permitAll()
-                .anyRequest().hasAnyAuthority("CUSTOMER_ROLE")
+                .anyRequest().authenticated()
                 .and()
                 .formLogin(login -> login
                         .loginPage("/login")

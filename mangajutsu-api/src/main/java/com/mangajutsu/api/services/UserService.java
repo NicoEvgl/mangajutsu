@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-    void register(UserModel user) throws UserAlreadyExistException;
+    void register(UserModel userModel) throws UserAlreadyExistException;
 
     boolean checkIfUserExist(String username);
 
     UserEntity findByUsername(String username);
+
+    void sendAccountVerifEmail(UserEntity user);
 }
