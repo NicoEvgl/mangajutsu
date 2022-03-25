@@ -23,14 +23,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        if (username.trim().isEmpty()) {
-            throw new UsernameNotFoundException("Username is empty");
-        }
-        final UserModel user = mangajutsuProxy.findUserByUsername(username);
-        if (user == null) {
-            throw new UsernameNotFoundException(username + " is unknown");
-        }
+        try {
+            if (username.trim().isEmpty()) {
+                throw new UsernameNotFoundException("Username is empty");
+            }
+            final UserModel user = mangajutsuProxy.findUserByUsername(username);
+            if (user == null) {
+                throw new UsernameNotFoundException(username + " is unknown");
+            }
 
-        return new UserPrincipal(user);
+            return new UserPrincipal(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

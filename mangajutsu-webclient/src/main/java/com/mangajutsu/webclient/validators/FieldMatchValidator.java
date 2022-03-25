@@ -14,7 +14,7 @@ import javax.validation.Payload;
 @Constraint(validatedBy = FiledMatchValidatorImpl.class)
 @Documented
 public @interface FieldMatchValidator {
-    String message() default "{constraints.field-match}";
+    String message() default "{registration.constraints.field-match}";
 
     Class<?>[] groups() default {};
 

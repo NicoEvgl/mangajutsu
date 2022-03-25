@@ -10,7 +10,7 @@ public class UserModel implements Serializable {
     private String email;
     private String password;
 
-    // GETTERS AND SETTERS //
+    // Getters & Setters //
 
     public Integer getId() {
         return id;
