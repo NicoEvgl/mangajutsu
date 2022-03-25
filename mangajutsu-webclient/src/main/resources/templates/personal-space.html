@@ -1,46 +1,53 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" lang="en">
-<head th:insert="fragments/header :: head"></head>
-<body>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+  lang="en"
+>
+  <head th:insert="fragments/header :: head"></head>
+  <body>
     <header th:replace="fragments/header :: header"></header>
     <main class="page personalSpace-page">
-        <section class="clean-block clean-services dark">
-            <div class="container">
-                <div class="block-heading">
-                    <h2 class="text-info" th:text="#{personalSpace.name}"></h2>
+      <section class="clean-block clean-services dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="#{personalSpace.name}"></h2>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="card shadow mb-3">
+                <div class="card-body">
+                  <table class="table text-center my-0">
+                    <thead>
+                      <tr>
+                        <th th:text="#{form.input.firstName}"></th>
+                        <th th:text="#{form.input.lastName}"></th>
+                        <th th:text="#{form.input.username}"></th>
+                        <th th:text="#{form.input.email}"></th>
+                        <th th:text="#{form.input.role}"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td th:text="${loggedInUser.user.firstName}"></td>
+                        <td th:text="${loggedInUser.user.lastName}"></td>
+                        <td th:text="${loggedInUser.user.username}"></td>
+                        <td th:text="${loggedInUser.user.email}"></td>
+                        <td
+                          th:each="role : ${loggedInUser.user.userRoles}"
+                          th:text="${role.code.toUpperCase()}"
+                        ></td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="card shadow mb-3">
-                            <div class="card-body">
-                                <table class="table text-center my-0">
-                                    <thead>
-                                        <tr>
-                                            <th th:text="#{form.input.firstName}"></th>
-                                            <th th:text="#{form.input.lastName}"></th>
-                                            <th th:text="#{form.input.username}"></th>
-                                            <th th:text="#{form.input.email}"></th> 
-                                            <th th:text="#{form.input.role}"></th> 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td th:text="${loggedInUser.user.firstName}"></td>
-                                            <td th:text="${loggedInUser.user.lastName}"></td>
-                                            <td th:text="${loggedInUser.user.username}"></td>
-                                            <td th:text="${loggedInUser.user.email}"></td>
-                                            <td th:each="role : ${loggedInUser.user.userRoles}" th:text="${role.code.toUpperCase()}"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
     </main>
     <footer th:insert="fragments/footer :: footer"></footer>
     <div th:insert="fragments/footer :: scripts"></div>
-</body>
+  </body>
 </html>

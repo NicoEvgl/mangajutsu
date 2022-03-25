@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<body>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <body>
     <footer class="py-5 bg-dark" th:fragment="footer">
-        <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; MangaJutsu 2022</p>
-        </div>
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; MangaJutsu 2022
+        </p>
+      </div>
     </footer>
     <div th:fragment="scripts">
-        <!-- jQuery -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        <script th:src="@{/js/smoothproducts.min.js}"></script>
-        <!-- Popper.js -->
-        <script th:src="@{/js/popper.min.js}"></script>
-        <!-- Bootstrap.js -->
-        <script th:src="@{/js/bootstrap.min.js}"></script>
-        <script th:src="@{/js/theme.js}"></script>
-        <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js}"></script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $("#locale").change(function () {
-                    var selectedOption = $('#locale').val();
-                    if (selectedOption != '') {
-                        window.location.replace('?lang=' + selectedOption);
-                    }
-                });
-            });    
-        </script>
-    </div>  
-</body>
+      <!-- jQuery -->
+      <script
+        src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        crossorigin="anonymous"
+      ></script>
+      <script th:src="@{/js/smoothproducts.min.js}"></script>
+      <!-- Popper.js -->
+      <script th:src="@{/js/popper.min.js}"></script>
+      <!-- Bootstrap.js -->
+      <script th:src="@{/js/bootstrap.min.js}"></script>
+      <script th:src="@{/js/theme.js}"></script>
+      <script
+        th:src="@{https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.js}"
+      ></script>
+      <script type="text/javascript">
+        $(document).ready(function () {
+          $("#locale").change(function () {
+            var selectedOption = $("#locale").val();
+            if (selectedOption != "") {
+              window.location.replace("?lang=" + selectedOption);
+            }
+          });
+        });
+      </script>
+    </div>
+  </body>
 </html>
