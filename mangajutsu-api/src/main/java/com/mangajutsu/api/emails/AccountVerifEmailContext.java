@@ -14,7 +14,7 @@ public class AccountVerifEmailContext extends AbstractEmailContext {
         put("firstName", user.getFirstName());
         setTemplateLocation("/email-verification");
         setSubject("Activez votre compte");
-        setFrom("contact.mangajutsu@gmail.com");
+        setFrom("${spring.mail.username}");
         setTo(user.getEmail());
     }
 
