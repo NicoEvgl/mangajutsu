@@ -10,8 +10,18 @@
                         <h3 class="text-info" th:text="#{form.login.name}"></h3>
                     </div>
                 </div>
+                <div class="alert alert-success" role="alert" th:if="${registrationMsg != null}">
+                    <p th:text="${registrationMsg}"></p>
+                </div>
+                <div class="alert alert-success" role="alert" th:if="${verifiedAccountMsg != null}">
+                    <p th:text="${verifiedAccountMsg}"></p>
+                </div>
+                <div class="alert alert-danger" role="alert" th:if="${tokenError != null}">
+                    <p th:text="${tokenError}"></p>
+                </div>
+                <p th:if="${loginError}" class="error"></p>
                 <form class="form-group" th:action="@{/login}" th:object="${user}" method="post">
-                    <div th:if="${param.error}">
+                    <div th:if="${param.error!=null}">
                         <div class="alert alert-danger">
                             <span th:text="#{error.login}"></span>
                         </div>
