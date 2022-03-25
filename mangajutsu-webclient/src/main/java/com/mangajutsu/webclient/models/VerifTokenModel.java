@@ -11,6 +11,8 @@ public class VerifTokenModel {
 
     private UserModel user;
 
+    private transient boolean expired;
+
     // Getters & Setters //
 
     public Integer getId() {
@@ -51,5 +53,13 @@ public class VerifTokenModel {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    public boolean isExpired() {
+        return expired;
+    }
+
+    public void setExpired(boolean expired) {
+        this.expired = expired;
     }
 }

@@ -3,6 +3,7 @@ package com.mangajutsu.webclient.proxies;
 import com.mangajutsu.webclient.models.UserModel;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,4 +21,7 @@ public interface MangajutsuProxy {
 
     @GetMapping("/register/verify")
     boolean verifyAccount(@RequestParam("token") String token);
+
+    @DeleteMapping("/deleteUnverifiedAccount")
+    void deleteUnverifiedAccount();
 }
