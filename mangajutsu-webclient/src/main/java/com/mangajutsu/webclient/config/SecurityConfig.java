@@ -2,6 +2,7 @@ package com.mangajutsu.webclient.config;
 
 import javax.sql.DataSource;
 
+import com.mangajutsu.webclient.config.handlers.CustomAccessDeniedHandler;
 import com.mangajutsu.webclient.services.CustomUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
@@ -39,7 +41,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login", "/register", "/register/verify")
                 .permitAll()
+                //.antMatchers("/personal-space").hasAnyAuthority("ADMIN_ROLE")
                 .anyRequest().authenticated()
+                .and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
                 .and()
                 .formLogin(login -> {
                     try {
@@ -53,8 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                });
-        http.sessionManagement()
+                })
+                .sessionManagement()
                 .sessionFixation().migrateSession()
                 .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 .invalidSessionUrl("/login")
@@ -71,7 +76,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurityBuilder) {
         webSecurityBuilder.ignoring()
-                .antMatchers("/css/**", "/fonts/**", "/js/**", "/img/**", "/templates/**", "/fragments/**");
+                .antMatchers("/css/**", "/fonts/**", "/js/**", "/img/**", "/templates/**", "/fragments/**", "errors/**");
     }
 
     @Override
@@ -108,5 +113,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
         return tokenRepository;
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return new CustomAccessDeniedHandler();
     }
 }
