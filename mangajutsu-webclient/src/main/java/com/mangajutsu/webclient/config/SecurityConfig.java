@@ -3,6 +3,7 @@ package com.mangajutsu.webclient.config;
 import javax.sql.DataSource;
 
 import com.mangajutsu.webclient.config.handlers.CustomAccessDeniedHandler;
+import com.mangajutsu.webclient.config.handlers.LoginAuthenticationFailureHandler;
 import com.mangajutsu.webclient.services.CustomUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login", "/register", "/register/verify")
                 .permitAll()
-                //.antMatchers("/personal-space").hasAnyAuthority("ADMIN_ROLE")
+                .antMatchers("/personal-space").hasAnyAuthority("ADMIN_ROLE")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler())
@@ -51,7 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         login
                                 .loginPage("/login")
                                 .defaultSuccessUrl("/index").failureUrl("/login?error=true")
-                                .usernameParameter("username").passwordParameter("password").and().rememberMe()
+                                .usernameParameter("username").passwordParameter("password")
+                                .failureHandler(failureHandler()).and().rememberMe()
                                 .tokenRepository(persistentTokenRepository())
                                 .rememberMeCookieName("remember-me-mj-cookie").userDetailsService(userDetailsService)
                                 .tokenValiditySeconds(2592000);
@@ -76,7 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurityBuilder) {
         webSecurityBuilder.ignoring()
-                .antMatchers("/css/**", "/fonts/**", "/js/**", "/img/**", "/templates/**", "/fragments/**", "errors/**");
+                .antMatchers("/css/**", "/fonts/**", "/js/**", "/img/**", "/templates/**", "/fragments/**",
+                        "errors/**");
     }
 
     @Override
@@ -118,5 +121,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
         return new CustomAccessDeniedHandler();
+    }
+
+    @Bean
+    public LoginAuthenticationFailureHandler failureHandler() {
+        LoginAuthenticationFailureHandler failureHandler = new LoginAuthenticationFailureHandler();
+        failureHandler.setDefaultFailureUrl("/login?error=true");
+        return failureHandler;
     }
 }
