@@ -24,4 +24,10 @@ public interface MangajutsuProxy {
 
     @DeleteMapping("/deleteUnverifiedAccount")
     void deleteUnverifiedAccount();
+
+    @PostMapping("/register-login-failure")
+    void registerLoginFailure(@RequestBody String username);
+
+    @PostMapping("/reset-bruteforce-counter")
+    void resetBruteForceCounter(@RequestBody String username);
 }

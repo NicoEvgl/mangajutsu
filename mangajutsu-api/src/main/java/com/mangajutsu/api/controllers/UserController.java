@@ -6,6 +6,7 @@ import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.entities.VerifTokenEntity;
 import com.mangajutsu.api.dao.repositories.UserRepository;
 import com.mangajutsu.api.dao.repositories.VerifTokenRepository;
+import com.mangajutsu.api.services.BruteForceProtectionService;
 import com.mangajutsu.api.services.UserService;
 import com.mangajutsu.api.services.VerifTokenService;
 
@@ -18,6 +19,8 @@ public class UserController {
     UserService userService;
     @Autowired
     VerifTokenService verifTokenService;
+    @Autowired
+    BruteForceProtectionService bruteForceProtectionService;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -40,5 +43,15 @@ public class UserController {
                 }
             }
         }
+    }
+
+    @PostMapping("/register-login-failure")
+    public void registerLoginFailure(@RequestBody String username) {
+        bruteForceProtectionService.registerLoginFailure(username);
+    }
+
+    @PostMapping("/reset-bruteforce-counter")
+    public void resetBruteForceCounter(@RequestBody String username) {
+        bruteForceProtectionService.resetBruteForceCounter(username);
     }
 }
