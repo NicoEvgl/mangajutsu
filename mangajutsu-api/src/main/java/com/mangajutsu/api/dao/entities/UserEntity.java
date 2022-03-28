@@ -13,20 +13,24 @@ import java.util.Set;
 public class UserEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, columnDefinition = "integer not null")
+    @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "first_name", nullable = false, length = 50, columnDefinition = "varchar(50) not null")
+    @Column(name = "first_name", nullable = false, length = 50)
     private String firstName;
-    @Column(name = "last_name", nullable = false, length = 50, columnDefinition = "varchar(50) not null")
+    @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-    @Column(name = "username", unique = true, nullable = false, length = 50, columnDefinition = "varchar(50) not null")
+    @Column(name = "username", unique = true, nullable = false, length = 50)
     private String username;
-    @Column(name = "email", unique = true, nullable = false, length = 50, columnDefinition = "varchar(50) not null")
+    @Column(name = "email", unique = true, nullable = false, length = 50)
     private String email;
-    @Column(name = "password", nullable = false, columnDefinition = "varchar not null")
+    @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "enabled", columnDefinition = "boolean default false")
     private boolean enabled;
+    @Column(name = "failed_login_attempts", columnDefinition = "integer default 0")
+    private int failedLoginAttempts;
+    @Column(name = "login_disabled", columnDefinition = "boolean default false")
+    private boolean loginDisabled;
 
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
@@ -111,5 +115,21 @@ public class UserEntity implements Serializable {
 
     public void setTokens(Set<VerifTokenEntity> tokens) {
         this.tokens = tokens;
+    }
+
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+    public boolean isLoginDisabled() {
+        return loginDisabled;
+    }
+
+    public void setLoginDisabled(boolean loginDisabled) {
+        this.loginDisabled = loginDisabled;
     }
 }

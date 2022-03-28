@@ -35,6 +35,8 @@ public class UserModel implements Serializable {
     @NotEmpty(message = "{registration.validation.password}")
     private String confirmPassword;
     private boolean enabled;
+    private int failedLoginAttempts;
+    private boolean loginDisabled;
 
     private Set<RoleModel> userRoles;
 
@@ -116,13 +118,30 @@ public class UserModel implements Serializable {
         this.enabled = enabled;
     }
 
+    public int getFailedLoginAttempts() {
+        return failedLoginAttempts;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
+
+    public boolean isLoginDisabled() {
+        return loginDisabled;
+    }
+
+    public void setLoginDisabled(boolean loginDisabled) {
+        this.loginDisabled = loginDisabled;
+    }
+
     // to String() //
 
     @Override
     public String toString() {
-        return "User [email=" + email + ", enabled=" + enabled + ", firstName=" + firstName + ", id=" + id
-                + ", lastName=" + lastName + ", password=" + password + ", userRoles=" + userRoles + ", username="
-                + username + "]";
+        return "UserModel [confirmPassword=" + confirmPassword + ", email=" + email + ", enabled=" + enabled
+                + ", failedLoginAttempts=" + failedLoginAttempts + ", firstName=" + firstName + ", id=" + id
+                + ", lastName=" + lastName + ", loginDisabled=" + loginDisabled + ", password=" + password
+                + ", userRoles=" + userRoles + ", username=" + username + "]";
     }
 
     @Override

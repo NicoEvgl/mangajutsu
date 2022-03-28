@@ -31,7 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
             if (user == null) {
                 throw new UsernameNotFoundException(username + " is unknown");
             }
-
             return new UserPrincipal(user);
         } catch (Exception e) {
             throw new RuntimeException(e);

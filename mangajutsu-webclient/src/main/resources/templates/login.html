@@ -34,6 +34,13 @@
         >
           <p th:text="${tokenError}"></p>
         </div>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          th:if="${invalidSession != null}"
+        >
+          <p th:text="${invalidSession}"></p>
+        </div>
         <p th:if="${loginError}" class="error"></p>
         <form
           class="form-group"
@@ -41,9 +48,14 @@
           th:object="${user}"
           method="post"
         >
-          <div th:if="${param.error!=null}">
+          <div th:if="${param.error!=null and accountLocked != true}">
             <div class="alert alert-danger">
               <span th:text="#{error.login}"></span>
+            </div>
+          </div>
+          <div th:if="${param.error!=null and accountLocked == true}">
+            <div class="alert alert-danger">
+              <span th:text="#{error.user.account.locked}"></span>
             </div>
           </div>
           <div class="input-group mb-3">

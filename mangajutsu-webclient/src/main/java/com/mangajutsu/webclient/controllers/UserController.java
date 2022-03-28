@@ -1,24 +1,41 @@
 package com.mangajutsu.webclient.controllers;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 import com.mangajutsu.webclient.models.UserModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
+import com.mangajutsu.webclient.proxies.MangajutsuProxy;
+import com.mangajutsu.webclient.services.UserAccountService;
 
 @Controller
 public class UserController {
 
+    @Autowired
+    MangajutsuProxy mangajutsuProxy;
+
+    @Autowired
+    UserAccountService userAccountService;
+
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", defaultValue = "false") boolean loginError,
+            @RequestParam(value = "invalid-session", defaultValue = "false") boolean invalidSession,
             @ModelAttribute("user") UserModel user,
-            Model model) {
+            Model model, HttpSession httpSession) {
+        String username = getUsername(httpSession);
         if (loginError) {
-            model.addAttribute("user", user);
-            return "login";
+            if (StringUtils.isNotEmpty(username) && userAccountService.loginDisabled(username)) {
+                model.addAttribute("accountLocked", Boolean.TRUE);
+                model.addAttribute("user", user);
+                return "login";
+            }
         }
         model.addAttribute("user", user);
         return "login";
@@ -31,5 +48,13 @@ public class UserController {
 
         model.addAttribute("loggedInUser", loggedInUser);
         return "personal-space";
+    }
+
+    final String getUsername(HttpSession httpSession) {
+        final String username = (String) httpSession.getAttribute("LAST_USERNAME");
+        if (StringUtils.isNotEmpty(username)) {
+            httpSession.removeAttribute("LAST_USERNAME");
+        }
+        return username;
     }
 }
