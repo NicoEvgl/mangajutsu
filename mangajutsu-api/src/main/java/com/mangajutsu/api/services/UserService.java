@@ -15,4 +15,8 @@ public interface UserService {
     UserEntity findByUsername(String username);
 
     void sendAccountVerifEmail(UserEntity user);
+
+    void sendResetPasswordEmail(UserEntity user);
+
+    boolean loginDisabled(String username);
 }

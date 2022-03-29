@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+import com.mangajutsu.webclient.models.ForgotPasswordModel;
 import com.mangajutsu.webclient.models.UserModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
@@ -29,10 +30,13 @@ public class UserController {
         if (loginError) {
             if (StringUtils.isNotEmpty(username) && mangajutsuProxy.loginDisabled(username)) {
                 model.addAttribute("accountLocked", Boolean.TRUE);
+                model.addAttribute("forgotPassword", new ForgotPasswordModel());
                 model.addAttribute("user", user);
                 return "login";
             }
         }
+        model.addAttribute("forgotPassword", new ForgotPasswordModel());
+        model.addAttribute("accountLocked", Boolean.FALSE);
         model.addAttribute("user", user);
         return "login";
     }

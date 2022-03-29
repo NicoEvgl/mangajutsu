@@ -7,7 +7,6 @@ import com.mangajutsu.api.dao.entities.VerifTokenEntity;
 import com.mangajutsu.api.dao.repositories.UserRepository;
 import com.mangajutsu.api.dao.repositories.VerifTokenRepository;
 import com.mangajutsu.api.services.BruteForceProtectionService;
-import com.mangajutsu.api.services.UserAccountService;
 import com.mangajutsu.api.services.UserService;
 import com.mangajutsu.api.services.VerifTokenService;
 
@@ -18,8 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     UserService userService;
-    @Autowired
-    UserAccountService userAccountService;
     @Autowired
     VerifTokenService verifTokenService;
     @Autowired
@@ -60,6 +57,6 @@ public class UserController {
 
     @GetMapping("/loginDisabled/{username}")
     public boolean loginDisabled(@PathVariable String username) {
-        return userAccountService.loginDisabled(username);
+        return userService.loginDisabled(username);
     }
 }

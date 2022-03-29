@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login", "/register", "/register/verify")
+                .antMatchers("/login", "/register", "/register/verify", "/password/**")
                 .permitAll()
                 .antMatchers("/personal-space").hasAnyAuthority("ADMIN_ROLE")
                 .anyRequest().authenticated()

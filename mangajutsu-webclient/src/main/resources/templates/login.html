@@ -28,6 +28,20 @@
           <p th:text="${verifiedAccountMsg}"></p>
         </div>
         <div
+          class="alert alert-success"
+          role="alert"
+          th:if="${resetPasswordMsg != null}"
+        >
+          <p th:text="${resetPasswordMsg}"></p>
+        </div>
+        <div
+          class="alert alert-success"
+          role="alert"
+          th:if="${passwordUpdateMsg != null}"
+        >
+          <p th:text="${passwordUpdateMsg}"></p>
+        </div>
+        <div
           class="alert alert-danger"
           role="alert"
           th:if="${tokenError != null}"
@@ -114,6 +128,15 @@
                 type="button"
                 class="btn btn-link btn-block"
                 th:text="#{form.register.name}"
+              ></button>
+            </a>
+          </div>
+          <div class="text-center">
+            <a th:href="@{/password/reset}">
+              <button
+                type="button"
+                class="btn btn-link btn-block"
+                th:text="#{form.text.reset-password}"
               ></button>
             </a>
           </div>

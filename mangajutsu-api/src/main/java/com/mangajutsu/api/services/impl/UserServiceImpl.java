@@ -7,6 +7,7 @@ import com.mangajutsu.api.dao.entities.VerifTokenEntity;
 import com.mangajutsu.api.dao.repositories.UserRepository;
 import com.mangajutsu.api.dao.repositories.VerifTokenRepository;
 import com.mangajutsu.api.emails.AccountVerifEmailContext;
+import com.mangajutsu.api.emails.ForgotPasswordEmailContext;
 import com.mangajutsu.api.exceptions.UserAlreadyExistException;
 import com.mangajutsu.api.models.UserModel;
 import com.mangajutsu.api.services.EmailService;
@@ -96,5 +97,27 @@ public class UserServiceImpl implements UserService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void sendResetPasswordEmail(UserEntity user) {
+        VerifTokenEntity verifToken = verifTokenService.createVerifToken();
+        verifToken.setUser(user);
+        verifTokenRepository.save(verifToken);
+        ForgotPasswordEmailContext emailContext = new ForgotPasswordEmailContext();
+        emailContext.init(user);
+        emailContext.setToken(verifToken.getToken());
+        emailContext.buildVerificationUrl(baseURL, verifToken.getToken());
+        try {
+            emailService.sendMail(emailContext);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean loginDisabled(String username) {
+        UserEntity user = userRepository.findByUsername(username);
+        return user != null ? user.isLoginDisabled() : false;
     }
 }

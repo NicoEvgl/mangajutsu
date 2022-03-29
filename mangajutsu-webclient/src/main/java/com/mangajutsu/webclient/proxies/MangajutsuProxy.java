@@ -33,4 +33,10 @@ public interface MangajutsuProxy {
 
     @GetMapping("/loginDisabled/{username}")
     boolean loginDisabled(@PathVariable String username);
+
+    @PostMapping("/password/reset")
+    void resetPassword(@RequestParam("email") String email);
+
+    @PostMapping("password/change")
+    void changePassword(@RequestParam("password") String password, @RequestParam("token") String token);
 }
