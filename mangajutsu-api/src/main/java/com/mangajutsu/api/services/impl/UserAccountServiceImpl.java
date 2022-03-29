@@ -1,8 +1,8 @@
-package com.mangajutsu.webclient.services.impl;
+package com.mangajutsu.api.services.impl;
 
-import com.mangajutsu.webclient.models.UserModel;
-import com.mangajutsu.webclient.proxies.MangajutsuProxy;
-import com.mangajutsu.webclient.services.UserAccountService;
+import com.mangajutsu.api.dao.entities.UserEntity;
+import com.mangajutsu.api.services.UserAccountService;
+import com.mangajutsu.api.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
 public class UserAccountServiceImpl implements UserAccountService {
 
     @Autowired
-    private MangajutsuProxy mangajutsuProxy;
+    private UserService userService;
 
     @Override
     public boolean loginDisabled(String username) {
-        UserModel user = mangajutsuProxy.findUserByUsername(username);
+        UserEntity user = userService.findByUsername(username);
         return user != null ? user.isLoginDisabled() : false;
     }
 }

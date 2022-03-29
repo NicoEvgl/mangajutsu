@@ -13,16 +13,12 @@ import javax.servlet.http.HttpSession;
 import com.mangajutsu.webclient.models.UserModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
-import com.mangajutsu.webclient.services.UserAccountService;
 
 @Controller
 public class UserController {
 
     @Autowired
     MangajutsuProxy mangajutsuProxy;
-
-    @Autowired
-    UserAccountService userAccountService;
 
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", defaultValue = "false") boolean loginError,
@@ -31,7 +27,7 @@ public class UserController {
             Model model, HttpSession httpSession) {
         String username = getUsername(httpSession);
         if (loginError) {
-            if (StringUtils.isNotEmpty(username) && userAccountService.loginDisabled(username)) {
+            if (StringUtils.isNotEmpty(username) && mangajutsuProxy.loginDisabled(username)) {
                 model.addAttribute("accountLocked", Boolean.TRUE);
                 model.addAttribute("user", user);
                 return "login";

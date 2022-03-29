@@ -1,4 +1,4 @@
-package com.mangajutsu.webclient.services;
+package com.mangajutsu.api.services;
 
 import org.springframework.stereotype.Service;
 

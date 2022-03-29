@@ -30,4 +30,7 @@ public interface MangajutsuProxy {
 
     @PostMapping("/reset-bruteforce-counter")
     void resetBruteForceCounter(@RequestBody String username);
+
+    @GetMapping("/loginDisabled/{username}")
+    boolean loginDisabled(@PathVariable String username);
 }
