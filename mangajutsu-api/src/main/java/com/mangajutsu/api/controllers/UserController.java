@@ -39,7 +39,9 @@ public class UserController {
                 if (verifToken.isExpired()) {
                     UserEntity unverifiedAccount = verifToken.getUser();
                     verifTokenService.removeVerifToken(verifToken);
-                    userRepository.delete(unverifiedAccount);
+                    if (!unverifiedAccount.isEnabled()) {
+                        userRepository.delete(unverifiedAccount);
+                    }
                 }
             }
         }
