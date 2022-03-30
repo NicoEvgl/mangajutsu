@@ -69,16 +69,16 @@ public class ForgotPasswordController {
 
     @PostMapping("/change")
     public String changePassword(final @Valid @ModelAttribute("forgotPassword") ForgotPasswordModel forgotPassword,
-            final Model model,
-            RedirectAttributes redirectAttributes, final BindingResult bindingResult) {
+            BindingResult bindingResult,
+            final Model model, RedirectAttributes redirectAttributes) throws FeignException {
         if (bindingResult.hasErrors()) {
-            setResetPasswordForm(model, forgotPassword);
+            model.addAttribute("forgotPassword", forgotPassword);
             return "update-password";
         }
         try {
             mangajutsuProxy.changePassword(forgotPassword.getPassword(), forgotPassword.getToken());
         } catch (FeignException e) {
-            redirectAttributes.addFlashAttribute("tokenError",
+            bindingResult.rejectValue("tokenError",
                     messageSource.getMessage("registration.verification.token.invalid", null,
                             LocaleContextHolder.getLocale()));
             return "redirect:/update-password";
