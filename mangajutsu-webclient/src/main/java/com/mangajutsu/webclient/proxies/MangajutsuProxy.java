@@ -1,5 +1,8 @@
 package com.mangajutsu.webclient.proxies;
 
+import java.util.List;
+
+import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.UserModel;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -39,4 +42,10 @@ public interface MangajutsuProxy {
 
     @PostMapping("password/change")
     void changePassword(@RequestParam("password") String password, @RequestParam("token") String token);
+
+    @GetMapping("/anime_list")
+    List<AnimeModel> getAnimeList();
+
+    @GetMapping("/anime_details/{title}")
+    AnimeModel getAnimeDetails(@PathVariable String title);
 }
