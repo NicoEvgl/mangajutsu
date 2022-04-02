@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page animeDetails-page">
+      <section class="clean-block clean-product dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="${anime.title}"></h2>
+          </div>
+          <div class="block-content">
+            <div class="product-info">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="gallery">
+                    <img
+                      th:src="@{/img/no_found.png}"
+                      alt="no image found"
+                      style="width: 120px; height: auto"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info">
+                    <div class="summary">
+                      <div class="card-text">
+                        <p class="attribute" th:text="#{page.anime.title}"></p>
+                        <p class="value" th:text="${anime.title}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.titleVo}"
+                        ></p>
+                        <p class="value" th:text="${anime.titleVo}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p class="attribute" th:text="#{page.anime.origin}"></p>
+                        <p class="value" th:text="${anime.origin}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.releaseDate}"
+                        ></p>
+                        <p class="value" th:text="${anime.releaseDate}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.nb-episodes}"
+                        ></p>
+                        <p class="value" th:text="${anime.nbEpisodes}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.duration}"
+                        ></p>
+                        <p class="value" th:text="${anime.duration}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p class="attribute" th:text="#{page.anime.status}"></p>
+                        <p class="value" th:text="${anime.status}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.mangaka}"
+                        ></p>
+                        <p class="value" th:text="${anime.mangaka}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.producer}"
+                        ></p>
+                        <p class="value" th:text="${anime.producer}">></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.studios}"
+                        ></p>
+                        <p class="value" th:text="${anime.studios}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.synopsis}"
+                        ></p>
+                        <p class="value" th:text="${anime.synopsis}"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>
