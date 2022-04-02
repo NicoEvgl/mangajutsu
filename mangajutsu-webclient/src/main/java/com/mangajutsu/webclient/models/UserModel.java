@@ -39,6 +39,7 @@ public class UserModel implements Serializable {
     private boolean loginDisabled;
 
     private Set<RoleModel> userRoles;
+    private Set<AnimeModel> animes;
 
     public Collection<? extends GrantedAuthority> getAuthorities(Set<RoleModel> userRoles) {
         Collection<GrantedAuthority> authorities = new ArrayList<>(userRoles.size());
@@ -173,5 +174,13 @@ public class UserModel implements Serializable {
         } else if (!username.equals(other.username))
             return false;
         return true;
+    }
+
+    public Set<AnimeModel> getAnimes() {
+        return animes;
+    }
+
+    public void setAnimes(Set<AnimeModel> animes) {
+        this.animes = animes;
     }
 }
