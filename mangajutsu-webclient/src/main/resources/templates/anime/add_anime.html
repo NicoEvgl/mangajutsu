@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page addAnime-page">
+      <section class="clean-block clean-form dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-login" th:text="#{form.add-anime.name}"></h2>
+          </div>
+          <form
+            class="form-group"
+            th:action="@{/add_anime}"
+            th:object="${anime}"
+            method="post"
+          >
+            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+              <ul>
+                <li
+                  th:each="err : ${#fields.errors('*')}"
+                  th:text="${err}"
+                ></li>
+              </ul>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{title}"
+                    th:placeholder="#{page.anime.title}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{titleVo}"
+                    th:placeholder="#{page.anime.titleVo}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control item"
+                th:field="*{origin}"
+                th:placeholder="#{page.anime.origin}"
+                th:errorclass="is-invalid"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control item"
+                th:field="*{status}"
+                th:placeholder="#{page.anime.status}"
+                th:errorclass="is-invalid"
+              />
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{releaseDate}"
+                    th:placeholder="#{page.anime.releaseDate}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{endDate}"
+                    th:placeholder="#{page.anime.endDate}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{nbEpisodes}"
+                    th:placeholder="#{page.anime.nb-episodes}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{duration}"
+                    th:placeholder="#{page.anime.duration}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{mangaka}"
+                    th:placeholder="#{page.anime.mangaka}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+              <div class="col">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control item"
+                    th:field="*{producer}"
+                    th:placeholder="#{page.anime.producer}"
+                    th:errorclass="is-invalid"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control item"
+                th:field="*{studios}"
+                th:placeholder="#{page.anime.studios}"
+                th:errorclass="is-invalid"
+              />
+            </div>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control item"
+                th:field="*{synopsis}"
+                th:placeholder="#{page.anime.synopsis} + ' (max: 1000 caractères) : '"
+                th:errorclass="is-invalid"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary btn-block"
+              th:text="#{form.add-anime.name}"
+            ></button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

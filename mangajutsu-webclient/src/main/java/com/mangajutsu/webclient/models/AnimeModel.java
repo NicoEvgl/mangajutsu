@@ -2,20 +2,28 @@ package com.mangajutsu.webclient.models;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 public class AnimeModel implements Serializable {
 
     private Integer id;
+    @NotEmpty(message = "{add-anime.valid.title}")
     private String title;
     private String titleVo;
     private String origin;
+    @NotEmpty(message = "{add-anime.valid.status}")
     private String status;
+    @NotEmpty(message = "{add-anime.valid.releaseDate}")
     private String releaseDate;
     private String endDate;
     private Integer nbEpisodes;
     private String duration;
+    @NotEmpty(message = "{add-anime.valid.mangaka}")
     private String mangaka;
     private String producer;
+    @NotEmpty(message = "{add-anime.valid.studios}")
     private String studios;
+    @NotEmpty(message = "{add-anime.valid.synopsis}")
     private String synopsis;
 
     private UserModel user;

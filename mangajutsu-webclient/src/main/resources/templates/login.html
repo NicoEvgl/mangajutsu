@@ -12,135 +12,135 @@
           <div class="block-heading">
             <h3 class="text-info" th:text="#{form.login.name}"></h3>
           </div>
-        </div>
-        <div
-          class="alert alert-success"
-          role="alert"
-          th:if="${registrationMsg != null}"
-        >
-          <p th:text="${registrationMsg}"></p>
-        </div>
-        <div
-          class="alert alert-success"
-          role="alert"
-          th:if="${verifiedAccountMsg != null}"
-        >
-          <p th:text="${verifiedAccountMsg}"></p>
-        </div>
-        <div
-          class="alert alert-success"
-          role="alert"
-          th:if="${resetPasswordMsg != null}"
-        >
-          <p th:text="${resetPasswordMsg}"></p>
-        </div>
-        <div
-          class="alert alert-success"
-          role="alert"
-          th:if="${passwordUpdateMsg != null}"
-        >
-          <p th:text="${passwordUpdateMsg}"></p>
-        </div>
-        <div
-          class="alert alert-danger"
-          role="alert"
-          th:if="${tokenError != null}"
-        >
-          <p th:text="${tokenError}"></p>
-        </div>
-        <div
-          class="alert alert-danger"
-          role="alert"
-          th:if="${invalidSession != null}"
-        >
-          <p th:text="${invalidSession}"></p>
-        </div>
-        <p th:if="${loginError}" class="error"></p>
-        <form
-          class="form-group"
-          th:action="@{/login}"
-          th:object="${user}"
-          method="post"
-        >
-          <div th:if="${param.error!=null and accountLocked != true}">
-            <div class="alert alert-danger">
-              <span th:text="#{error.login}"></span>
-            </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${registrationMsg != null}"
+          >
+            <p th:text="${registrationMsg}"></p>
           </div>
-          <div th:if="${param.error!=null and accountLocked == true}">
-            <div class="alert alert-danger">
-              <span th:text="#{error.user.account.locked}"></span>
-            </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${verifiedAccountMsg != null}"
+          >
+            <p th:text="${verifiedAccountMsg}"></p>
           </div>
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              th:field="*{username}"
-              id="exampleInputUsername"
-              aria-describedby="usernameHelp"
-              th:placeholder="#{form.input.username}"
-              required="true"
-              th:errorclass="is-invalid"
-            />
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="icon-user"></span>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${resetPasswordMsg != null}"
+          >
+            <p th:text="${resetPasswordMsg}"></p>
+          </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${passwordUpdateMsg != null}"
+          >
+            <p th:text="${passwordUpdateMsg}"></p>
+          </div>
+          <div
+            class="alert alert-danger"
+            role="alert"
+            th:if="${tokenError != null}"
+          >
+            <p th:text="${tokenError}"></p>
+          </div>
+          <div
+            class="alert alert-danger"
+            role="alert"
+            th:if="${invalidSession != null}"
+          >
+            <p th:text="${invalidSession}"></p>
+          </div>
+          <p th:if="${loginError}" class="error"></p>
+          <form
+            class="form-group"
+            th:action="@{/login}"
+            th:object="${user}"
+            method="post"
+          >
+            <div th:if="${param.error!=null and accountLocked != true}">
+              <div class="alert alert-danger">
+                <span th:text="#{error.login}"></span>
               </div>
             </div>
-          </div>
-          <div class="input-group mb-3">
-            <input
-              type="password"
-              class="form-control"
-              th:field="*{password}"
-              id="exampleInputPassword1"
-              th:placeholder="#{form.input.password}"
-              minlenght="6"
-              pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
-              title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre"
-              required="true"
-              th:errorclass="is-invalid"
-            />
-            <div class="input-group-append">
-              <div class="input-group-text">
-                <span class="icon-lock"></span>
+            <div th:if="${param.error!=null and accountLocked == true}">
+              <div class="alert alert-danger">
+                <span th:text="#{error.user.account.locked}"></span>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="form-check">
-              <input name="remember-me" type="checkbox" />
-              <label name="remember-me" for="remember-me">
-                <span th:text="#{form.input.rememberMe}"></span>
-              </label>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                th:field="*{username}"
+                id="exampleInputUsername"
+                aria-describedby="usernameHelp"
+                th:placeholder="#{form.input.username}"
+                required="true"
+                th:errorclass="is-invalid"
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="icon-user"></span>
+                </div>
+              </div>
             </div>
-          </div>
-          <button
-            type="submit"
-            class="btn btn-primary"
-            th:text="#{form.login.name}"
-          ></button>
-          <div class="text-center">
-            <p th:text="#{form.text.noAccount}"></p>
-            <a th:href="@{/register}">
-              <button
-                type="button"
-                class="btn btn-link btn-block"
-                th:text="#{form.register.name}"
-              ></button>
-            </a>
-          </div>
-          <div class="text-center">
-            <a th:href="@{/password/reset}">
-              <button
-                type="button"
-                class="btn btn-link btn-block"
-                th:text="#{form.text.reset-password}"
-              ></button>
-            </a>
-          </div>
-        </form>
+            <div class="input-group mb-3">
+              <input
+                type="password"
+                class="form-control"
+                th:field="*{password}"
+                id="exampleInputPassword1"
+                th:placeholder="#{form.input.password}"
+                minlenght="6"
+                pattern="^(?=.{6,}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9]).*$"
+                title="Le mot de passe doit contenir au moins 6 caractères avec au moins une majuscule et un chiffre"
+                required="true"
+                th:errorclass="is-invalid"
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="icon-lock"></span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="form-check">
+                <input name="remember-me" type="checkbox" />
+                <label name="remember-me" for="remember-me">
+                  <span th:text="#{form.input.rememberMe}"></span>
+                </label>
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              th:text="#{form.login.name}"
+            ></button>
+            <div class="text-center">
+              <p th:text="#{form.text.noAccount}"></p>
+              <a th:href="@{/register}">
+                <button
+                  type="button"
+                  class="btn btn-link btn-block"
+                  th:text="#{form.register.name}"
+                ></button>
+              </a>
+            </div>
+            <div class="text-center">
+              <a th:href="@{/password/reset}">
+                <button
+                  type="button"
+                  class="btn btn-link btn-block"
+                  th:text="#{form.text.reset-password}"
+                ></button>
+              </a>
+            </div>
+          </form>
+        </div>
       </section>
     </main>
     <footer th:insert="fragments/footer :: footer"></footer>
