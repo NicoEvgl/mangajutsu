@@ -61,6 +61,10 @@
                         <p class="value" th:text="${anime.origin}"></p>
                       </div>
                       <div class="card-text">
+                        <p class="attribute" th:text="#{page.anime.status}"></p>
+                        <p class="value" th:text="${anime.status}"></p>
+                      </div>
+                      <div class="card-text">
                         <p
                           class="attribute"
                           th:text="#{page.anime.releaseDate}"
@@ -89,8 +93,8 @@
                         <p class="value" th:text="${anime.duration}"></p>
                       </div>
                       <div class="card-text">
-                        <p class="attribute" th:text="#{page.anime.status}"></p>
-                        <p class="value" th:text="${anime.status}"></p>
+                        <p class="attribute" th:text="#{page.anime.type}"></p>
+                        <p class="value" th:text="${anime.type}"></p>
                       </div>
                       <div class="card-text">
                         <p

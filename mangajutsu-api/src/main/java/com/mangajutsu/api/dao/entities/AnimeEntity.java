@@ -34,6 +34,8 @@ public class AnimeEntity implements Serializable {
     private Integer nbEpisodes;
     @Column(name = "duration", nullable = true, length = 20)
     private String duration;
+    @Column(name = "type", nullable = true)
+    private String type;
     @Column(name = "mangaka", nullable = false, length = 50)
     private String mangaka;
     @Column(name = "producer", nullable = true, length = 50)
@@ -115,6 +117,14 @@ public class AnimeEntity implements Serializable {
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getMangaka() {
