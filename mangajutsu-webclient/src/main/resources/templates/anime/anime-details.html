@@ -11,6 +11,20 @@
         <div class="container">
           <div class="block-heading">
             <h2 class="text-info" th:text="${anime.title}"></h2>
+            <span>
+              <a
+                class="btn btn-sm btn-outline-primary"
+                th:href="@{'/animes/update_anime/' + ${anime.title} + '/'}"
+                th:text="#{form.edit-anime.name}"
+              ></a>
+            </span>
+          </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${animeMsg != null}"
+          >
+            <p th:text="${animeMsg}"></p>
           </div>
           <div class="block-content">
             <div class="product-info">
@@ -27,6 +41,10 @@
                 <div class="col-md-6">
                   <div class="info">
                     <div class="summary">
+                      <div class="card-text">
+                        <p class="attribute">id :</p>
+                        <p class="value" th:text="${anime.id}"></p>
+                      </div>
                       <div class="card-text">
                         <p class="attribute" th:text="#{page.anime.title}"></p>
                         <p class="value" th:text="${anime.title}"></p>
@@ -48,6 +66,13 @@
                           th:text="#{page.anime.releaseDate}"
                         ></p>
                         <p class="value" th:text="${anime.releaseDate}"></p>
+                      </div>
+                      <div class="card-text">
+                        <p
+                          class="attribute"
+                          th:text="#{page.anime.endDate}"
+                        ></p>
+                        <p class="value" th:text="${anime.endDate}"></p>
                       </div>
                       <div class="card-text">
                         <p

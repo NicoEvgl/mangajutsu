@@ -43,12 +43,15 @@ public interface MangajutsuProxy {
     @PostMapping("password/change")
     void changePassword(@RequestParam("password") String password, @RequestParam("token") String token);
 
-    @GetMapping("/anime_list")
+    @GetMapping("/animes")
     List<AnimeModel> getAnimeList();
 
-    @GetMapping("/anime_details/{title}")
+    @GetMapping("/animes/anime_details/{title}")
     AnimeModel getAnimeDetails(@PathVariable String title);
 
-    @PostMapping("/add_anime")
+    @PostMapping("/animes/add_anime")
     void addAnime(@RequestBody AnimeModel anime, @RequestParam("username") String username);
+
+    @PostMapping("/animes/update_anime/{title}")
+    void updateAnime(@RequestBody AnimeModel anime, @PathVariable String title);
 }

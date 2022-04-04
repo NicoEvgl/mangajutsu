@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
 import com.mangajutsu.api.exceptions.AnimeAlreadyExistException;
+import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,6 @@ public interface AnimeService {
     void addAnime(AnimeEntity anime, String username) throws AnimeAlreadyExistException;
 
     boolean checkIfAnimeExist(String title);
+
+    void updateAnime(AnimeEntity anime, String title) throws ResourceNotFoundException;
 }

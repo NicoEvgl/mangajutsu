@@ -14,7 +14,7 @@
             <span>
               <a
                 class="btn btn-sm btn-outline-primary"
-                th:href="@{/add_anime}"
+                th:href="@{/animes/add_anime}"
                 th:text="#{form.add-anime.name}"
               ></a>
             </span>
@@ -32,7 +32,7 @@
                 <div class="card-body">
                   <a
                     class="btn btn-outline-secondary btn-sm"
-                    th:href="@{'/anime_details/' + ${anime.title} + '/'}"
+                    th:href="@{'/animes/anime_details/' + ${anime.title} + '/'}"
                   >
                     <img
                       th:src="@{/img/no_found.png}"
