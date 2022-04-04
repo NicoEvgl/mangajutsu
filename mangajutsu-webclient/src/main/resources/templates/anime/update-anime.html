@@ -67,13 +67,18 @@
               />
             </div>
             <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control item"
-                th:field="*{status}"
-                th:placeholder="#{page.anime.status}"
-                th:errorclass="is-invalid"
-              />
+              <select class="form-control" th:field="*{status}">
+                <option
+                  value=""
+                  selected
+                  th:text="#{page.anime.status}"
+                ></option>
+                <option
+                  th:each="status : ${statusList}"
+                  th:value="${status}"
+                  th:text="${status}"
+                ></option>
+              </select>
             </div>
             <div class="form-row">
               <div class="col">

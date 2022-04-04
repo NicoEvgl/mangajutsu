@@ -20,4 +20,9 @@ public class EnumController {
     public List<String> getTypes() {
         return enumService.getTypesEnumStringValues();
     }
+
+    @GetMapping("/status")
+    public List<String> getStatus() {
+        return enumService.getStatusEnumStringValues();
+    }
 }

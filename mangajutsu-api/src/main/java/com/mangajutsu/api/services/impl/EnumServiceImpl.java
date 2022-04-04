@@ -3,6 +3,7 @@ package com.mangajutsu.api.services.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mangajutsu.api.enums.StatusEnum;
 import com.mangajutsu.api.enums.TypesEnum;
 import com.mangajutsu.api.services.EnumService;
 
@@ -20,5 +21,16 @@ public class EnumServiceImpl implements EnumService {
             typesStringValues.add(type.getParam());
         }
         return typesStringValues;
+    }
+
+    @Override
+    public List<String> getStatusEnumStringValues() {
+        StatusEnum[] statusList = StatusEnum.values();
+        List<String> statusStringValues = new ArrayList<>();
+
+        for (StatusEnum status : statusList) {
+            statusStringValues.add(status.getParam());
+        }
+        return statusStringValues;
     }
 }

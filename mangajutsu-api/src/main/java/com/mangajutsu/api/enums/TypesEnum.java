@@ -1,7 +1,6 @@
 package com.mangajutsu.api.enums;
 
 public enum TypesEnum {
-
     Kodomo("Kodomo"),
     Shōnen("Shōnen"),
     Shōjo("Shōjo"),

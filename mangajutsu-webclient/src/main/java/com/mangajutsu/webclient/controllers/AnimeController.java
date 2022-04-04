@@ -51,8 +51,10 @@ public class AnimeController {
 
     @GetMapping("/add_anime")
     public String addAnime(@ModelAttribute("anime") AnimeModel anime, final Model model) {
+        List<String> statusList = mangajutsuProxy.getStatus();
         List<String> types = mangajutsuProxy.getTypes();
 
+        model.addAttribute("statusList", statusList);
         model.addAttribute("types", types);
         model.addAttribute("anime", anime);
         return "anime/add-anime";
@@ -86,8 +88,10 @@ public class AnimeController {
     @GetMapping("/update_anime/{title}")
     public String updateAnime(@PathVariable String title, final Model model) {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
+        List<String> statusList = mangajutsuProxy.getStatus();
         List<String> types = mangajutsuProxy.getTypes();
 
+        model.addAttribute("statusList", statusList);
         model.addAttribute("types", types);
         model.addAttribute("anime", anime);
         return "anime/update-anime";

@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public interface EnumService {
     List<String> getTypesEnumStringValues();
+
+    List<String> getStatusEnumStringValues();
 }
