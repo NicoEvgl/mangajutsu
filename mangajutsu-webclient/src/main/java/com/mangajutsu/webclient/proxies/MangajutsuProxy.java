@@ -54,4 +54,7 @@ public interface MangajutsuProxy {
 
     @PostMapping("/animes/update_anime/{title}")
     void updateAnime(@RequestBody AnimeModel anime, @PathVariable String title);
+
+    @GetMapping("/enum/types")
+    List<String> getTypes();
 }
