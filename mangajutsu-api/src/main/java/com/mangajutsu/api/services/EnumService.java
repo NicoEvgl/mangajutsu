@@ -9,4 +9,6 @@ public interface EnumService {
     List<String> getTypesEnumStringValues();
 
     List<String> getStatusEnumStringValues();
+
+    List<String> getGenresEnumStringValues();
 }

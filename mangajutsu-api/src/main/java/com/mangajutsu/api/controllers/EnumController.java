@@ -25,4 +25,9 @@ public class EnumController {
     public List<String> getStatus() {
         return enumService.getStatusEnumStringValues();
     }
+
+    @GetMapping("/genres")
+    public List<String> getGenres() {
+        return enumService.getGenresEnumStringValues();
+    }
 }
