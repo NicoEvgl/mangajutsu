@@ -53,9 +53,11 @@ public class AnimeController {
     public String addAnime(@ModelAttribute("anime") AnimeModel anime, final Model model) {
         List<String> statusList = mangajutsuProxy.getStatus();
         List<String> types = mangajutsuProxy.getTypes();
+        List<String> genres = mangajutsuProxy.getGenres();
 
         model.addAttribute("statusList", statusList);
         model.addAttribute("types", types);
+        model.addAttribute("genres", genres);
         model.addAttribute("anime", anime);
         return "anime/add-anime";
     }
@@ -90,9 +92,11 @@ public class AnimeController {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
         List<String> statusList = mangajutsuProxy.getStatus();
         List<String> types = mangajutsuProxy.getTypes();
+        List<String> genres = mangajutsuProxy.getGenres();
 
         model.addAttribute("statusList", statusList);
         model.addAttribute("types", types);
+        model.addAttribute("genres", genres);
         model.addAttribute("anime", anime);
         return "anime/update-anime";
     }

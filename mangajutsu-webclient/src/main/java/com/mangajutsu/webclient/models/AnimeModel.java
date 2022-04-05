@@ -19,6 +19,7 @@ public class AnimeModel implements Serializable {
     private Integer nbEpisodes;
     private String duration;
     private String type;
+    private String genre;
     @NotEmpty(message = "{add-anime.valid.mangaka}")
     private String mangaka;
     private String producer;
@@ -105,6 +106,14 @@ public class AnimeModel implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getMangaka() {

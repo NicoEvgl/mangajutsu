@@ -69,6 +69,7 @@ public class AnimeServiceImpl implements AnimeService {
         editedAnime.setNbEpisodes(anime.getNbEpisodes());
         editedAnime.setDuration(anime.getDuration());
         editedAnime.setType(anime.getType());
+        editedAnime.setGenre(anime.getGenre());
         editedAnime.setMangaka(anime.getMangaka());
         editedAnime.setProducer(anime.getProducer());
         editedAnime.setStudios(anime.getStudios());

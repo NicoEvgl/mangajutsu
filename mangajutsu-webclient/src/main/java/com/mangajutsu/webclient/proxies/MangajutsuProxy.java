@@ -60,4 +60,7 @@ public interface MangajutsuProxy {
 
     @GetMapping("/enum/status")
     List<String> getStatus();
+
+    @GetMapping("/enum/genres")
+    List<String> getGenres();
 }

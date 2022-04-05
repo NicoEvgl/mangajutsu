@@ -34,7 +34,7 @@
                     <img
                       th:src="@{/img/no_found.png}"
                       alt="no image found"
-                      style="width: 120px; height: auto"
+                      class="img-fluid d-block mx-auto"
                     />
                   </div>
                 </div>
@@ -42,86 +42,118 @@
                   <div class="info">
                     <div class="summary">
                       <div class="card-text">
-                        <p class="attribute">id :</p>
-                        <p class="value" th:text="${anime.id}"></p>
-                      </div>
-                      <div class="card-text">
-                        <p class="attribute" th:text="#{page.anime.title}"></p>
+                        <h7
+                          class="attribute"
+                          th:text="#{page.anime.title}"
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.title}"></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.titleVo}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.titleVo}"></p>
                       </div>
                       <div class="card-text">
-                        <p class="attribute" th:text="#{page.anime.origin}"></p>
+                        <h7
+                          class="attribute"
+                          th:text="#{page.anime.origin}"
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.origin}"></p>
                       </div>
                       <div class="card-text">
-                        <p class="attribute" th:text="#{page.anime.status}"></p>
+                        <h7
+                          class="attribute"
+                          th:text="#{page.anime.status}"
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.status}"></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.releaseDate}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.releaseDate}"></p>
                       </div>
-                      <div class="card-text">
-                        <p
+                      <div
+                        class="card-text"
+                        th:if="${anime.status == 'Terminé'}"
+                      >
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.endDate}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.endDate}"></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.nb-episodes}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.nbEpisodes}"></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.duration}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.duration}"></p>
                       </div>
                       <div class="card-text">
-                        <p class="attribute" th:text="#{page.anime.type}"></p>
+                        <h7
+                          class="attribute"
+                          th:text="#{page.anime.type}"
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.type}"></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
+                          class="attribute"
+                          th:text="#{page.anime.genre}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${anime.genre}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.mangaka}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.mangaka}"></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.producer}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.producer}">></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.studios}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.studios}"></p>
                       </div>
                       <div class="card-text">
-                        <p
+                        <h7
                           class="attribute"
                           th:text="#{page.anime.synopsis}"
-                        ></p>
+                          style="font-weight: bolder"
+                        ></h7>
                         <p class="value" th:text="${anime.synopsis}"></p>
                       </div>
                     </div>
