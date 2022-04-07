@@ -16,30 +16,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/animes")
+@RequestMapping("/anime")
 public class AnimeController {
 
     @Autowired
     private AnimeService animeService;
 
-    @GetMapping()
+    @GetMapping("/anime-list")
     public List<AnimeEntity> getAnimeList() {
         List<AnimeEntity> animes = animeService.getAnimeList();
         return animes;
     }
 
-    @GetMapping("/anime_details/{title}")
+    @GetMapping("/anime-details/{title}")
     public AnimeEntity getAnimeDetails(@PathVariable String title) {
         AnimeEntity anime = animeService.getAnimeDetails(title);
         return anime;
     }
 
-    @PostMapping("/add_anime")
+    @PostMapping("/add-anime")
     public void addAnime(@RequestBody AnimeEntity anime, String username) throws AnimeAlreadyExistException {
         animeService.addAnime(anime, username);
     }
 
-    @PostMapping("/update_anime/{title}")
+    @PostMapping("/update-anime/{title}")
     public void updateAnime(@RequestBody AnimeEntity anime, @PathVariable String title)
             throws ResourceNotFoundException {
         animeService.updateAnime(anime, title);

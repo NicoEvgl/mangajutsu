@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import feign.FeignException;
 
 @Controller
-@RequestMapping("animes")
+@RequestMapping("anime")
 public class AnimeController {
 
     @Autowired
@@ -33,23 +33,23 @@ public class AnimeController {
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping()
+    @GetMapping("/anime-list")
     public String animeList(final Model model) {
         List<AnimeModel> animes = mangajutsuProxy.getAnimeList();
         model.addAttribute("animes", animes);
 
-        return "anime/anime-list";
+        return "anime/anime_list";
     }
 
-    @GetMapping("/anime_details/{title}")
+    @GetMapping("/anime-details/{title}")
     public String animeDetails(@PathVariable String title, final Model model) {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
         model.addAttribute("anime", anime);
 
-        return "anime/anime-details";
+        return "anime/anime_details";
     }
 
-    @GetMapping("/add_anime")
+    @GetMapping("/add-anime")
     public String addAnime(@ModelAttribute("anime") AnimeModel anime, final Model model) {
         List<String> statusList = mangajutsuProxy.getStatus();
         List<String> types = mangajutsuProxy.getTypes();
@@ -59,15 +59,15 @@ public class AnimeController {
         model.addAttribute("types", types);
         model.addAttribute("genres", genres);
         model.addAttribute("anime", anime);
-        return "anime/add-anime";
+        return "anime/add_anime";
     }
 
-    @PostMapping("/add_anime")
+    @PostMapping("/add-anime")
     public String addAnime(@Valid @ModelAttribute("anime") AnimeModel anime, final BindingResult bindingResult,
             final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("anime", anime);
-            return "anime/add-anime";
+            return "anime/add_anime";
         }
         UserPrincipal userInSession = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -78,16 +78,16 @@ public class AnimeController {
             bindingResult.rejectValue("title", "anime.title",
                     messageSource.getMessage("error.anime", null, LocaleContextHolder.getLocale()));
             model.addAttribute("anime", anime);
-            return "anime/add-anime";
+            return "anime/add_anime";
         }
         model.addAttribute("animeMsg",
                 messageSource.getMessage("add-anime.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("anime", anime);
 
-        return "anime/anime-list";
+        return "anime/anime_list";
     }
 
-    @GetMapping("/update_anime/{title}")
+    @GetMapping("/update-anime/{title}")
     public String updateAnime(@PathVariable String title, final Model model) {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
         List<String> statusList = mangajutsuProxy.getStatus();
@@ -98,15 +98,15 @@ public class AnimeController {
         model.addAttribute("types", types);
         model.addAttribute("genres", genres);
         model.addAttribute("anime", anime);
-        return "anime/update-anime";
+        return "anime/update_anime";
     }
 
-    @PostMapping("/update_anime/{title}")
+    @PostMapping("/update-anime/{title}")
     public String updateAnime(@Valid @ModelAttribute("anime") AnimeModel anime, final BindingResult bindingResult,
             final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("anime", anime);
-            return "anime/update-anime";
+            return "anime/update_anime";
         }
 
         try {
@@ -116,12 +116,12 @@ public class AnimeController {
                     messageSource.getMessage("error.edit-anime", null,
                             LocaleContextHolder.getLocale()));
             model.addAttribute("anime", anime);
-            return "/anime/update-anime";
+            return "/anime/update_anime";
         }
         model.addAttribute("animeMsg",
                 messageSource.getMessage("edit-anime.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("anime", anime);
 
-        return "anime/anime-details";
+        return "anime/anime_details";
     }
 }

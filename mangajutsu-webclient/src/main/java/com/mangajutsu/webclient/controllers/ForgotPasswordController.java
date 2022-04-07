@@ -35,7 +35,7 @@ public class ForgotPasswordController {
     public String resetPassword(@ModelAttribute("forgotPassword") ForgotPasswordModel forgotPassword,
             final Model model) {
         model.addAttribute("forgotPassword", forgotPassword);
-        return "reset-password";
+        return "user/reset_password";
     }
 
     @PostMapping("/reset")
@@ -58,13 +58,13 @@ public class ForgotPasswordController {
         if (StringUtils.isEmpty(token)) {
             redirectAttributes.addFlashAttribute("tokenError", messageSource
                     .getMessage("registration.verification.token.missing", null, LocaleContextHolder.getLocale()));
-            return "redirect:/update-password";
+            return "redirect:/user/update_password";
         }
         ForgotPasswordModel forgotPassword = new ForgotPasswordModel();
         forgotPassword.setToken(token);
         setResetPasswordForm(model, forgotPassword);
 
-        return "update-password";
+        return "user/update_password";
     }
 
     @PostMapping("/change")
@@ -73,7 +73,7 @@ public class ForgotPasswordController {
             final Model model, RedirectAttributes redirectAttributes) throws FeignException {
         if (bindingResult.hasErrors()) {
             model.addAttribute("forgotPassword", forgotPassword);
-            return "update-password";
+            return "user/update_password";
         }
         try {
             mangajutsuProxy.changePassword(forgotPassword.getPassword(), forgotPassword.getToken());
@@ -81,7 +81,7 @@ public class ForgotPasswordController {
             bindingResult.rejectValue("tokenError",
                     messageSource.getMessage("registration.verification.token.invalid", null,
                             LocaleContextHolder.getLocale()));
-            return "redirect:/update-password";
+            return "redirect:/user/update_password";
         }
         redirectAttributes.addFlashAttribute("passwordUpdateMsg",
                 messageSource.getMessage("user.update-password.msg", null,

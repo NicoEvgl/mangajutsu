@@ -47,7 +47,7 @@ public class UserController {
         UserPrincipal loggedInUser = (UserPrincipal) authentication.getPrincipal();
 
         model.addAttribute("loggedInUser", loggedInUser);
-        return "personal-space";
+        return "user/personal_space";
     }
 
     final String getUsername(HttpSession httpSession) {

@@ -55,7 +55,7 @@ public class RegistrationController {
         model.addAttribute("registrationMsg",
                 messageSource.getMessage("registration.verification.email.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("user", user);
-        return "/login";
+        return "login";
     }
 
     @GetMapping("/verify")

@@ -25,7 +25,7 @@ public interface MangajutsuProxy {
     @GetMapping("/register/verify")
     boolean verifyAccount(@RequestParam("token") String token);
 
-    @DeleteMapping("/deleteUnverifiedAccount")
+    @DeleteMapping("/delete-unverified-account")
     void deleteUnverifiedAccount();
 
     @PostMapping("/register-login-failure")
@@ -34,7 +34,7 @@ public interface MangajutsuProxy {
     @PostMapping("/reset-bruteforce-counter")
     void resetBruteForceCounter(@RequestBody String username);
 
-    @GetMapping("/loginDisabled/{username}")
+    @GetMapping("/login-disabled/{username}")
     boolean loginDisabled(@PathVariable String username);
 
     @PostMapping("/password/reset")
@@ -43,16 +43,16 @@ public interface MangajutsuProxy {
     @PostMapping("password/change")
     void changePassword(@RequestParam("password") String password, @RequestParam("token") String token);
 
-    @GetMapping("/animes")
+    @GetMapping("/anime/anime-list")
     List<AnimeModel> getAnimeList();
 
-    @GetMapping("/animes/anime_details/{title}")
+    @GetMapping("/anime/anime-details/{title}")
     AnimeModel getAnimeDetails(@PathVariable String title);
 
-    @PostMapping("/animes/add_anime")
+    @PostMapping("/anime/add-anime")
     void addAnime(@RequestBody AnimeModel anime, @RequestParam("username") String username);
 
-    @PostMapping("/animes/update_anime/{title}")
+    @PostMapping("/anime/update-anime/{title}")
     void updateAnime(@RequestBody AnimeModel anime, @PathVariable String title);
 
     @GetMapping("/enum/types")

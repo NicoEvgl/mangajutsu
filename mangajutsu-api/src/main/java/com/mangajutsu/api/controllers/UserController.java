@@ -31,7 +31,7 @@ public class UserController {
         return userService.findByUsername(username);
     }
 
-    @DeleteMapping("/deleteUnverifiedAccount")
+    @DeleteMapping("/delete-unverified-account")
     public void deleteUnverifiedAccount(VerifTokenEntity verifTokenEntity) {
         if (verifTokenEntity != null) {
             List<VerifTokenEntity> verifTokens = verifTokenRepository.findAll();
@@ -57,7 +57,7 @@ public class UserController {
         bruteForceProtectionService.resetBruteForceCounter(username);
     }
 
-    @GetMapping("/loginDisabled/{username}")
+    @GetMapping("/login-disabled/{username}")
     public boolean loginDisabled(@PathVariable String username) {
         return userService.loginDisabled(username);
     }

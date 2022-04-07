@@ -10,18 +10,11 @@
       <section class="clean-block clean-form dark">
         <div class="container">
           <div class="block-heading">
-            <h2 class="text-login" th:text="#{form.edit-anime.name}"></h2>
-          </div>
-          <div
-            class="alert alert-danger"
-            role="alert"
-            th:if="${animeError != null}"
-          >
-            <p th:text="${animeError}"></p>
+            <h2 class="text-login" th:text="#{form.add-anime.name}"></h2>
           </div>
           <form
             class="form-group"
-            th:action="@{'/animes/update_anime/' + ${anime.title}}"
+            th:action="@{/anime/add-anime}"
             th:object="${anime}"
             method="post"
           >
@@ -40,7 +33,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{title}"
-                    th:placeholder="#{page.anime.title}"
+                    th:placeholder="#{form.anime.title}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -51,7 +44,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{titleVo}"
-                    th:placeholder="#{page.anime.titleVo}"
+                    th:placeholder="#{form.anime.titleVo}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -62,7 +55,7 @@
                 type="text"
                 class="form-control item"
                 th:field="*{origin}"
-                th:placeholder="#{page.anime.origin}"
+                th:placeholder="#{form.anime.origin}"
                 th:errorclass="is-invalid"
               />
             </div>
@@ -71,7 +64,7 @@
                 <option
                   value=""
                   selected
-                  th:text="#{page.anime.status}"
+                  th:text="#{form.anime.status}"
                 ></option>
                 <option
                   th:each="status : ${statusList}"
@@ -87,7 +80,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{releaseDate}"
-                    th:placeholder="#{page.anime.releaseDate}"
+                    th:placeholder="#{form.anime.releaseDate}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -98,7 +91,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{endDate}"
-                    th:placeholder="#{page.anime.endDate}"
+                    th:placeholder="#{form.anime.endDate}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -111,7 +104,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{nbEpisodes}"
-                    th:placeholder="#{page.anime.nb-episodes}"
+                    th:placeholder="#{form.anime.nb-episodes}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -122,7 +115,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{duration}"
-                    th:placeholder="#{page.anime.duration}"
+                    th:placeholder="#{form.anime.duration}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -135,7 +128,7 @@
                     <option
                       value=""
                       selected
-                      th:text="#{page.anime.type}"
+                      th:text="#{form.anime.type}"
                     ></option>
                     <option
                       th:each="type : ${types}"
@@ -156,7 +149,7 @@
                     <option
                       value=""
                       selected
-                      th:text="#{page.anime.genre}"
+                      th:text="#{form.anime.genre}"
                     ></option>
                     <option
                       th:each="genre : ${genres}"
@@ -174,7 +167,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{mangaka}"
-                    th:placeholder="#{page.anime.mangaka}"
+                    th:placeholder="#{form.anime.mangaka}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -185,7 +178,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{producer}"
-                    th:placeholder="#{page.anime.producer}"
+                    th:placeholder="#{form.anime.producer}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -196,7 +189,7 @@
                 type="text"
                 class="form-control item"
                 th:field="*{studios}"
-                th:placeholder="#{page.anime.studios}"
+                th:placeholder="#{form.anime.studios}"
                 th:errorclass="is-invalid"
               />
             </div>
@@ -205,14 +198,14 @@
                 type="text"
                 class="form-control item"
                 th:field="*{synopsis}"
-                th:placeholder="#{page.anime.synopsis} + ' (max: 1000 caractères) : '"
+                th:placeholder="#{form.anime.synopsis} + ' (max: 1000 caractères) : '"
                 th:errorclass="is-invalid"
               />
             </div>
             <button
               type="submit"
               class="btn btn-primary btn-block"
-              th:text="#{form.edit-anime.name}"
+              th:text="#{form.add-anime.name}"
             ></button>
           </form>
         </div>

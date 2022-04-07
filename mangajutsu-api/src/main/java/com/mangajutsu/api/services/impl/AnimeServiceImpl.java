@@ -11,6 +11,7 @@ import com.mangajutsu.api.services.AnimeService;
 import com.mangajutsu.api.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service("animeService")
@@ -24,7 +25,7 @@ public class AnimeServiceImpl implements AnimeService {
 
     @Override
     public List<AnimeEntity> getAnimeList() {
-        List<AnimeEntity> animes = animeRepository.findAll();
+        List<AnimeEntity> animes = animeRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
         return animes;
     }
 
