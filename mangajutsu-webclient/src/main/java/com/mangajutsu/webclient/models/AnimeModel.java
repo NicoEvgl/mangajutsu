@@ -26,6 +26,10 @@ public class AnimeModel implements Serializable {
     private String producer;
     @NotEmpty(message = "{add-anime.valid.studios}")
     private String studios;
+    private String publisher;
+    private String publisherUrl;
+    private String publisherVod;
+    private String publisherVodUrl;
     @NotEmpty(message = "{add-anime.valid.synopsis}")
     private String synopsis;
 
@@ -142,6 +146,38 @@ public class AnimeModel implements Serializable {
         this.studios = studios;
     }
 
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublisherUrl() {
+        return publisherUrl;
+    }
+
+    public void setPublisherUrl(String publisherUrl) {
+        this.publisherUrl = publisherUrl;
+    }
+
+    public String getPublisherVod() {
+        return publisherVod;
+    }
+
+    public void setPublisherVod(String publisherVod) {
+        this.publisherVod = publisherVod;
+    }
+
+    public String getPublisherVodUrl() {
+        return publisherVodUrl;
+    }
+
+    public void setPublisherVodUrl(String publisherVodUrl) {
+        this.publisherVodUrl = publisherVodUrl;
+    }
+
     public String getSynopsis() {
         return synopsis;
     }
@@ -156,10 +192,6 @@ public class AnimeModel implements Serializable {
 
     public void setUser(UserModel user) {
         this.user = user;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public List<FileModel> getFiles() {

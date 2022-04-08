@@ -83,6 +83,10 @@ public class AnimeServiceImpl implements AnimeService {
         editedAnime.setMangaka(anime.getMangaka());
         editedAnime.setProducer(anime.getProducer());
         editedAnime.setStudios(anime.getStudios());
+        editedAnime.setPublisher(anime.getPublisher());
+        editedAnime.setPublisherUrl(anime.getPublisherUrl());
+        editedAnime.setPublisherVod(anime.getPublisherVod());
+        editedAnime.setPublisherVodUrl(anime.getPublisherVodUrl());
         editedAnime.setSynopsis(anime.getSynopsis());
 
         animeRepository.save(editedAnime);

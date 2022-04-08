@@ -48,6 +48,14 @@ public class AnimeEntity implements Serializable {
     private String producer;
     @Column(name = "studios", nullable = false, length = 50)
     private String studios;
+    @Column(name = "publisher", nullable = true, length = 300)
+    private String publisher;
+    @Column(name = "publisher_url", nullable = true)
+    private String publisherUrl;
+    @Column(name = "publisher_vod", nullable = true, length = 300)
+    private String publisherVod;
+    @Column(name = "publisher_vod_url", nullable = true)
+    private String publisherVodUrl;
     @Column(name = "synopsis", nullable = false, length = 1000)
     private String synopsis;
 
@@ -167,6 +175,38 @@ public class AnimeEntity implements Serializable {
 
     public void setStudios(String studios) {
         this.studios = studios;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getPublisherUrl() {
+        return publisherUrl;
+    }
+
+    public void setPublisherUrl(String publisherUrl) {
+        this.publisherUrl = publisherUrl;
+    }
+
+    public String getPublisherVod() {
+        return publisherVod;
+    }
+
+    public void setPublisherVod(String publisherVod) {
+        this.publisherVod = publisherVod;
+    }
+
+    public String getPublisherVodUrl() {
+        return publisherVodUrl;
+    }
+
+    public void setPublisherVodUrl(String publisherVodUrl) {
+        this.publisherVodUrl = publisherVodUrl;
     }
 
     public String getSynopsis() {

@@ -179,6 +179,65 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
+                          th:text="#{form.anime.publisher}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <a
+                          th:if="${anime.publisher == 'Kana Home Video'}"
+                          th:href="${anime.publisherUrl}"
+                        >
+                          <img
+                            th:src="@{https://www.kana.fr/wp-content/themes/kana/assets/images/logo.svg}"
+                            th:alt="${anime.publisher}"
+                            style="
+                              margin-left: 20px;
+                              width: 25px;
+                              height: auto;
+                              transform: rotate(270deg);
+                            "
+                          />
+                        </a>
+                        <a
+                          th:unless="${anime.publisher == 'Kana Home Video'}"
+                          th:href="${anime.publisherUrl}"
+                          th:text="${anime.publisher}"
+                        >
+                        </a>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.anime.publisher-vod}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <a
+                          th:if="${anime.publisherVod == 'ADN'}"
+                          th:href="${anime.publisherVodUrl}"
+                        >
+                          <img
+                            th:src="@{https://img.icons8.com/color/48/000000/anime-digital-network.png}"
+                            th:alt="${anime.publisherVod}"
+                          />
+                        </a>
+                        <a
+                          th:if="${anime.publisherVod == 'Netflix'}"
+                          th:href="${anime.publisherVodUrl}"
+                        >
+                          <img
+                            th:src="@{https://img.icons8.com/color/48/000000/netflix-desktop-app--v1.png}"
+                            th:alt="${anime.publisherVod}"
+                          />
+                        </a>
+                        <a
+                          th:unless="${anime.publisherVod == 'ADN' || anime.publisherVod == 'Netflix'}"
+                          th:href="${anime.publisherVodUrl}"
+                          th:text="${anime.publisherVod}"
+                        >
+                        </a>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
                           th:text="#{form.anime.synopsis}"
                           style="font-weight: bolder"
                         ></h7>
