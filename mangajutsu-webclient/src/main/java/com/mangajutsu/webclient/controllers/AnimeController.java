@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import feign.FeignException;
 
@@ -74,7 +75,7 @@ public class AnimeController {
 
     @PostMapping("/add-anime")
     public String addAnime(@Valid @ModelAttribute("anime") AnimeModel anime, final BindingResult bindingResult,
-            final Model model) {
+            final Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("anime", anime);
             return "anime/add_anime";
@@ -90,11 +91,11 @@ public class AnimeController {
             model.addAttribute("anime", anime);
             return "anime/add_anime";
         }
-        model.addAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("animeMsg",
                 messageSource.getMessage("add-anime.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("anime", anime);
 
-        return "anime/anime_list";
+        return "redirect:/anime/anime-list";
     }
 
     @GetMapping("/update-anime/{title}")
@@ -113,7 +114,7 @@ public class AnimeController {
 
     @PostMapping("/update-anime/{title}")
     public String updateAnime(@Valid @ModelAttribute("anime") AnimeModel anime, final BindingResult bindingResult,
-            final Model model) {
+            final Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("anime", anime);
             return "anime/update_anime";
@@ -128,10 +129,10 @@ public class AnimeController {
             model.addAttribute("anime", anime);
             return "/anime/update_anime";
         }
-        model.addAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("animeMsg",
                 messageSource.getMessage("edit-anime.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("anime", anime);
 
-        return "anime/anime_details";
+        return "redirect:/anime/anime-details/{title}";
     }
 }

@@ -183,7 +183,7 @@
                           style="font-weight: bolder"
                         ></h7>
                         <a
-                          th:if="${anime.publisher == 'Kana Home Video'}"
+                          th:if="${#strings.contains(anime.publisher,'Kana')}"
                           th:href="${anime.publisherUrl}"
                         >
                           <img
@@ -198,7 +198,7 @@
                           />
                         </a>
                         <a
-                          th:unless="${anime.publisher == 'Kana Home Video'}"
+                          th:unless="${#strings.contains(anime.publisher,'Kana')}"
                           th:href="${anime.publisherUrl}"
                           th:text="${anime.publisher}"
                         >
@@ -211,7 +211,7 @@
                           style="font-weight: bolder"
                         ></h7>
                         <a
-                          th:if="${anime.publisherVod == 'ADN'}"
+                          th:if="${#strings.contains(anime.publisherVod,'ADN')}"
                           th:href="${anime.publisherVodUrl}"
                         >
                           <img
@@ -220,7 +220,7 @@
                           />
                         </a>
                         <a
-                          th:if="${anime.publisherVod == 'Netflix'}"
+                          th:if="${#strings.contains(anime.publisherVod,'Netflix')}"
                           th:href="${anime.publisherVodUrl}"
                         >
                           <img
@@ -229,7 +229,7 @@
                           />
                         </a>
                         <a
-                          th:unless="${anime.publisherVod == 'ADN' || anime.publisherVod == 'Netflix'}"
+                          th:unless="${#strings.contains(anime.publisherVod,'ADN') || #strings.contains(anime.publisherVod,'Netflix')}"
                           th:href="${anime.publisherVodUrl}"
                           th:text="${anime.publisherVod}"
                         >
