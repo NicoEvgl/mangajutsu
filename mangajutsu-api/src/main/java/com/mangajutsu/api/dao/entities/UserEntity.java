@@ -45,7 +45,7 @@ public class UserEntity implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private Set<AnimeEntity> anims;
+    private Set<AnimeEntity> animes;
 
     public void addToken(final VerifTokenEntity token) {
         tokens.add(token);
@@ -137,11 +137,11 @@ public class UserEntity implements Serializable {
         this.loginDisabled = loginDisabled;
     }
 
-    public Set<AnimeEntity> getAnims() {
-        return anims;
+    public Set<AnimeEntity> getAnimes() {
+        return animes;
     }
 
-    public void setAnims(Set<AnimeEntity> anims) {
-        this.anims = anims;
+    public void setAnimes(Set<AnimeEntity> animes) {
+        this.animes = animes;
     }
 }

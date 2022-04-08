@@ -30,10 +30,23 @@
             <div class="product-info">
               <div class="row">
                 <div class="col-md-6">
+                  <a
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/' + ${anime.title} + '/add-file'}"
+                    th:text="#{form.upload-file.name}"
+                  ></a>
                   <div class="gallery">
                     <img
+                      th:if="${#lists.isEmpty(anime.files)}"
                       th:src="@{/img/no_found.png}"
                       alt="no image found"
+                      class="img-fluid d-block mx-auto"
+                    />
+                    <img
+                      th:if="${not #lists.isEmpty(anime.files)}"
+                      th:each="file : ${anime.files}"
+                      th:src="${file.url}"
+                      th:alt="${file.fileName}"
                       class="img-fluid d-block mx-auto"
                     />
                   </div>

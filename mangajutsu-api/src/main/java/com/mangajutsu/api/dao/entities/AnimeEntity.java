@@ -1,6 +1,7 @@
 package com.mangajutsu.api.dao.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "anime", schema = "public")
@@ -50,6 +54,10 @@ public class AnimeEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private UserEntity user;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "anime")
+    private List<FileEntity> files;
 
     // Getters & Setters //
 
@@ -175,5 +183,13 @@ public class AnimeEntity implements Serializable {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public List<FileEntity> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileEntity> files) {
+        this.files = files;
     }
 }

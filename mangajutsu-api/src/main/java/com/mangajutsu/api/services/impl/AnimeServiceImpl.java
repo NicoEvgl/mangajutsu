@@ -3,11 +3,13 @@ package com.mangajutsu.api.services.impl;
 import java.util.List;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
+import com.mangajutsu.api.dao.entities.FileEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.repositories.AnimeRepository;
 import com.mangajutsu.api.exceptions.AnimeAlreadyExistException;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.AnimeService;
+import com.mangajutsu.api.services.FileService;
 import com.mangajutsu.api.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +25,23 @@ public class AnimeServiceImpl implements AnimeService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FileService fileService;
+
     @Override
     public List<AnimeEntity> getAnimeList() {
         List<AnimeEntity> animes = animeRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
+        for (AnimeEntity anime : animes) {
+            List<FileEntity> files = fileService.getAnimeFiles(anime.getTitle());
+            anime.setFiles(files);
+        }
         return animes;
     }
 
     @Override
     public AnimeEntity getAnimeDetails(String title) {
         AnimeEntity anime = animeRepository.findByTitle(title);
+        System.err.println(anime.getFiles());
         return anime;
     }
 
@@ -52,7 +62,7 @@ public class AnimeServiceImpl implements AnimeService {
     public void addUserToAnime(AnimeEntity anime, String username) {
         UserEntity user = userService.findByUsername(username);
         anime.setUser(user);
-        user.getAnims().add(anime);
+        user.getAnimes().add(anime);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.mangajutsu.webclient.proxies;
 import java.util.List;
 
 import com.mangajutsu.webclient.models.AnimeModel;
+import com.mangajutsu.webclient.models.FileModel;
 import com.mangajutsu.webclient.models.UserModel;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -63,4 +64,10 @@ public interface MangajutsuProxy {
 
     @GetMapping("/enum/genres")
     List<String> getGenres();
+
+    @PostMapping("/file/{title}/add-file")
+    void uploadFile(@RequestBody FileModel file, @PathVariable String title);
+
+    @GetMapping("/file/{title}/anime-files")
+    List<FileModel> findAnimeFiles(@PathVariable String title);
 }

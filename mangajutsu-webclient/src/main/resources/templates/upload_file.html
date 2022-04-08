@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page uploadFile-page">
+      <section class="clean-block clean-form dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="#{form.upload-file.name}"></h2>
+          </div>
+          <div
+            class="alert alert-danger"
+            role="alert"
+            th:if="${fileError != null}"
+          >
+            <p th:text="${fileError}"></p>
+          </div>
+          <div>
+            <form
+              class="form-group"
+              th:action="@{'/file/' + ${title} + '/add-file'}"
+              th:object="${file}"
+              method="post"
+            >
+              <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                <ul>
+                  <li
+                    th:each="err : ${#fields.errors('*')}"
+                    th:text="${err}"
+                  ></li>
+                </ul>
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control item"
+                  th:field="*{fileName}"
+                  th:placeholder="#{form.upload-file.fileName}"
+                  th:errorclass="is-invalid"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control item"
+                  th:field="*{type}"
+                  th:placeholder="#{form.upload-file.type}"
+                  th:errorclass="is-invalid"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control item"
+                  th:field="*{url}"
+                  th:placeholder="#{form.upload-file.url}"
+                  th:errorclass="is-invalid"
+                />
+              </div>
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                th:text="#{form.upload-file.name}"
+              ></button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

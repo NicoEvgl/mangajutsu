@@ -58,7 +58,7 @@ public class ForgotPasswordController {
         if (StringUtils.isEmpty(token)) {
             redirectAttributes.addFlashAttribute("tokenError", messageSource
                     .getMessage("registration.verification.token.missing", null, LocaleContextHolder.getLocale()));
-            return "redirect:/user/update_password";
+            return "redirect:/change";
         }
         ForgotPasswordModel forgotPassword = new ForgotPasswordModel();
         forgotPassword.setToken(token);

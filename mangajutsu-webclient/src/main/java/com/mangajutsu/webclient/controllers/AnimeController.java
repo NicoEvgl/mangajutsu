@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.mangajutsu.webclient.models.AnimeModel;
+import com.mangajutsu.webclient.models.FileModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
 
@@ -36,6 +37,12 @@ public class AnimeController {
     @GetMapping("/anime-list")
     public String animeList(final Model model) {
         List<AnimeModel> animes = mangajutsuProxy.getAnimeList();
+
+        for (AnimeModel anime : animes) {
+            List<FileModel> files = mangajutsuProxy.findAnimeFiles(anime.getTitle());
+            anime.setFiles(files);
+        }
+
         model.addAttribute("animes", animes);
 
         return "anime/anime_list";
@@ -44,8 +51,11 @@ public class AnimeController {
     @GetMapping("/anime-details/{title}")
     public String animeDetails(@PathVariable String title, final Model model) {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
-        model.addAttribute("anime", anime);
 
+        List<FileModel> files = mangajutsuProxy.findAnimeFiles(title);
+        anime.setFiles(files);
+
+        model.addAttribute("anime", anime);
         return "anime/anime_details";
     }
 
