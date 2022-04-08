@@ -42,13 +42,27 @@
                       alt="no image found"
                       class="img-fluid d-block mx-auto"
                     />
-                    <img
+                    <div
                       th:if="${not #lists.isEmpty(anime.files)}"
                       th:each="file : ${anime.files}"
-                      th:src="${file.url}"
-                      th:alt="${file.fileName}"
-                      class="img-fluid d-block mx-auto"
-                    />
+                    >
+                      <img
+                        th:if="${file.type == 'Image'}"
+                        th:src="${file.url}"
+                        th:alt="${file.fileName}"
+                        class="img-fluid d-block mx-auto"
+                      />
+                      <iframe
+                        width="560"
+                        height="315"
+                        th:if="${file.type == 'Video'}"
+                        th:src="@{https://www.youtube.com/embed/{url} (url=${file.url})}"
+                        frameborder="1"
+                        alt="no video attached"
+                        allowfullscreen="0"
+                      >
+                      </iframe>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
