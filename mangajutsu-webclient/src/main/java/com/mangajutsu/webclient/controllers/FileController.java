@@ -1,5 +1,7 @@
 package com.mangajutsu.webclient.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.mangajutsu.webclient.models.FileModel;
@@ -31,6 +33,9 @@ public class FileController {
 
     @GetMapping("/{title}/add-file")
     public String addFile(@PathVariable String title, final Model model) {
+        List<String> fileTypes = mangajutsuProxy.getFileTypes();
+
+        model.addAttribute("fileTypes", fileTypes);
         model.addAttribute("file", new FileModel());
         return "upload_file";
     }
@@ -47,14 +52,13 @@ public class FileController {
             mangajutsuProxy.uploadFile(file, title);
         } catch (FeignException e) {
             model.addAttribute("fileError",
-                    messageSource.getMessage("error.upload-file", null,
-                            LocaleContextHolder.getLocale()));
+                    messageSource.getMessage("error.upload-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", file);
             return "/upload_file";
         }
         redirectAttributes.addFlashAttribute("animeMsg",
-                messageSource.getMessage("upload-file.success.msg", null,
-                        LocaleContextHolder.getLocale()));
+                messageSource.getMessage("upload-file.success.msg", null, LocaleContextHolder.getLocale()));
+
         model.addAttribute("title", title);
         model.addAttribute("file", file);
 

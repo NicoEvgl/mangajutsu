@@ -52,10 +52,11 @@
                         th:alt="${file.fileName}"
                         class="img-fluid d-block mx-auto"
                       />
+                      <p></p>
                       <iframe
-                        width="560"
-                        height="315"
-                        th:if="${file.type == 'Video'}"
+                        width="462"
+                        height="320"
+                        th:if="${file.type == 'Vidéo'}"
                         th:src="@{https://www.youtube.com/embed/{url} (url=${file.url})}"
                         frameborder="1"
                         alt="no video attached"

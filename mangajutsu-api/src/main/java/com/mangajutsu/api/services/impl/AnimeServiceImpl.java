@@ -41,7 +41,6 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public AnimeEntity getAnimeDetails(String title) {
         AnimeEntity anime = animeRepository.findByTitle(title);
-        System.err.println(anime.getFiles());
         return anime;
     }
 

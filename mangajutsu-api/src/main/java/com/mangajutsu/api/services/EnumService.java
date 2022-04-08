@@ -11,4 +11,6 @@ public interface EnumService {
     List<String> getStatusEnumStringValues();
 
     List<String> getGenresEnumStringValues();
+
+    List<String> getFileTypesEnumStringValues();
 }

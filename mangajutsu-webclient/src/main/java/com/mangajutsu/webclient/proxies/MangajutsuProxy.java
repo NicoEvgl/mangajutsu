@@ -65,6 +65,9 @@ public interface MangajutsuProxy {
     @GetMapping("/enum/genres")
     List<String> getGenres();
 
+    @GetMapping("/enum/file-types")
+    List<String> getFileTypes();
+
     @PostMapping("/file/{title}/add-file")
     void uploadFile(@RequestBody FileModel file, @PathVariable String title);
 

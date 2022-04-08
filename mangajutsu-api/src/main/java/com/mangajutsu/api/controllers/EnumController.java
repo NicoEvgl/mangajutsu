@@ -30,4 +30,9 @@ public class EnumController {
     public List<String> getGenres() {
         return enumService.getGenresEnumStringValues();
     }
+
+    @GetMapping("/file-types")
+    public List<String> getFileTypes() {
+        return enumService.getFileTypesEnumStringValues();
+    }
 }
