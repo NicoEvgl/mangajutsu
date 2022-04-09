@@ -40,6 +40,7 @@ public class UserModel implements Serializable {
 
     private Set<RoleModel> userRoles;
     private Set<AnimeModel> animes;
+    private Set<ReviewModel> reviews;
 
     public Collection<? extends GrantedAuthority> getAuthorities(Set<RoleModel> userRoles) {
         Collection<GrantedAuthority> authorities = new ArrayList<>(userRoles.size());
@@ -182,5 +183,13 @@ public class UserModel implements Serializable {
 
     public void setAnimes(Set<AnimeModel> animes) {
         this.animes = animes;
+    }
+
+    public Set<ReviewModel> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<ReviewModel> reviews) {
+        this.reviews = reviews;
     }
 }

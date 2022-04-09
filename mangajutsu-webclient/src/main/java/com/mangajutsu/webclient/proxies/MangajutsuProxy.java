@@ -1,9 +1,11 @@
 package com.mangajutsu.webclient.proxies;
 
 import java.util.List;
+import java.util.Set;
 
 import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.FileModel;
+import com.mangajutsu.webclient.models.ReviewModel;
 import com.mangajutsu.webclient.models.UserModel;
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -82,4 +84,11 @@ public interface MangajutsuProxy {
 
     @DeleteMapping("/file/delete-file/{id}")
     void deleteFile(@PathVariable Integer id);
+
+    @PostMapping("/review/{title}/add-review")
+    void addReview(@RequestBody ReviewModel review, @RequestParam("username") String username,
+            @PathVariable String title);
+
+    @GetMapping("review/{title}/anime-reviews")
+    Set<ReviewModel> getAnimeReviews(@PathVariable String title);
 }

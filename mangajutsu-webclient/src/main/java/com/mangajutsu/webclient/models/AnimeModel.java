@@ -2,6 +2,7 @@ package com.mangajutsu.webclient.models;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.constraints.NotEmpty;
 
@@ -35,6 +36,7 @@ public class AnimeModel implements Serializable {
 
     private UserModel user;
     private List<FileModel> files;
+    private Set<ReviewModel> reviews;
 
     // Getters & Setters //
 
@@ -200,5 +202,13 @@ public class AnimeModel implements Serializable {
 
     public void setFiles(List<FileModel> files) {
         this.files = files;
+    }
+
+    public Set<ReviewModel> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<ReviewModel> reviews) {
+        this.reviews = reviews;
     }
 }

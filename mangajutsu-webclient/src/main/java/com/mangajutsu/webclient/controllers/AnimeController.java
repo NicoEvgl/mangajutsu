@@ -1,11 +1,13 @@
 package com.mangajutsu.webclient.controllers;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
 import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.FileModel;
+import com.mangajutsu.webclient.models.ReviewModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
 
@@ -52,9 +54,11 @@ public class AnimeController {
     @GetMapping("/anime-details/{title}")
     public String animeDetails(@PathVariable String title, final Model model) {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
-
         List<FileModel> files = mangajutsuProxy.findAnimeFiles(title);
+        Set<ReviewModel> reviews = mangajutsuProxy.getAnimeReviews(title);
+
         anime.setFiles(files);
+        anime.setReviews(reviews);
 
         model.addAttribute("anime", anime);
         return "anime/anime_details";
@@ -83,7 +87,6 @@ public class AnimeController {
         UserPrincipal userInSession = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         try {
-            System.err.println(userInSession.getUsername());
             mangajutsuProxy.addAnime(anime, userInSession.getUsername());
         } catch (FeignException e) {
             bindingResult.rejectValue("title", "anime.title",
