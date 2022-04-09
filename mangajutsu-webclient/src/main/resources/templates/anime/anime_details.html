@@ -35,6 +35,11 @@
                     th:href="@{'/file/' + ${anime.title} + '/add-file'}"
                     th:text="#{form.upload-file.name}"
                   ></a>
+                  <a
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/' + ${anime.title} + '/file-list'}"
+                    th:text="#{file-list.name}"
+                  ></a>
                   <div class="gallery">
                     <img
                       th:if="${#lists.isEmpty(anime.files)}"
@@ -42,18 +47,15 @@
                       alt="no image found"
                       class="img-fluid d-block mx-auto"
                     />
-                    <div
-                      th:if="${not #lists.isEmpty(anime.files)}"
-                      th:each="file : ${anime.files}"
-                    >
+                    <div th:if="${not #lists.isEmpty(anime.files)}">
                       <img
-                        th:if="${file.type == 'Image'}"
-                        th:src="${file.url}"
-                        th:alt="${file.fileName}"
+                        th:src="${anime.files.get(0).url}"
+                        th:alt="${anime.files.get(0).fileName}"
                         class="img-fluid d-block mx-auto"
                       />
                       <p></p>
                       <iframe
+                        th:each="file : ${anime.files}"
                         width="462"
                         height="320"
                         th:if="${file.type == 'Vidéo'}"

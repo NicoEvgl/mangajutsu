@@ -1,8 +1,10 @@
 package com.mangajutsu.webclient.models;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 
-public class FileModel {
+public class FileModel implements Serializable {
     private Integer id;
     @NotEmpty(message = "{upload-file.validation.fileName}")
     private String fileName;

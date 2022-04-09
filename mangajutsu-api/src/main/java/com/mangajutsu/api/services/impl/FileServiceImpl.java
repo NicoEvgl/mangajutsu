@@ -37,4 +37,30 @@ public class FileServiceImpl implements FileService {
         List<FileEntity> files = fileRepository.findAllByAnime_Title(title);
         return files;
     }
+
+    @Override
+    public FileEntity getFileDetails(Integer id) {
+        FileEntity file = fileRepository.findById(id).orElse(null);
+        return file;
+    }
+
+    @Override
+    public void updateFile(FileEntity file, Integer id) throws ResourceNotFoundException {
+        FileEntity editedFile = fileRepository.findById(id).orElse(null);
+        if (editedFile == null) {
+            throw new ResourceNotFoundException("File not found for the id : " + file.getId());
+        }
+        editedFile.setFileName(file.getFileName());
+        editedFile.setType(file.getType());
+        editedFile.setUrl(file.getUrl());
+        editedFile.setSize(file.getSize());
+
+        fileRepository.save(editedFile);
+    }
+
+    @Override
+    public void deleteFile(Integer id) {
+        FileEntity file = fileRepository.findById(id).orElse(null);
+        fileRepository.delete(file);
+    }
 }

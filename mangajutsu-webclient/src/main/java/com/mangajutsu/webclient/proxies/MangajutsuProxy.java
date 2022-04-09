@@ -73,4 +73,13 @@ public interface MangajutsuProxy {
 
     @GetMapping("/file/{title}/anime-files")
     List<FileModel> findAnimeFiles(@PathVariable String title);
+
+    @GetMapping("/file/file-details/{id}")
+    FileModel getFileDetails(@PathVariable Integer id);
+
+    @PostMapping("/file/update-file/{id}")
+    void updateFile(@RequestBody FileModel file, @PathVariable Integer id);
+
+    @DeleteMapping("/file/delete-file/{id}")
+    void deleteFile(@PathVariable Integer id);
 }

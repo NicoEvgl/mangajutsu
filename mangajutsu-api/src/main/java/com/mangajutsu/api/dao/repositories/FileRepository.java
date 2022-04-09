@@ -9,7 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FileRepository extends JpaRepository<FileEntity, Integer> {
-    FileEntity findByUrl(String url);
-
     List<FileEntity> findAllByAnime_Title(String title);
 }

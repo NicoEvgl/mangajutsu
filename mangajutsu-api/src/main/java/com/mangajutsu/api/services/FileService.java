@@ -13,4 +13,10 @@ public interface FileService {
     void uploadFile(FileEntity file, String title) throws ResourceNotFoundException;
 
     List<FileEntity> getAnimeFiles(String title);
+
+    FileEntity getFileDetails(Integer id);
+
+    void updateFile(FileEntity file, Integer id) throws ResourceNotFoundException;
+
+    void deleteFile(Integer id);
 }

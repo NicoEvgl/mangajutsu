@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,16 +38,15 @@ public class FileController {
 
         model.addAttribute("fileTypes", fileTypes);
         model.addAttribute("file", new FileModel());
-        return "upload_file";
+        return "file/upload_file";
     }
 
     @PostMapping("/{title}/add-file")
     public String addFile(@PathVariable String title, @Valid FileModel file, BindingResult bindingResult,
-            RedirectAttributes redirectAttributes,
-            final Model model) {
+            RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("file", file);
-            return "upload_file";
+            return "file/upload_file";
         }
         try {
             mangajutsuProxy.uploadFile(file, title);
@@ -54,7 +54,7 @@ public class FileController {
             model.addAttribute("fileError",
                     messageSource.getMessage("error.upload-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", file);
-            return "/upload_file";
+            return "file/upload_file";
         }
         redirectAttributes.addFlashAttribute("animeMsg",
                 messageSource.getMessage("upload-file.success.msg", null, LocaleContextHolder.getLocale()));
@@ -63,5 +63,62 @@ public class FileController {
         model.addAttribute("file", file);
 
         return "redirect:/anime/anime-details/{title}";
+    }
+
+    @GetMapping("/{title}/file-list")
+    public String filesList(@PathVariable String title, final Model model) {
+        List<FileModel> files = mangajutsuProxy.findAnimeFiles(title);
+        model.addAttribute("files", files);
+        return "file/file_list";
+    }
+
+    @GetMapping("/update-file/{id}")
+    public String updateFile(@PathVariable Integer id, final Model model) {
+        FileModel file = mangajutsuProxy.getFileDetails(id);
+        List<String> fileTypes = mangajutsuProxy.getFileTypes();
+
+        model.addAttribute("fileTypes", fileTypes);
+        model.addAttribute("file", file);
+        return "file/update_file";
+    }
+
+    @PostMapping("/update-file/{id}")
+    public String updateFile(@PathVariable Integer id, @Valid @ModelAttribute("file") FileModel file,
+            BindingResult bindingResult,
+            RedirectAttributes redirectAttributes, final Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("file", file);
+            return "file/update_file";
+        }
+        try {
+            mangajutsuProxy.updateFile(file, id);
+        } catch (FeignException e) {
+            model.addAttribute("fileError",
+                    messageSource.getMessage("error.update-file", null, LocaleContextHolder.getLocale()));
+            model.addAttribute("file", file);
+            return "file/upload_file";
+        }
+        model.addAttribute("fileMsg",
+                messageSource.getMessage("update-file.success.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("file", file);
+
+        return "file/file_list";
+    }
+
+    @GetMapping("/delete-file/{id}")
+    public String deleteFile(@PathVariable Integer id, final Model model) {
+        try {
+            mangajutsuProxy.deleteFile(id);
+        } catch (FeignException e) {
+            model.addAttribute("fileError",
+                    messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
+            model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
+            return "file/upload_file";
+        }
+        model.addAttribute("fileMsg",
+                messageSource.getMessage("delete-file.success.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
+
+        return "file/file_list";
     }
 }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page fileList-page">
+      <section class="clean-block clean-services dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="#{file-list.name}"></h2>
+            <a
+              href="javascript:history.go(-1)"
+              class="btn btn-outline-primary btn-block"
+              th:text="#{view.button.back}"
+            >
+            </a>
+          </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${fileMsg != null}"
+          >
+            <p th:text="${fileMsg}"></p>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4" th:each="file : ${files}">
+              <div class="card">
+                <img
+                  th:if="${#lists.isEmpty(files)}"
+                  th:src="@{/img/no_found.png}"
+                  alt="no image found"
+                  class="card-img-top w-100 d-block"
+                />
+                <div th:if="${not #lists.isEmpty(files)}">
+                  <img
+                    th:if="${file.type == 'Image'}"
+                    th:src="${file.url}"
+                    th:alt="${file.fileName}"
+                    class="card-img-top w-100 d-block"
+                  />
+                  <p></p>
+                  <iframe
+                    width="auto"
+                    height="auto"
+                    th:if="${file.type == 'Vidéo'}"
+                    th:src="@{https://www.youtube.com/embed/{url} (url=${file.url})}"
+                    frameborder="1"
+                    alt="no video attached"
+                    allowfullscreen="0"
+                  >
+                  </iframe>
+                </div>
+                <div class="card-body">
+                  <h4
+                    class="card-title"
+                    style="height: 50px"
+                    th:text="${file.fileName}"
+                  ></h4>
+                  <a
+                    class="btn btn-outline-secondary btn-sm"
+                    th:href="@{'/file/update-file/' + ${file.id} + '/'}"
+                    th:text="#{update-file.name}"
+                  ></a>
+                  <a
+                    class="btn btn-outline-secondary btn-sm"
+                    th:href="@{'/file/delete-file/' + ${file.id} + '/'}"
+                    th:text="#{delete-file.name}"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>
