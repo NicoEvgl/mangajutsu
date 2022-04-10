@@ -79,7 +79,7 @@ public class AnimeController {
     }
 
     @PostMapping("/add-anime")
-    public String addAnime(@Valid AnimeModel anime, final BindingResult bindingResult,
+    public String addAnime(@Valid @ModelAttribute("anime") AnimeModel anime, final BindingResult bindingResult,
             RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.anime",
@@ -94,8 +94,10 @@ public class AnimeController {
         } catch (FeignException e) {
             bindingResult.rejectValue("title", "anime.title",
                     messageSource.getMessage("error.anime", null, LocaleContextHolder.getLocale()));
-            model.addAttribute("anime", anime);
-            return "anime/add_anime";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.anime",
+                    bindingResult);
+            redirectAttributes.addFlashAttribute("anime", anime);
+            return "redirect:/anime/add-anime";
         }
         redirectAttributes.addFlashAttribute("animeMsg",
                 messageSource.getMessage("add-anime.success.msg", null, LocaleContextHolder.getLocale()));

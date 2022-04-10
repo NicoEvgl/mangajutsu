@@ -45,8 +45,7 @@ public class FileController {
 
     @PostMapping("/{title}/add-file")
     public String addFile(@PathVariable String title, @Valid @ModelAttribute("file") FileModel file,
-            BindingResult bindingResult,
-            RedirectAttributes redirectAttributes, final Model model) {
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.file",
                     bindingResult);
