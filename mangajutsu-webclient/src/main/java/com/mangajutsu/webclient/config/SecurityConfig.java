@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login", "/register", "/register/verify", "/password/**")
+                .antMatchers("/login", "/register/**", "/password/**")
                 .permitAll()
                 .antMatchers("/anime/add-anime", "/anime/update-anime/**", "/file/**")
                 .hasAnyAuthority("ADMIN_ROLE", "MEMBER_ROLE")

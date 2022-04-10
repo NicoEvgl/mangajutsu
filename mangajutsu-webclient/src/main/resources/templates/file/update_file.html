@@ -22,7 +22,7 @@
           <div>
             <form
               class="form-group"
-              th:action="@{'/file/update-file/' + ${file.id} + '/'}"
+              th:action="@{'/file/' + ${file.anime.title} + '/update-file/' + ${file.id} + '/'}"
               th:object="${file}"
               method="post"
             >
