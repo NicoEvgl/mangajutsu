@@ -3,8 +3,11 @@ package com.mangajutsu.webclient.models;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotEmpty;
+
 public class ReviewModel implements Serializable {
     private Integer id;
+    @NotEmpty(message = "{add-review.validation.content}")
     private String content;
     private Timestamp releaseDate;
     private Timestamp updateDate;

@@ -24,10 +24,8 @@ public class ReviewEntity implements Serializable {
     @Column(name = "content", nullable = false, length = 3000)
     private String content;
     @CreationTimestamp
-    @Column(name = "releaseDate", nullable = false, updatable = true)
+    @Column(name = "release_date", nullable = false, updatable = true)
     private Timestamp releaseDate;
-    @Column(name = "updateDate", nullable = true, updatable = true)
-    private Timestamp updateDate;
 
     @ManyToOne
     @JoinColumn(name = "anime_id", referencedColumnName = "id", nullable = false)
@@ -55,12 +53,8 @@ public class ReviewEntity implements Serializable {
         return releaseDate;
     }
 
-    public Timestamp getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
+    public void setReleaseDate(Timestamp releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public AnimeEntity getAnime() {

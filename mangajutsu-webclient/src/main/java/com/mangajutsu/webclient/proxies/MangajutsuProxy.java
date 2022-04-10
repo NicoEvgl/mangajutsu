@@ -1,7 +1,6 @@
 package com.mangajutsu.webclient.proxies;
 
 import java.util.List;
-import java.util.Set;
 
 import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.FileModel;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "mangajutsu-api", url = "localhost:9090")
 public interface MangajutsuProxy {
 
-    @GetMapping("find-user/{username}")
+    @GetMapping("/find-user/{username}")
     UserModel findUserByUsername(@PathVariable("username") String username);
 
     @PostMapping("/register")
@@ -43,7 +42,7 @@ public interface MangajutsuProxy {
     @PostMapping("/password/reset")
     void resetPassword(@RequestParam("email") String email);
 
-    @PostMapping("password/change")
+    @PostMapping("/password/change")
     void changePassword(@RequestParam("password") String password, @RequestParam("token") String token);
 
     @GetMapping("/anime/anime-list")
@@ -89,6 +88,15 @@ public interface MangajutsuProxy {
     void addReview(@RequestBody ReviewModel review, @RequestParam("username") String username,
             @PathVariable String title);
 
-    @GetMapping("review/{title}/anime-reviews")
-    Set<ReviewModel> getAnimeReviews(@PathVariable String title);
+    @GetMapping("/review/{title}/anime-reviews")
+    List<ReviewModel> getAnimeReviews(@PathVariable String title);
+
+    @GetMapping("/review/review-details/{id}")
+    ReviewModel getReviewDetails(@PathVariable Integer id);
+
+    @PostMapping("/review/update-review/{id}")
+    void updateReview(@RequestBody ReviewModel review, @PathVariable Integer id);
+
+    @DeleteMapping("/review/delete-review/{id}")
+    void deleteReview(@PathVariable Integer id);
 }

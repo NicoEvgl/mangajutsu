@@ -3,6 +3,7 @@ package com.mangajutsu.webclient.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
@@ -40,7 +41,7 @@ public class UserModel implements Serializable {
 
     private Set<RoleModel> userRoles;
     private Set<AnimeModel> animes;
-    private Set<ReviewModel> reviews;
+    private List<ReviewModel> reviews;
 
     public Collection<? extends GrantedAuthority> getAuthorities(Set<RoleModel> userRoles) {
         Collection<GrantedAuthority> authorities = new ArrayList<>(userRoles.size());
@@ -185,11 +186,11 @@ public class UserModel implements Serializable {
         this.animes = animes;
     }
 
-    public Set<ReviewModel> getReviews() {
+    public List<ReviewModel> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<ReviewModel> reviews) {
+    public void setReviews(List<ReviewModel> reviews) {
         this.reviews = reviews;
     }
 }

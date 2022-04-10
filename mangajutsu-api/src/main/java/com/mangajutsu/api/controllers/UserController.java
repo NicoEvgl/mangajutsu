@@ -26,7 +26,7 @@ public class UserController {
     @Autowired
     VerifTokenRepository verifTokenRepository;
 
-    @GetMapping("find-user/{username}")
+    @GetMapping("/find-user/{username}")
     public UserEntity findUserByUsername(@PathVariable String username) {
         return userService.findByUsername(username);
     }

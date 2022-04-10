@@ -1,7 +1,6 @@
 package com.mangajutsu.webclient.controllers;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -55,7 +54,7 @@ public class AnimeController {
     public String animeDetails(@PathVariable String title, final Model model) {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
         List<FileModel> files = mangajutsuProxy.getAnimeFiles(title);
-        Set<ReviewModel> reviews = mangajutsuProxy.getAnimeReviews(title);
+        List<ReviewModel> reviews = mangajutsuProxy.getAnimeReviews(title);
 
         anime.setFiles(files);
         anime.setReviews(reviews);

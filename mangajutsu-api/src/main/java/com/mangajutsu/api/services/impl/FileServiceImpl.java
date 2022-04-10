@@ -49,7 +49,7 @@ public class FileServiceImpl implements FileService {
     public void updateFile(FileEntity file, Integer id) throws ResourceNotFoundException {
         FileEntity editedFile = fileRepository.findById(id).orElse(null);
         if (editedFile == null) {
-            throw new ResourceNotFoundException("File not found for the id : " + file.getId());
+            throw new ResourceNotFoundException("File not found for the id : " + id);
         }
         editedFile.setFileName(file.getFileName());
         editedFile.setType(file.getType());

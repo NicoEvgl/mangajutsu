@@ -2,7 +2,6 @@ package com.mangajutsu.api.dao.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -70,7 +69,7 @@ public class AnimeEntity implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "anime")
-    private Set<ReviewEntity> reviews;
+    private List<ReviewEntity> reviews;
 
     // Getters & Setters //
 
@@ -238,11 +237,11 @@ public class AnimeEntity implements Serializable {
         this.files = files;
     }
 
-    public Set<ReviewEntity> getReviews() {
+    public List<ReviewEntity> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<ReviewEntity> reviews) {
+    public void setReviews(List<ReviewEntity> reviews) {
         this.reviews = reviews;
     }
 }

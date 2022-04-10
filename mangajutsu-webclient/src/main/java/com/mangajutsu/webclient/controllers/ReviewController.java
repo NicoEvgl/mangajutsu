@@ -62,4 +62,52 @@ public class ReviewController {
 
         return "redirect:/anime/anime-details/{title}";
     }
+
+    @GetMapping("{title}/update-review/{id}")
+    public String updateReview(@PathVariable Integer id, final Model model) {
+        ReviewModel review = mangajutsuProxy.getReviewDetails(id);
+        model.addAttribute("review", review);
+        return "review/update_review";
+    }
+
+    @PostMapping("{title}/update-review/{id}")
+    public String updateReview(@PathVariable Integer id, @Valid ReviewModel review, BindingResult bindingResult,
+            RedirectAttributes redirectAttributes, final Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("review", review);
+            return "review/update_review";
+        }
+        try {
+            mangajutsuProxy.updateReview(review, id);
+        } catch (FeignException e) {
+            model.addAttribute("reviewError",
+                    messageSource.getMessage("error.update-review", null, LocaleContextHolder.getLocale()));
+            model.addAttribute("review", review);
+            return "review/add_review";
+        }
+        redirectAttributes.addFlashAttribute("animeMsg",
+                messageSource.getMessage("update-review.success.msg", null, LocaleContextHolder.getLocale()));
+
+        model.addAttribute("review", review);
+
+        return "redirect:/anime/anime-details/{title}";
+    }
+
+    @GetMapping("{title}/delete-review/{id}")
+    public String deleteReview(@PathVariable Integer id, RedirectAttributes redirectAttributes, final Model model) {
+        try {
+            mangajutsuProxy.deleteReview(id);
+        } catch (FeignException e) {
+            model.addAttribute("reviewError",
+                    messageSource.getMessage("error.delete-review", null, LocaleContextHolder.getLocale()));
+            model.addAttribute("review", mangajutsuProxy.getReviewDetails(id));
+            return "review/add_review";
+        }
+        redirectAttributes.addFlashAttribute("animeMsg",
+                messageSource.getMessage("delete-review.success.msg", null, LocaleContextHolder.getLocale()));
+
+        model.addAttribute("review", mangajutsuProxy.getFileDetails(id));
+
+        return "redirect:/anime/anime-details/{title}";
+    }
 }

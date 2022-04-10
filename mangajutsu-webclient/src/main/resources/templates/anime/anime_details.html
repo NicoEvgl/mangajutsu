@@ -295,13 +295,13 @@
                         >
                           <a
                             class="btn btn-sm btn-outline-primary"
-                            th:href="@{'/review/update-review/' + ${review.id} + '/'}"
+                            th:href="@{'/review/' + ${review.anime.title} + '/update-review/' + ${review.id} + '/'}"
                           >
                             <i class="icon-pencil ml-1"></i>
                           </a>
                           <a
                             class="btn btn-sm btn-outline-danger"
-                            th:href="@{'/review/delete-review/' + ${review.id} + '/'}"
+                            th:href="@{'/review/' + ${review.anime.title} + '/delete-review/' + ${review.id} + '/'}"
                           >
                             <i class="icon-trash ml-1"></i>
                           </a>
@@ -313,7 +313,7 @@
                           ></a
                           >,
                           <p
-                            th:text="${#dates.format(review.releaseDate, 'dd MMM yyyy HH:mm:ss')}"
+                            th:text="${#dates.format(review.releaseDate, 'dd MMM yyyy - HH:mm')}"
                           ></p>
                         </span>
                         <p th:text="${review.content}"></p>

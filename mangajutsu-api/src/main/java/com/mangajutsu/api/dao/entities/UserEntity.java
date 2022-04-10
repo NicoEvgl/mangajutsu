@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -49,7 +50,7 @@ public class UserEntity implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private Set<ReviewEntity> reviews;
+    private List<ReviewEntity> reviews;
 
     public void addToken(final VerifTokenEntity token) {
         tokens.add(token);
@@ -149,11 +150,11 @@ public class UserEntity implements Serializable {
         this.animes = animes;
     }
 
-    public Set<ReviewEntity> getReviews() {
+    public List<ReviewEntity> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<ReviewEntity> reviews) {
+    public void setReviews(List<ReviewEntity> reviews) {
         this.reviews = reviews;
     }
 }

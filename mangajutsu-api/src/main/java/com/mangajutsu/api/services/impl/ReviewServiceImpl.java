@@ -1,6 +1,7 @@
 package com.mangajutsu.api.services.impl;
 
-import java.util.Set;
+import java.sql.Timestamp;
+import java.util.List;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
 import com.mangajutsu.api.dao.entities.ReviewEntity;
@@ -12,6 +13,7 @@ import com.mangajutsu.api.services.ReviewService;
 import com.mangajutsu.api.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service("reviewService")
@@ -38,9 +40,34 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Set<ReviewEntity> getAnimeReviews(String title) {
-        Set<ReviewEntity> reviews = reviewRepository.findAllByAnime_Title(title);
+    public List<ReviewEntity> getAnimeReviews(String title) {
+        List<ReviewEntity> reviews = reviewRepository.findAllByAnime_Title(title,
+                Sort.by(Sort.Direction.DESC, "releaseDate"));
         return reviews;
+    }
+
+    @Override
+    public ReviewEntity getReviewDetails(Integer id) {
+        ReviewEntity review = reviewRepository.findById(id).orElse(null);
+        return review;
+    }
+
+    @Override
+    public void updateReview(ReviewEntity review, Integer id) throws ResourceNotFoundException {
+        ReviewEntity editedReview = reviewRepository.findById(id).orElse(null);
+        if (editedReview == null) {
+            throw new ResourceNotFoundException("File not found for the id : " + id);
+        }
+        editedReview.setContent(review.getContent());
+        editedReview.setReleaseDate(new Timestamp(System.currentTimeMillis()));
+
+        reviewRepository.save(editedReview);
+    }
+
+    @Override
+    public void deleteReview(Integer id) {
+        ReviewEntity review = reviewRepository.findById(id).orElse(null);
+        reviewRepository.delete(review);
     }
 
     public void addUserToReview(ReviewEntity review, String username) {

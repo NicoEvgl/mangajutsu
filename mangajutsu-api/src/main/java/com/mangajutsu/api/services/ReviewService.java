@@ -1,6 +1,6 @@
 package com.mangajutsu.api.services;
 
-import java.util.Set;
+import java.util.List;
 
 import com.mangajutsu.api.dao.entities.ReviewEntity;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
@@ -11,5 +11,11 @@ import org.springframework.stereotype.Service;
 public interface ReviewService {
     void create(ReviewEntity review, String username, String title) throws ResourceNotFoundException;
 
-    Set<ReviewEntity> getAnimeReviews(String title);
+    List<ReviewEntity> getAnimeReviews(String title);
+
+    ReviewEntity getReviewDetails(Integer id);
+
+    void updateReview(ReviewEntity review, Integer id) throws ResourceNotFoundException;
+
+    void deleteReview(Integer id);
 }
