@@ -10,6 +10,7 @@ import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.FileService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service("fileService")
@@ -34,7 +35,7 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public List<FileEntity> getAnimeFiles(String title) {
-        List<FileEntity> files = fileRepository.findAllByAnime_Title(title);
+        List<FileEntity> files = fileRepository.findAllByAnime_Title(title, Sort.by(Sort.Direction.ASC, "fileName"));
         return files;
     }
 

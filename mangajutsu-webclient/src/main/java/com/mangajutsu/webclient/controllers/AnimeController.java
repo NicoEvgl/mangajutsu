@@ -42,7 +42,7 @@ public class AnimeController {
         List<AnimeModel> animes = mangajutsuProxy.getAnimeList();
 
         for (AnimeModel anime : animes) {
-            List<FileModel> files = mangajutsuProxy.findAnimeFiles(anime.getTitle());
+            List<FileModel> files = mangajutsuProxy.getAnimeFiles(anime.getTitle());
             anime.setFiles(files);
         }
 
@@ -54,7 +54,7 @@ public class AnimeController {
     @GetMapping("/anime-details/{title}")
     public String animeDetails(@PathVariable String title, final Model model) {
         AnimeModel anime = mangajutsuProxy.getAnimeDetails(title);
-        List<FileModel> files = mangajutsuProxy.findAnimeFiles(title);
+        List<FileModel> files = mangajutsuProxy.getAnimeFiles(title);
         Set<ReviewModel> reviews = mangajutsuProxy.getAnimeReviews(title);
 
         anime.setFiles(files);
