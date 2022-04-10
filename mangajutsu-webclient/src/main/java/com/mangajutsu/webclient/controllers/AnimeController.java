@@ -64,7 +64,7 @@ public class AnimeController {
     }
 
     @GetMapping("/add-anime")
-    public String addAnime(@ModelAttribute("anime") AnimeModel anime, final Model model) {
+    public String addAnime(final Model model) {
         List<String> statusList = mangajutsuProxy.getStatus();
         List<String> types = mangajutsuProxy.getTypes();
         List<String> genres = mangajutsuProxy.getGenres();
@@ -72,16 +72,20 @@ public class AnimeController {
         model.addAttribute("statusList", statusList);
         model.addAttribute("types", types);
         model.addAttribute("genres", genres);
-        model.addAttribute("anime", anime);
+        if (!model.containsAttribute("anime")) {
+            model.addAttribute("anime", new AnimeModel());
+        }
         return "anime/add_anime";
     }
 
     @PostMapping("/add-anime")
-    public String addAnime(@Valid @ModelAttribute("anime") AnimeModel anime, final BindingResult bindingResult,
-            final Model model, RedirectAttributes redirectAttributes) {
+    public String addAnime(@Valid AnimeModel anime, final BindingResult bindingResult,
+            RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("anime", anime);
-            return "anime/add_anime";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.anime",
+                    bindingResult);
+            redirectAttributes.addFlashAttribute("anime", anime);
+            return "redirect:/anime/add-anime";
         }
         UserPrincipal userInSession = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -110,18 +114,21 @@ public class AnimeController {
         model.addAttribute("statusList", statusList);
         model.addAttribute("types", types);
         model.addAttribute("genres", genres);
-        model.addAttribute("anime", anime);
+        if (!model.containsAttribute("anime")) {
+            model.addAttribute("anime", anime);
+        }
         return "anime/update_anime";
     }
 
     @PostMapping("/update-anime/{title}")
     public String updateAnime(@Valid @ModelAttribute("anime") AnimeModel anime, final BindingResult bindingResult,
-            final Model model, RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("anime", anime);
-            return "anime/update_anime";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.anime",
+                    bindingResult);
+            redirectAttributes.addFlashAttribute("anime", anime);
+            return "redirect:/anime/update-anime/{title}";
         }
-
         try {
             mangajutsuProxy.updateAnime(anime, anime.getTitle());
         } catch (FeignException e) {

@@ -19,7 +19,9 @@ public class AnimeModel implements Serializable {
     private String endDate;
     private Integer nbEpisodes;
     private String duration;
+    @NotEmpty(message = "{add-anime.valid.type}")
     private String type;
+    @NotEmpty(message = "{add-anime.valid.genre}")
     private String genre;
     @NotEmpty(message = "{add-anime.valid.mangaka}")
     private String mangaka;

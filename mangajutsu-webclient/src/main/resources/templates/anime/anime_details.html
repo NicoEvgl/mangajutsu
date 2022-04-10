@@ -11,7 +11,7 @@
         <div class="container">
           <div class="block-heading">
             <h2 class="text-info" th:text="${anime.title}"></h2>
-            <span>
+            <span sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')">
               <a
                 class="btn btn-sm btn-outline-primary"
                 th:href="@{'/anime/update-anime/' + ${anime.title} + '/'}"
@@ -31,11 +31,13 @@
               <div class="row">
                 <div class="col-md-6">
                   <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
                     class="btn btn-outline-secondary"
                     th:href="@{'/file/' + ${anime.title} + '/add-file'}"
                     th:text="#{form.upload-file.name}"
                   ></a>
                   <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
                     class="btn btn-outline-secondary"
                     th:href="@{'/file/' + ${anime.title} + '/file-list'}"
                     th:text="#{file-list.name}"

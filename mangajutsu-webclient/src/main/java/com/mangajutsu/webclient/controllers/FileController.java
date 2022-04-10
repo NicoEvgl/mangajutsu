@@ -37,16 +37,21 @@ public class FileController {
         List<String> fileTypes = mangajutsuProxy.getFileTypes();
 
         model.addAttribute("fileTypes", fileTypes);
-        model.addAttribute("file", new FileModel());
+        if (!model.containsAttribute("file")) {
+            model.addAttribute("file", new FileModel());
+        }
         return "file/upload_file";
     }
 
     @PostMapping("/{title}/add-file")
-    public String addFile(@PathVariable String title, @Valid FileModel file, BindingResult bindingResult,
+    public String addFile(@PathVariable String title, @Valid @ModelAttribute("file") FileModel file,
+            BindingResult bindingResult,
             RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("file", file);
-            return "file/upload_file";
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.file",
+                    bindingResult);
+            redirectAttributes.addFlashAttribute("file", file);
+            return "redirect:/file/{title}/add-file";
         }
         try {
             mangajutsuProxy.uploadFile(file, title);
@@ -84,8 +89,7 @@ public class FileController {
 
     @PostMapping("{title}/update-file/{id}")
     public String updateFile(@PathVariable Integer id, @Valid @ModelAttribute("file") FileModel file,
-            BindingResult bindingResult,
-            RedirectAttributes redirectAttributes, final Model model) {
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("file", file);
             return "file/update_file";
@@ -96,7 +100,7 @@ public class FileController {
             model.addAttribute("fileError",
                     messageSource.getMessage("error.update-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", file);
-            return "file/upload_file";
+            return "file/update_file";
         }
         redirectAttributes.addFlashAttribute("fileMsg",
                 messageSource.getMessage("update-file.success.msg", null, LocaleContextHolder.getLocale()));
