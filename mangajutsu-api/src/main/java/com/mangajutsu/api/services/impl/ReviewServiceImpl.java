@@ -58,6 +58,7 @@ public class ReviewServiceImpl implements ReviewService {
         if (editedReview == null) {
             throw new ResourceNotFoundException("File not found for the id : " + id);
         }
+        editedReview.setRating(review.getRating());
         editedReview.setContent(review.getContent());
         editedReview.setReleaseDate(new Timestamp(System.currentTimeMillis()));
 

@@ -1,9 +1,12 @@
 package com.mangajutsu.api.services.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
 import com.mangajutsu.api.dao.entities.FileEntity;
+import com.mangajutsu.api.dao.entities.ReviewEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.repositories.AnimeRepository;
 import com.mangajutsu.api.exceptions.AnimeAlreadyExistException;
@@ -41,6 +44,18 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public AnimeEntity getAnimeDetails(String title) {
         AnimeEntity anime = animeRepository.findByTitle(title);
+
+        if (!anime.getReviews().isEmpty()) {
+            Collection<Float> ratings = new ArrayList<>(anime.getReviews().size());
+            for (ReviewEntity review : anime.getReviews()) {
+                ratings.add(review.getRating());
+            }
+            float averageRating = (float) ratings.stream().mapToDouble(Float::intValue).sum() / ratings.size();
+            if (averageRating != anime.getRating()) {
+                anime.setRating(averageRating);
+                animeRepository.save(anime);
+            }
+        }
         return anime;
     }
 

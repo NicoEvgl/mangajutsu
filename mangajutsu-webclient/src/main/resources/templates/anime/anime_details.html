@@ -76,6 +76,14 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
+                          th:text="#{form.anime.rating}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${anime.rating}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
                           th:text="#{form.anime.title}"
                           style="font-weight: bolder"
                         ></h7>
@@ -108,7 +116,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.releaseDate}"
+                          th:text="#{form.anime.release-date}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.releaseDate}"></p>
@@ -119,7 +127,7 @@
                       >
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.endDate}"
+                          th:text="#{form.anime.end-date}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.endDate}"></p>
@@ -318,7 +326,15 @@
                             th:text="${#dates.format(review.releaseDate, 'dd MMM yyyy - HH:mm')}"
                           ></p>
                         </span>
-                        <p th:text="${review.content}"></p>
+                        <div class="card-text">
+                          <p
+                            class="value"
+                            id="rating"
+                            style="font-weight: bolder"
+                            th:text="${review.rating}"
+                          ></p>
+                          <p th:text="${review.content}"></p>
+                        </div>
                       </div>
                     </div>
                   </div>

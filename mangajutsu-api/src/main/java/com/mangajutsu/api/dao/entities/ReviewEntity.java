@@ -21,6 +21,8 @@ public class ReviewEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Column(name = "rating", nullable = false, columnDefinition = "float default 0")
+    private float rating;
     @Column(name = "content", nullable = false, length = 3000)
     private String content;
     @CreationTimestamp
@@ -39,6 +41,14 @@ public class ReviewEntity implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getContent() {

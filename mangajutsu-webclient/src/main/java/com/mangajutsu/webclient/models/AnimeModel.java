@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class AnimeModel implements Serializable {
-
     private Integer id;
     @NotEmpty(message = "{add-anime.valid.title}")
     private String title;
@@ -14,9 +15,11 @@ public class AnimeModel implements Serializable {
     private String origin;
     @NotEmpty(message = "{add-anime.valid.status}")
     private String status;
-    @NotEmpty(message = "{add-anime.valid.releaseDate}")
+    private float rating;
+    @NotEmpty(message = "{add-anime.valid.release-date}")
     private String releaseDate;
     private String endDate;
+    @NotNull(message = "{add-anime.valid.nb-episodes}")
     private Integer nbEpisodes;
     private String duration;
     @NotEmpty(message = "{add-anime.valid.type}")
@@ -33,6 +36,7 @@ public class AnimeModel implements Serializable {
     private String publisherVod;
     private String publisherVodUrl;
     @NotEmpty(message = "{add-anime.valid.synopsis}")
+    @Size(min = 1, max = 1000, message = "{add-anime.valid.synopsis-size}")
     private String synopsis;
 
     private UserModel user;
@@ -75,6 +79,14 @@ public class AnimeModel implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getReleaseDate() {

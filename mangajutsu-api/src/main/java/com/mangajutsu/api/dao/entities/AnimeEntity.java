@@ -30,6 +30,8 @@ public class AnimeEntity implements Serializable {
     private String origin;
     @Column(name = "status", nullable = false, length = 25)
     private String status;
+    @Column(name = "rating", nullable = false, columnDefinition = "float default 0")
+    private float rating;
     @Column(name = "release_date", nullable = false, length = 50)
     private String releaseDate;
     @Column(name = "end_date", nullable = true, length = 50)
@@ -107,6 +109,14 @@ public class AnimeEntity implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getReleaseDate() {

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotEmpty;
 
 public class ReviewModel implements Serializable {
     private Integer id;
+    private float rating;
     @NotEmpty(message = "{add-review.validation.content}")
     private String content;
     private Timestamp releaseDate;
@@ -19,6 +20,14 @@ public class ReviewModel implements Serializable {
 
     public Integer getId() {
         return id;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getContent() {
