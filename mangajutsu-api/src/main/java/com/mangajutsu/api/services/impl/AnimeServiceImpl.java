@@ -44,18 +44,7 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public AnimeEntity getAnimeDetails(String title) {
         AnimeEntity anime = animeRepository.findByTitle(title);
-
-        if (!anime.getReviews().isEmpty()) {
-            Collection<Float> ratings = new ArrayList<>(anime.getReviews().size());
-            for (ReviewEntity review : anime.getReviews()) {
-                ratings.add(review.getRating());
-            }
-            float averageRating = (float) ratings.stream().mapToDouble(Float::intValue).sum() / ratings.size();
-            if (averageRating != anime.getRating()) {
-                anime.setRating(averageRating);
-                animeRepository.save(anime);
-            }
-        }
+        SetAnimeRating(anime);
         return anime;
     }
 
@@ -71,12 +60,6 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public boolean checkIfAnimeExist(String title) {
         return animeRepository.findByTitle(title) != null ? true : false;
-    }
-
-    public void addUserToAnime(AnimeEntity anime, String username) {
-        UserEntity user = userService.findByUsername(username);
-        anime.setUser(user);
-        user.getAnimes().add(anime);
     }
 
     @Override
@@ -105,5 +88,31 @@ public class AnimeServiceImpl implements AnimeService {
         editedAnime.setSynopsis(anime.getSynopsis());
 
         animeRepository.save(editedAnime);
+    }
+
+    public void addUserToAnime(AnimeEntity anime, String username) {
+        UserEntity user = userService.findByUsername(username);
+        anime.setUser(user);
+        user.getAnimes().add(anime);
+    }
+
+    public void SetAnimeRating(AnimeEntity anime) {
+        if (!anime.getReviews().isEmpty()) {
+            Collection<Float> ratings = new ArrayList<>(anime.getReviews().size());
+            for (ReviewEntity review : anime.getReviews()) {
+                ratings.add(review.getRating());
+            }
+            float averageRating = (float) ratings.stream().mapToDouble(Float::intValue).sum() / ratings.size();
+            System.err.println("if action");
+            if (averageRating != anime.getRating()) {
+                anime.setRating(averageRating);
+                animeRepository.save(anime);
+                System.err.println("if 2 action");
+            }
+        } else if (anime.getReviews().isEmpty() && anime.getRating() != 0) {
+            System.err.println("else if action");
+            anime.setRating(0);
+            animeRepository.save(anime);
+        }
     }
 }
