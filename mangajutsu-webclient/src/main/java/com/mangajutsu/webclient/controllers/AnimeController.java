@@ -31,7 +31,7 @@ import feign.FeignException;
 public class AnimeController {
 
     @Autowired
-    MangajutsuProxy mangajutsuProxy;
+    private MangajutsuProxy mangajutsuProxy;
 
     @Autowired
     private MessageSource messageSource;
@@ -46,7 +46,6 @@ public class AnimeController {
         }
 
         model.addAttribute("animes", animes);
-
         return "anime/anime_list";
     }
 
@@ -99,7 +98,7 @@ public class AnimeController {
             redirectAttributes.addFlashAttribute("anime", anime);
             return "redirect:/anime/add-anime";
         }
-        redirectAttributes.addFlashAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("add-anime.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("anime", anime);
 
@@ -134,13 +133,12 @@ public class AnimeController {
         try {
             mangajutsuProxy.updateAnime(anime, anime.getTitle());
         } catch (FeignException e) {
-            model.addAttribute("animeError",
-                    messageSource.getMessage("error.edit-anime", null,
-                            LocaleContextHolder.getLocale()));
+            model.addAttribute("error",
+                    messageSource.getMessage("error.edit-anime", null, LocaleContextHolder.getLocale()));
             model.addAttribute("anime", anime);
             return "/anime/update_anime";
         }
-        redirectAttributes.addFlashAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("edit-anime.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("anime", anime);
 

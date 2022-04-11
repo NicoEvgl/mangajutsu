@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +39,8 @@ public class ReviewController {
     }
 
     @PostMapping("{title}/add-review/")
-    public String addReview(@PathVariable String title, @Valid ReviewModel review, BindingResult bindingResult,
-            final Model model, RedirectAttributes redirectAttributes) {
+    public String addReview(@PathVariable String title, @Valid @ModelAttribute("review") ReviewModel review,
+            BindingResult bindingResult, RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("review", review);
             return "review/add_review";
@@ -49,12 +50,12 @@ public class ReviewController {
         try {
             mangajutsuProxy.addReview(review, userInSession.getUsername(), title);
         } catch (FeignException e) {
-            model.addAttribute("reviewError",
+            model.addAttribute("error",
                     messageSource.getMessage("error.add-review", null, LocaleContextHolder.getLocale()));
             model.addAttribute("review", review);
             return "review/add_review";
         }
-        redirectAttributes.addFlashAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("add-review.success.msg", null, LocaleContextHolder.getLocale()));
 
         model.addAttribute("title", title);
@@ -71,7 +72,8 @@ public class ReviewController {
     }
 
     @PostMapping("{title}/update-review/{id}")
-    public String updateReview(@PathVariable Integer id, @Valid ReviewModel review, BindingResult bindingResult,
+    public String updateReview(@PathVariable Integer id, @Valid @ModelAttribute("review") ReviewModel review,
+            BindingResult bindingResult,
             RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("review", review);
@@ -80,12 +82,12 @@ public class ReviewController {
         try {
             mangajutsuProxy.updateReview(review, id);
         } catch (FeignException e) {
-            model.addAttribute("reviewError",
+            model.addAttribute("error",
                     messageSource.getMessage("error.update-review", null, LocaleContextHolder.getLocale()));
             model.addAttribute("review", review);
             return "review/add_review";
         }
-        redirectAttributes.addFlashAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("update-review.success.msg", null, LocaleContextHolder.getLocale()));
 
         model.addAttribute("review", review);
@@ -98,12 +100,12 @@ public class ReviewController {
         try {
             mangajutsuProxy.deleteReview(id);
         } catch (FeignException e) {
-            model.addAttribute("reviewError",
+            model.addAttribute("error",
                     messageSource.getMessage("error.delete-review", null, LocaleContextHolder.getLocale()));
             model.addAttribute("review", mangajutsuProxy.getReviewDetails(id));
             return "review/add_review";
         }
-        redirectAttributes.addFlashAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("delete-review.success.msg", null, LocaleContextHolder.getLocale()));
 
         model.addAttribute("review", mangajutsuProxy.getFileDetails(id));

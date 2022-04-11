@@ -11,19 +11,13 @@
         <div class="container">
           <div class="block-heading">
             <h2 class="text-info" th:text="#{file-list.name}"></h2>
-            <a
-              href="javascript:history.go(-1)"
-              class="btn btn-outline-primary btn-block"
-              th:text="#{view.button.back}"
-            >
-            </a>
           </div>
           <div
             class="alert alert-success"
             role="alert"
-            th:if="${fileMsg != null}"
+            th:if="${success != null}"
           >
-            <p th:text="${fileMsg}"></p>
+            <p th:text="${success}"></p>
           </div>
           <div class="row">
             <div class="col-md-6 col-lg-4" th:each="file : ${files}">

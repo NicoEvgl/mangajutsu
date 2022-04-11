@@ -12,12 +12,8 @@
           <div class="block-heading">
             <h2 class="text-login" th:text="#{form.update-review.name}"></h2>
           </div>
-          <div
-            class="alert alert-danger"
-            role="alert"
-            th:if="${reviewError != null}"
-          >
-            <p th:text="${reviewError}"></p>
+          <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <p th:text="${error}"></p>
           </div>
           <form
             class="form-group"

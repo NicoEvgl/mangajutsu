@@ -15,37 +15,12 @@
           <div
             class="alert alert-success"
             role="alert"
-            th:if="${registrationMsg != null}"
+            th:if="${success != null}"
           >
-            <p th:text="${registrationMsg}"></p>
+            <p th:text="${success}"></p>
           </div>
-          <div
-            class="alert alert-success"
-            role="alert"
-            th:if="${verifiedAccountMsg != null}"
-          >
-            <p th:text="${verifiedAccountMsg}"></p>
-          </div>
-          <div
-            class="alert alert-success"
-            role="alert"
-            th:if="${resetPasswordMsg != null}"
-          >
-            <p th:text="${resetPasswordMsg}"></p>
-          </div>
-          <div
-            class="alert alert-success"
-            role="alert"
-            th:if="${passwordUpdateMsg != null}"
-          >
-            <p th:text="${passwordUpdateMsg}"></p>
-          </div>
-          <div
-            class="alert alert-danger"
-            role="alert"
-            th:if="${tokenError != null}"
-          >
-            <p th:text="${tokenError}"></p>
+          <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <p th:text="${error}"></p>
           </div>
           <div
             class="alert alert-danger"

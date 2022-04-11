@@ -24,8 +24,7 @@ public class UserController {
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", defaultValue = "false") boolean loginError,
             @RequestParam(value = "invalid-session", defaultValue = "false") boolean invalidSession,
-            @ModelAttribute("user") UserModel user,
-            Model model, HttpSession httpSession) {
+            @ModelAttribute("user") UserModel user, final Model model, HttpSession httpSession) {
         String username = getUsername(httpSession);
         if (loginError) {
             if (StringUtils.isNotEmpty(username) && mangajutsuProxy.loginDisabled(username)) {

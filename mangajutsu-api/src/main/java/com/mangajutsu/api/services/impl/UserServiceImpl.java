@@ -28,29 +28,29 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
     @Autowired
     private RoleService roleService;
+
     @Autowired
     private VerifTokenRepository verifTokenRepository;
+
     @Autowired
     private VerifTokenService verifTokenService;
+
     @Autowired
     private EmailService emailService;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Value("${mangajutsu.base.url.http}")
+    private String baseURL;
+
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    private void encodePassword(UserModel source, UserEntity target) {
-        target.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
-    }
-
-    @Value("${mangajutsu.base.url.http}")
-    private String baseURL;
 
     @Override
     public void register(UserModel userModel) throws UserAlreadyExistException {
@@ -119,5 +119,9 @@ public class UserServiceImpl implements UserService {
     public boolean loginDisabled(String username) {
         UserEntity user = userRepository.findByUsername(username);
         return user != null ? user.isLoginDisabled() : false;
+    }
+
+    private void encodePassword(UserModel source, UserEntity target) {
+        target.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
     }
 }

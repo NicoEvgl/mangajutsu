@@ -26,7 +26,7 @@ import feign.FeignException;
 public class RegistrationController {
 
     @Autowired
-    MangajutsuProxy mangajutsuProxy;
+    private MangajutsuProxy mangajutsuProxy;
 
     @Autowired
     private MessageSource messageSource;
@@ -52,7 +52,7 @@ public class RegistrationController {
             model.addAttribute("user", user);
             return "register";
         }
-        model.addAttribute("registrationMsg",
+        model.addAttribute("success",
                 messageSource.getMessage("registration.verification.email.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("user", user);
         return "login";
@@ -62,18 +62,18 @@ public class RegistrationController {
     public String verifyAccount(@RequestParam("token") String token, final Model model,
             RedirectAttributes redirectAttributes) {
         if (StringUtils.isEmpty(token)) {
-            redirectAttributes.addFlashAttribute("tokenError", messageSource
+            redirectAttributes.addFlashAttribute("error", messageSource
                     .getMessage("registration.verification.token.missing", null, LocaleContextHolder.getLocale()));
             return "redirect:/login";
         }
         try {
             mangajutsuProxy.verifyAccount(token);
         } catch (FeignException e) {
-            redirectAttributes.addFlashAttribute("tokenError", messageSource
+            redirectAttributes.addFlashAttribute("error", messageSource
                     .getMessage("registration.verification.token.invalid", null, LocaleContextHolder.getLocale()));
             return "redirect:/login";
         }
-        redirectAttributes.addFlashAttribute("verifiedAccountMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("registration.verification.success", null, LocaleContextHolder.getLocale()));
         return "redirect:/login";
     }

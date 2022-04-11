@@ -20,6 +20,7 @@ public class BruteForceProtectionServiceImpl implements BruteForceProtectionServ
 
     @Value("${mangajutsu.security.failedlogin.count}")
     private int maxFailedLogins;
+
     @Value("${mangajutsu.brute.force.cache.max}")
     private int cacheMaxLimit;
 

@@ -27,7 +27,7 @@ import feign.FeignException;
 public class FileController {
 
     @Autowired
-    MangajutsuProxy mangajutsuProxy;
+    private MangajutsuProxy mangajutsuProxy;
 
     @Autowired
     private MessageSource messageSource;
@@ -55,12 +55,12 @@ public class FileController {
         try {
             mangajutsuProxy.uploadFile(file, title);
         } catch (FeignException e) {
-            model.addAttribute("fileError",
+            model.addAttribute("error",
                     messageSource.getMessage("error.upload-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", file);
             return "file/upload_file";
         }
-        redirectAttributes.addFlashAttribute("animeMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("upload-file.success.msg", null, LocaleContextHolder.getLocale()));
 
         model.addAttribute("title", title);
@@ -96,12 +96,12 @@ public class FileController {
         try {
             mangajutsuProxy.updateFile(file, id);
         } catch (FeignException e) {
-            model.addAttribute("fileError",
+            model.addAttribute("error",
                     messageSource.getMessage("error.update-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", file);
             return "file/update_file";
         }
-        redirectAttributes.addFlashAttribute("fileMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("update-file.success.msg", null, LocaleContextHolder.getLocale()));
 
         model.addAttribute("file", file);
@@ -114,12 +114,12 @@ public class FileController {
         try {
             mangajutsuProxy.deleteFile(id);
         } catch (FeignException e) {
-            model.addAttribute("fileError",
+            model.addAttribute("error",
                     messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
             return "file/upload_file";
         }
-        redirectAttributes.addFlashAttribute("fileMsg",
+        redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("delete-file.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
 

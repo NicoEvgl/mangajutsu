@@ -137,6 +137,22 @@ public class UserModel implements Serializable {
         this.loginDisabled = loginDisabled;
     }
 
+    public Set<AnimeModel> getAnimes() {
+        return animes;
+    }
+
+    public void setAnimes(Set<AnimeModel> animes) {
+        this.animes = animes;
+    }
+
+    public List<ReviewModel> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<ReviewModel> reviews) {
+        this.reviews = reviews;
+    }
+
     // to String() //
 
     @Override
@@ -146,6 +162,8 @@ public class UserModel implements Serializable {
                 + ", lastName=" + lastName + ", loginDisabled=" + loginDisabled + ", password=" + password
                 + ", userRoles=" + userRoles + ", username=" + username + "]";
     }
+
+    // hashCode(), equals() //
 
     @Override
     public int hashCode() {
@@ -176,21 +194,5 @@ public class UserModel implements Serializable {
         } else if (!username.equals(other.username))
             return false;
         return true;
-    }
-
-    public Set<AnimeModel> getAnimes() {
-        return animes;
-    }
-
-    public void setAnimes(Set<AnimeModel> animes) {
-        this.animes = animes;
-    }
-
-    public List<ReviewModel> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<ReviewModel> reviews) {
-        this.reviews = reviews;
     }
 }

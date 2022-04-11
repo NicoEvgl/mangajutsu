@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "mangajutsu-api", url = "localhost:9090")
 public interface MangajutsuProxy {
 
+    // User //
+
     @GetMapping("/find-user/{username}")
     UserModel findUserByUsername(@PathVariable("username") String username);
 
@@ -45,6 +47,8 @@ public interface MangajutsuProxy {
     @PostMapping("/password/change")
     void changePassword(@RequestParam("password") String password, @RequestParam("token") String token);
 
+    // Anime //
+
     @GetMapping("/anime/anime-list")
     List<AnimeModel> getAnimeList();
 
@@ -66,6 +70,8 @@ public interface MangajutsuProxy {
     @GetMapping("/enum/genres")
     List<String> getGenres();
 
+    // File //
+
     @GetMapping("/enum/file-types")
     List<String> getFileTypes();
 
@@ -83,6 +89,8 @@ public interface MangajutsuProxy {
 
     @DeleteMapping("/file/delete-file/{id}")
     void deleteFile(@PathVariable Integer id);
+
+    // Review //
 
     @PostMapping("/review/{title}/add-review")
     void addReview(@RequestBody ReviewModel review, @RequestParam("username") String username,

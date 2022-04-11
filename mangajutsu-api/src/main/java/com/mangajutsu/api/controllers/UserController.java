@@ -15,14 +15,19 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserController {
+
     @Autowired
     UserService userService;
+
     @Autowired
     VerifTokenService verifTokenService;
+
     @Autowired
     BruteForceProtectionService bruteForceProtectionService;
+
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     VerifTokenRepository verifTokenRepository;
 

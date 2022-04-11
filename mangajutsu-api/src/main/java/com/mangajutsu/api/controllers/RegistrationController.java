@@ -24,10 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/register", method = { RequestMethod.GET, RequestMethod.POST })
 public class RegistrationController {
+
     @Autowired
     UserService userService;
+
     @Autowired
     UserRepository userRepository;
+
     @Autowired
     VerifTokenService verifTokenService;
 
