@@ -242,13 +242,17 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input
-                type="text"
-                class="form-control item"
+              <textarea
+                class="form-control"
+                name="synopsis"
+                id="editor"
+                th:name="synopsis"
                 th:field="*{synopsis}"
+                rows="5"
+                th:value="${anime.synopsis}"
                 th:placeholder="#{form.anime.synopsis} + ' (max: 1000 caractères) : '"
                 th:errorclass="is-invalid"
-              />
+              ></textarea>
             </div>
             <button
               type="submit"
