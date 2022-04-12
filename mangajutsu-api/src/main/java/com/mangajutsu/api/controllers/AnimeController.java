@@ -8,6 +8,7 @@ import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.AnimeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,5 +44,10 @@ public class AnimeController {
     public void updateAnime(@RequestBody AnimeEntity anime, @PathVariable String title)
             throws ResourceNotFoundException {
         animeService.updateAnime(anime, title);
+    }
+
+    @DeleteMapping("/delete-anime/{title}")
+    public void deleteAnime(@PathVariable String title) {
+        animeService.deleteAnime(title);
     }
 }

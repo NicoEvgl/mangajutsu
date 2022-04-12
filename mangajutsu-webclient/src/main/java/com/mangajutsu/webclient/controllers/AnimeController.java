@@ -144,4 +144,21 @@ public class AnimeController {
 
         return "redirect:/anime/anime-details/{title}";
     }
+
+    @GetMapping("/delete-anime/{title}")
+    public String deleteAnime(@PathVariable String title, RedirectAttributes redirectAttributes, final Model model) {
+        try {
+            mangajutsuProxy.deleteAnime(title);
+        } catch (FeignException e) {
+            redirectAttributes.addFlashAttribute("error",
+                    messageSource.getMessage("error.delete-anime", null, LocaleContextHolder.getLocale()));
+            redirectAttributes.addFlashAttribute("anime", mangajutsuProxy.getAnimeDetails(title));
+            return "redirect:/anime/anime-details/{title}";
+        }
+        redirectAttributes.addFlashAttribute("success",
+                messageSource.getMessage("delete-anime.success.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("anime", mangajutsuProxy.getAnimeDetails(title));
+
+        return "redirect:/anime/anime-list";
+    }
 }

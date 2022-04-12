@@ -121,7 +121,7 @@ public class FileController {
             model.addAttribute("error",
                     messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
-            return "file/upload_file";
+            return "file/file_list";
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("delete-file.success.msg", null, LocaleContextHolder.getLocale()));

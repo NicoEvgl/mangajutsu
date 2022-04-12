@@ -13,6 +13,7 @@ import com.mangajutsu.api.exceptions.AnimeAlreadyExistException;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.AnimeService;
 import com.mangajutsu.api.services.FileService;
+import com.mangajutsu.api.services.ReviewService;
 import com.mangajutsu.api.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class AnimeServiceImpl implements AnimeService {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private ReviewService reviewService;
+
     @Override
     public List<AnimeEntity> getAnimeList() {
         List<AnimeEntity> animes = animeRepository.findAll(Sort.by(Sort.Direction.ASC, "title"));
@@ -44,7 +48,9 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public AnimeEntity getAnimeDetails(String title) {
         AnimeEntity anime = animeRepository.findByTitle(title);
-        SetAnimeRating(anime);
+        if (anime != null) {
+            SetAnimeRating(anime);
+        }
         return anime;
     }
 
@@ -111,5 +117,19 @@ public class AnimeServiceImpl implements AnimeService {
             anime.setRating(0);
             animeRepository.save(anime);
         }
+    }
+
+    @Override
+    public void deleteAnime(String title) {
+        AnimeEntity anime = animeRepository.findByTitle(title);
+        if (!anime.getReviews().isEmpty()) {
+            for (ReviewEntity review : anime.getReviews()) {
+                reviewService.deleteReview(review.getId());
+            }
+        }
+        for (FileEntity file : anime.getFiles()) {
+            fileService.deleteFile(file.getId());
+        }
+        animeRepository.delete(anime);
     }
 }

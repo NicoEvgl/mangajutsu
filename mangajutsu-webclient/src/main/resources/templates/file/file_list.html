@@ -12,6 +12,9 @@
           <div class="block-heading">
             <h2 class="text-info" th:text="#{file-list.name}"></h2>
           </div>
+          <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <p th:text="${error}"></p>
+          </div>
           <div
             class="alert alert-success"
             role="alert"

@@ -20,4 +20,6 @@ public interface AnimeService {
     boolean checkIfAnimeExist(String title);
 
     void updateAnime(AnimeEntity anime, String title) throws ResourceNotFoundException;
+
+    void deleteAnime(String title);
 }

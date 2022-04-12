@@ -61,6 +61,9 @@ public interface MangajutsuProxy {
     @PostMapping("/anime/update-anime/{title}")
     void updateAnime(@RequestBody AnimeModel anime, @PathVariable String title);
 
+    @DeleteMapping("/anime/delete-anime/{title}")
+    void deleteAnime(@PathVariable String title);
+
     @GetMapping("/enum/types")
     List<String> getTypes();
 
