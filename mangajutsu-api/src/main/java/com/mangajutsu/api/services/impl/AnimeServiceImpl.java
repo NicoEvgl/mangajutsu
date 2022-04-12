@@ -103,14 +103,11 @@ public class AnimeServiceImpl implements AnimeService {
                 ratings.add(review.getRating());
             }
             float averageRating = (float) ratings.stream().mapToDouble(Float::intValue).sum() / ratings.size();
-            System.err.println("if action");
             if (averageRating != anime.getRating()) {
                 anime.setRating(averageRating);
                 animeRepository.save(anime);
-                System.err.println("if 2 action");
             }
         } else if (anime.getReviews().isEmpty() && anime.getRating() != 0) {
-            System.err.println("else if action");
             anime.setRating(0);
             animeRepository.save(anime);
         }
