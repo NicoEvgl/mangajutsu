@@ -4,11 +4,13 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class ReviewModel implements Serializable {
     private Integer id;
     private float rating;
     @NotEmpty(message = "{add-review.validation.content}")
+    @Size(min = 1, max = 3000, message = "{add-review.validation.content-size}")
     private String content;
     private Timestamp releaseDate;
     private Timestamp updateDate;
