@@ -1,5 +1,7 @@
 package com.mangajutsu.api.services.impl;
 
+import java.util.List;
+
 import javax.mail.MessagingException;
 
 import com.mangajutsu.api.dao.entities.UserEntity;
@@ -18,6 +20,7 @@ import com.mangajutsu.api.services.VerifTokenService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -88,6 +91,12 @@ public class UserServiceImpl implements UserService {
     public UserEntity getUserDetails(Integer id) {
         UserEntity user = userRepository.findById(id).orElse(null);
         return user;
+    }
+
+    @Override
+    public List<UserEntity> getUserList() {
+        List<UserEntity> users = userRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return users;
     }
 
     @Override

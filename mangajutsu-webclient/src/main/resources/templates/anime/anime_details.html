@@ -309,7 +309,7 @@
                       <div class="review-item">
                         <div
                           class="align-items-sm-start"
-                          sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
+                          th:if="${#authentication.name == review.user.username or #authorization.expression('hasAnyAuthority(''ADMIN_ROLE'')')}"
                         >
                           <a
                             class="btn btn-sm btn-outline-primary"

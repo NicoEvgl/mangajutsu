@@ -118,4 +118,8 @@ public interface MangajutsuProxy {
 
     @DeleteMapping("/review/delete-review/{id}")
     void deleteReview(@PathVariable Integer id);
+
+    // Admin //
+    @GetMapping("/admin/user-list")
+    List<UserModel> getUserList();
 }

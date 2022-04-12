@@ -1,5 +1,7 @@
 package com.mangajutsu.api.services;
 
+import java.util.List;
+
 import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.exceptions.UnknownIdentifierException;
 import com.mangajutsu.api.exceptions.UserAlreadyExistException;
@@ -16,6 +18,8 @@ public interface UserService {
     UserEntity findByUsername(String username);
 
     UserEntity getUserDetails(Integer id);
+
+    List<UserEntity> getUserList();
 
     void sendAccountVerifEmail(UserEntity user);
 

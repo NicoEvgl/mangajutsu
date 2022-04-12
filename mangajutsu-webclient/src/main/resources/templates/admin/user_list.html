@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page userList-page">
+      <section class="clean-block clean-services dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="#{user-list.name}"></h2>
+          </div>
+          <div class="row">
+            <div class="card shadow mb-3">
+              <div class="card-header py-3">
+                <a
+                  href="javascript:history.go(-1)"
+                  class="btn btn-outline-primary btn-block"
+                  th:text="#{view.button.back}"
+                ></a>
+              </div>
+              <div class="card-body">
+                <table class="table text-justify my-0">
+                  <thead>
+                    <tr>
+                      <th th:text="#{form.input.username}"></th>
+                      <th th:text="#{form.input.email}"></th>
+                      <th th:text="#{form.input.firstName}"></th>
+                      <th th:text="#{form.input.lastName}"></th>
+                      <th th:text="#{form.input.role}"></th>
+                    </tr>
+                  </thead>
+                  <tbody th:each="user : ${users}">
+                    <tr>
+                      <td th:text="${user.username}"></td>
+                      <td th:text="${user.email}"></td>
+                      <td th:text="${user.firstName}"></td>
+                      <td th:text="${user.lastName}"></td>
+                      <td
+                        th:each="role : ${user.userRoles}"
+                        th:text="${role.code.toUpperCase()}"
+                      ></td>
+                      <td>
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/admin/changeRole/' + ${user.id} + '/'}"
+                          th:text="#{change-role.name}"
+                        ></a>
+                      </td>
+                      <td>
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/admin/lock-account/' + ${user.id} + '/'}"
+                          th:text="#{lock-account.name}"
+                        ></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>
