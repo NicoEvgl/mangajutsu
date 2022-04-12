@@ -8,8 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
+import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.ForgotPasswordModel;
 import com.mangajutsu.webclient.models.UserModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
@@ -40,12 +43,18 @@ public class UserController {
         return "login";
     }
 
-    @GetMapping("/personal-space")
+    @GetMapping("/personal-space/{username}")
     public String personalSpace(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserPrincipal loggedInUser = (UserPrincipal) authentication.getPrincipal();
+        UserPrincipal userInSession = (UserPrincipal) authentication.getPrincipal();
 
-        model.addAttribute("loggedInUser", loggedInUser);
+        List<AnimeModel> animes = mangajutsuProxy.getUserAnimes(userInSession.getUsername());
+        for (AnimeModel anime : animes) {
+            anime.setFiles(mangajutsuProxy.getAnimeFiles(anime.getTitle()));
+        }
+
+        model.addAttribute("animes", animes);
+        model.addAttribute("userInSession", userInSession);
         return "user/personal_space";
     }
 

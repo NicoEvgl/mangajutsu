@@ -15,6 +15,8 @@ public interface AnimeService {
 
     AnimeEntity getAnimeDetails(String title);
 
+    List<AnimeEntity> getUserAnimes(String username);
+
     void addAnime(AnimeEntity anime, String username) throws AnimeAlreadyExistException;
 
     boolean checkIfAnimeExist(String title);

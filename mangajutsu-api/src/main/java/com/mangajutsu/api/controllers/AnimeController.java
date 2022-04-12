@@ -35,6 +35,12 @@ public class AnimeController {
         return anime;
     }
 
+    @GetMapping("/user-animes/{username}")
+    public List<AnimeEntity> getUserAnimes(@PathVariable String username) {
+        List<AnimeEntity> animes = animeService.getUserAnimes(username);
+        return animes;
+    }
+
     @PostMapping("/add-anime")
     public void addAnime(@RequestBody AnimeEntity anime, String username) throws AnimeAlreadyExistException {
         animeService.addAnime(anime, username);

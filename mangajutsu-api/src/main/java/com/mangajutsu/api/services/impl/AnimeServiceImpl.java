@@ -55,6 +55,13 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
+    public List<AnimeEntity> getUserAnimes(String username) {
+        List<AnimeEntity> animes = animeRepository.findAllByUser_Username(username,
+                Sort.by(Sort.Direction.ASC, "title"));
+        return animes;
+    }
+
+    @Override
     public void addAnime(AnimeEntity anime, String username) throws AnimeAlreadyExistException {
         if (checkIfAnimeExist(anime.getTitle())) {
             throw new AnimeAlreadyExistException("Anime already exist");

@@ -56,7 +56,7 @@
               <li class="nav-item">
                 <a
                   class="nav-link"
-                  th:href="@{/personal-space}"
+                  th:href="@{'/personal-space/' + ${#authentication.name} + '/'}"
                   sec:authentication="name"
                 ></a>
               </li>

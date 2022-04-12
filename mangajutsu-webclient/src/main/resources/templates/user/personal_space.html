@@ -15,6 +15,19 @@
           <div class="row">
             <div class="col">
               <div class="card shadow mb-3">
+                <div class="card-header py-3">
+                  <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE')"
+                    class="btn btn-outline-secondary btn-block"
+                    th:href="@{/user-list}"
+                    th:text="#{user-list.name}"
+                  ></a>
+                  <a
+                    class="btn btn-outline-primary btn-block"
+                    th:href="@{'/update-user/' + ${userInSession.username} + '/'}"
+                    th:text="#{update-user.name}"
+                  ></a>
+                </div>
                 <div class="card-body">
                   <table class="table text-center my-0">
                     <thead>
@@ -24,21 +37,82 @@
                         <th th:text="#{form.input.username}"></th>
                         <th th:text="#{form.input.email}"></th>
                         <th th:text="#{form.input.role}"></th>
+                        <th>Password</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td th:text="${loggedInUser.user.firstName}"></td>
-                        <td th:text="${loggedInUser.user.lastName}"></td>
-                        <td th:text="${loggedInUser.user.username}"></td>
-                        <td th:text="${loggedInUser.user.email}"></td>
+                        <td th:text="${userInSession.user.firstName}"></td>
+                        <td th:text="${userInSession.user.lastName}"></td>
+                        <td th:text="${userInSession.user.username}"></td>
+                        <td th:text="${userInSession.user.email}"></td>
                         <td
-                          th:each="role : ${loggedInUser.user.userRoles}"
+                          th:each="role : ${userInSession.user.userRoles}"
                           th:text="${role.code.toUpperCase()}"
                         ></td>
+                        <td>
+                          <a
+                            class="btn btn-outline-secondary btn-sm"
+                            th:href="@{/password/reset}"
+                            th:text="#{form.reset-password.name}"
+                          ></a>
+                        </td>
                       </tr>
                     </tbody>
                   </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="clean-block clean-services dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2
+              class="text-info"
+              th:text="#{personal-space.my-anime.list.name}"
+            ></h2>
+            <a
+              class="btn btn-outline-primary btn-block"
+              th:href="@{/anime/add-anime}"
+              th:text="#{form.add-anime.name}"
+            ></a>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4" th:each="anime : ${animes}">
+              <div class="card">
+                <div class="card-body">
+                  <img
+                    th:if="${#lists.isEmpty(anime.files)}"
+                    th:src="@{/img/no_found.png}"
+                    alt="no image found"
+                    style="width: 120px; height: auto"
+                  />
+                  <img
+                    th:if="${not #lists.isEmpty(anime.files)}"
+                    th:src="${anime.files.get(0).url}"
+                    alt="${anime.files.get(0).fileName}"
+                    style="width: 120px; height: auto"
+                  />
+                  <h4 class="card-title" th:text="${anime.title}"></h4>
+                </div>
+                <div class="card-footer">
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    th:href="@{'/anime/anime-details/' + ${anime.title} + '/'}"
+                    th:text="#{view.button.watch}"
+                  ></a>
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    th:href="@{'/anime/update-anime/' + ${anime.title} + '/'}"
+                    th:text="#{form.edit-anime.name}"
+                  ></a>
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    th:href="@{'/anime/delete-anime/' + ${anime.title} + '/'}"
+                    th:text="#{delete-anime.name}"
+                  ></a>
                 </div>
               </div>
             </div>

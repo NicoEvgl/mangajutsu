@@ -55,6 +55,9 @@ public interface MangajutsuProxy {
     @GetMapping("/anime/anime-details/{title}")
     AnimeModel getAnimeDetails(@PathVariable String title);
 
+    @GetMapping("/anime/user-animes/{username}")
+    List<AnimeModel> getUserAnimes(@PathVariable String username);
+
     @PostMapping("/anime/add-anime")
     void addAnime(@RequestBody AnimeModel anime, @RequestParam("username") String username);
 
