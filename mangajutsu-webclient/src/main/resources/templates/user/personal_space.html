@@ -12,6 +12,13 @@
           <div class="block-heading">
             <h2 class="text-info" th:text="#{personalSpace.name}"></h2>
           </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${success != null}"
+          >
+            <p th:text="${success}"></p>
+          </div>
           <div class="row">
             <div class="col">
               <div class="card shadow mb-3">
@@ -24,7 +31,7 @@
                   ></a>
                   <a
                     class="btn btn-outline-primary btn-block"
-                    th:href="@{'/update-user/' + ${userInSession.username} + '/'}"
+                    th:href="@{'/update-user/' + ${userInSession.user.id} + '/'}"
                     th:text="#{update-user.name}"
                   ></a>
                 </div>

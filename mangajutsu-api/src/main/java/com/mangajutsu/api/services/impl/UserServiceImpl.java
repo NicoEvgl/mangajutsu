@@ -8,6 +8,7 @@ import com.mangajutsu.api.dao.repositories.UserRepository;
 import com.mangajutsu.api.dao.repositories.VerifTokenRepository;
 import com.mangajutsu.api.emails.AccountVerifEmailContext;
 import com.mangajutsu.api.emails.ForgotPasswordEmailContext;
+import com.mangajutsu.api.exceptions.UnknownIdentifierException;
 import com.mangajutsu.api.exceptions.UserAlreadyExistException;
 import com.mangajutsu.api.models.UserModel;
 import com.mangajutsu.api.services.EmailService;
@@ -84,6 +85,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity getUserDetails(Integer id) {
+        UserEntity user = userRepository.findById(id).orElse(null);
+        return user;
+    }
+
+    @Override
     public void sendAccountVerifEmail(UserEntity user) {
         VerifTokenEntity verifToken = verifTokenService.createVerifToken();
         verifToken.setUser(user);
@@ -119,6 +126,18 @@ public class UserServiceImpl implements UserService {
     public boolean loginDisabled(String username) {
         UserEntity user = userRepository.findByUsername(username);
         return user != null ? user.isLoginDisabled() : false;
+    }
+
+    @Override
+    public void updateUser(UserEntity user, Integer id) throws UnknownIdentifierException {
+        UserEntity editedUser = userRepository.getById(id);
+        if (editedUser == null) {
+            throw new UnknownIdentifierException("Unknown user with id : " + id);
+        }
+        editedUser.setFirstName(user.getFirstName());
+        editedUser.setLastName(user.getLastName());
+
+        userRepository.save(editedUser);
     }
 
     private void encodePassword(UserModel source, UserEntity target) {

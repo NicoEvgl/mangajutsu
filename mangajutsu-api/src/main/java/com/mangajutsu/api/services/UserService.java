@@ -1,6 +1,7 @@
 package com.mangajutsu.api.services;
 
 import com.mangajutsu.api.dao.entities.UserEntity;
+import com.mangajutsu.api.exceptions.UnknownIdentifierException;
 import com.mangajutsu.api.exceptions.UserAlreadyExistException;
 import com.mangajutsu.api.models.UserModel;
 
@@ -14,9 +15,13 @@ public interface UserService {
 
     UserEntity findByUsername(String username);
 
+    UserEntity getUserDetails(Integer id);
+
     void sendAccountVerifEmail(UserEntity user);
 
     void sendResetPasswordEmail(UserEntity user);
 
     boolean loginDisabled(String username);
+
+    void updateUser(UserEntity user, Integer id) throws UnknownIdentifierException;
 }

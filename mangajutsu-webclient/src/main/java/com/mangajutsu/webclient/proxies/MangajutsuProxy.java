@@ -6,7 +6,6 @@ import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.FileModel;
 import com.mangajutsu.webclient.models.ReviewModel;
 import com.mangajutsu.webclient.models.UserModel;
-
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +21,9 @@ public interface MangajutsuProxy {
 
     @GetMapping("/find-user/{username}")
     UserModel findUserByUsername(@PathVariable("username") String username);
+
+    @GetMapping("/user-details/{id}")
+    UserModel getUserDetails(@PathVariable Integer id);
 
     @PostMapping("/register")
     void userRegistration(@RequestBody UserModel user);
@@ -46,6 +48,9 @@ public interface MangajutsuProxy {
 
     @PostMapping("/password/change")
     void changePassword(@RequestParam("password") String password, @RequestParam("token") String token);
+
+    @PostMapping("/update-user/{id}")
+    void updateUser(@RequestBody UserModel user, @PathVariable Integer id);
 
     // Anime //
 

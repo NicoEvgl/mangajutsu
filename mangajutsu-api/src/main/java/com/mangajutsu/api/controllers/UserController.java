@@ -6,6 +6,7 @@ import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.entities.VerifTokenEntity;
 import com.mangajutsu.api.dao.repositories.UserRepository;
 import com.mangajutsu.api.dao.repositories.VerifTokenRepository;
+import com.mangajutsu.api.exceptions.UnknownIdentifierException;
 import com.mangajutsu.api.services.BruteForceProtectionService;
 import com.mangajutsu.api.services.UserService;
 import com.mangajutsu.api.services.VerifTokenService;
@@ -34,6 +35,11 @@ public class UserController {
     @GetMapping("/find-user/{username}")
     public UserEntity findUserByUsername(@PathVariable String username) {
         return userService.findByUsername(username);
+    }
+
+    @GetMapping("/user-details/{id}")
+    public UserEntity getUserDetails(@PathVariable Integer id) {
+        return userService.getUserDetails(id);
     }
 
     @DeleteMapping("/delete-unverified-account")
@@ -65,5 +71,10 @@ public class UserController {
     @GetMapping("/login-disabled/{username}")
     public boolean loginDisabled(@PathVariable String username) {
         return userService.loginDisabled(username);
+    }
+
+    @PostMapping("/update-user/{id}")
+    public void updateUser(@RequestBody UserEntity user, @PathVariable Integer id) throws UnknownIdentifierException {
+        userService.updateUser(user, id);
     }
 }

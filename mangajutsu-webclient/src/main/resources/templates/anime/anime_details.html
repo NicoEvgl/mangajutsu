@@ -326,7 +326,7 @@
                         </div>
                         <span class="text-muted">
                           <a
-                            th:href="@{'/user-profile' + ${review.user.username}}"
+                            th:href="@{'/user-profile/' + ${review.user.id}}"
                             th:text="${review.user.username}"
                           ></a
                           >,

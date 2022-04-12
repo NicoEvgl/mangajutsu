@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page updateUser-page">
+      <div class="container">
+        <div class="block-heading">
+          <h2 class="text-login" th:text="#{form.update-user.name}"></h2>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${error != null}">
+          <p th:text="${error}"></p>
+        </div>
+        <form
+          class="form-group"
+          th:action="@{'/update-user/' + ${userInSession.user.id} + '/'}"
+          th:object="${userInSession}"
+          method="post"
+        >
+          <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+            <ul>
+              <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+            </ul>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              th:field="*{username}"
+              id="inlineFormInputGroupUsername"
+              th:placeholder="#{form.input.username}"
+              th:errorclass="is-invalid"
+              readonly="true"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="icon-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="email"
+              class="form-control"
+              th:field="*{user.email}"
+              id="inputEmail14"
+              th:placeholder="#{form.input.email}"
+              th:errorclass="is-invalid"
+              readonly="true"
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="icon-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{user.lastName}"
+                  th:placeholder="#{form.input.lastName}"
+                  th:errorclass="is-invalid"
+                />
+              </div>
+            </div>
+            <div class="col">
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  th:field="*{user.firstName}"
+                  th:placeholder="#{form.input.firstName}"
+                  th:errorclass="is-invalid"
+                />
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="icon-people"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            th:text="#{form.update-user.name}"
+          ></button>
+        </form>
+      </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

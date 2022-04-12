@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page userProfile-page">
+      <section class="clean-block clean-services dark">
+        <div class="container">
+          <div class="block-heading">
+            <h4
+              class="text-info"
+              th:text="'Profil de ' + ${user.username}"
+            ></h4>
+          </div>
+          <div class="row">
+            <div class="col">
+              <div class="card shadow mb-3">
+                <div class="card-header py-3">
+                  <a
+                    href="javascript:history.go(-1)"
+                    class="btn btn-outline-primary btn-block"
+                    th:text="#{view.button.back}"
+                  ></a>
+                </div>
+                <div class="card-body">
+                  <table class="table text-center my-0">
+                    <thead>
+                      <tr>
+                        <th th:text="#{form.input.username}"></th>
+                        <th th:text="#{form.input.email}"></th>
+                        <th th:text="#{form.input.role}"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td th:text="${user.username}"></td>
+                        <td th:text="${user.email}"></td>
+                        <td
+                          th:each="role : ${user.userRoles}"
+                          th:text="${role.code.toUpperCase()}"
+                        ></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

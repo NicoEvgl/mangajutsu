@@ -20,9 +20,9 @@ public class UserEntity implements Serializable {
     private String firstName;
     @Column(name = "last_name", nullable = false, length = 50)
     private String lastName;
-    @Column(name = "username", unique = true, nullable = false, length = 50)
+    @Column(name = "username", unique = true, nullable = false, length = 50, updatable = false)
     private String username;
-    @Column(name = "email", unique = true, nullable = false, length = 50)
+    @Column(name = "email", unique = true, nullable = false, length = 50, updatable = false)
     private String email;
     @Column(name = "password", nullable = false)
     private String password;
