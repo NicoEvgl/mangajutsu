@@ -153,6 +153,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addRole(RoleEntity role, Integer id) {
         UserEntity user = userRepository.getById(id);
+        if (!user.getUserRoles().isEmpty()) {
+            user.getUserRoles().removeAll(user.getUserRoles());
+        }
         user.getUserRoles().add(role);
         userRepository.save(user);
     }
