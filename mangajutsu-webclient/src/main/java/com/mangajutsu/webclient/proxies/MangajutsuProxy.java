@@ -5,6 +5,7 @@ import java.util.List;
 import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.FileModel;
 import com.mangajutsu.webclient.models.ReviewModel;
+import com.mangajutsu.webclient.models.RoleModel;
 import com.mangajutsu.webclient.models.UserModel;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -122,4 +123,13 @@ public interface MangajutsuProxy {
     // Admin //
     @GetMapping("/admin/user-list")
     List<UserModel> getUserList();
+
+    @GetMapping("admin/roles")
+    List<RoleModel> getRoles();
+
+    @GetMapping("admin/role-details/{nameRole}")
+    RoleModel getRoleDetails(@PathVariable String nameRole);
+
+    @PostMapping("/admin/{id}/add-role")
+    void addRoleToUser(@RequestBody RoleModel role, @PathVariable Integer id);
 }

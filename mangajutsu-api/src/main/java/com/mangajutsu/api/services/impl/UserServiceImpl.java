@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.mail.MessagingException;
 
+import com.mangajutsu.api.dao.entities.RoleEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.entities.VerifTokenEntity;
 import com.mangajutsu.api.dao.repositories.UserRepository;
@@ -147,6 +148,13 @@ public class UserServiceImpl implements UserService {
         editedUser.setLastName(user.getLastName());
 
         userRepository.save(editedUser);
+    }
+
+    @Override
+    public void addRole(RoleEntity role, Integer id) {
+        UserEntity user = userRepository.getById(id);
+        user.getUserRoles().add(role);
+        userRepository.save(user);
     }
 
     private void encodePassword(UserModel source, UserEntity target) {

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page assignRole-page">
+      <div class="container">
+        <div class="block-heading">
+          <h4 class="text-login" th:text="#{form.assign-role.name}"></h4>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            onclick="javascript:history.go(-1)"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="alert alert-danger" role="alert" th:if="${error != null}">
+          <p th:text="${error}"></p>
+        </div>
+        <form
+          class="form-group"
+          th:action="@{'/admin/' + ${id} + '/add-role' + '/'}"
+          th:object="${role}"
+          method="post"
+        >
+          <div class="input-group mb-3">
+            <select class="form-control" th:field="*{nameRole}">
+              <option
+                th:each="role : ${roles}"
+                th:value="${role.nameRole}"
+                th:text="${role.nameRole}"
+              ></option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            th:text="#{form.assign-role.name}"
+          ></button>
+        </form>
+      </div>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

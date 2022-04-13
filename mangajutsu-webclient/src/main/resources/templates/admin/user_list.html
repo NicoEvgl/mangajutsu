@@ -45,8 +45,8 @@
                       <td>
                         <a
                           class="btn btn-outline-secondary btn-sm"
-                          th:href="@{'/admin/changeRole/' + ${user.id} + '/'}"
-                          th:text="#{change-role.name}"
+                          th:href="@{'/admin/' + ${user.id} + '/add-role' + '/'}"
+                          th:text="#{form.assign-role.name}"
                         ></a>
                       </td>
                       <td>

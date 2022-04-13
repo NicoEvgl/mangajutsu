@@ -7,12 +7,6 @@ public class RoleModel implements Serializable {
     private String code;
     private String nameRole;
 
-    public RoleModel(Integer id, String code, String nameRole) {
-        this.id = id;
-        this.code = code;
-        this.nameRole = nameRole;
-    }
-
     // Getters & Setters //
 
     public Integer getId() {
