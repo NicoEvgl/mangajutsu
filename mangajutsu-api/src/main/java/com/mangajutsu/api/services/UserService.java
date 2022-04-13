@@ -31,4 +31,8 @@ public interface UserService {
     void updateUser(UserEntity user, Integer id) throws UnknownIdentifierException;
 
     void addRole(RoleEntity role, Integer id);
+
+    void accountLocked(Integer id);
+
+    void accountNonLocked(Integer id);
 }

@@ -132,4 +132,10 @@ public interface MangajutsuProxy {
 
     @PostMapping("/admin/{id}/add-role")
     void addRoleToUser(@RequestBody RoleModel role, @PathVariable Integer id);
+
+    @PostMapping("/admin/account-locked/{id}")
+    void accountLocked(@PathVariable Integer id);
+
+    @PostMapping("/admin/account-non-locked/{id}")
+    void accountNonLocked(@PathVariable Integer id);
 }

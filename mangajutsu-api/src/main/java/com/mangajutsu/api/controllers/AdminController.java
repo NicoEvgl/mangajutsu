@@ -47,4 +47,14 @@ public class AdminController {
     private void addRoleToUser(@RequestBody RoleEntity role, @PathVariable Integer id) {
         userService.addRole(role, id);
     }
+
+    @PostMapping("/account-locked/{id}")
+    private void accountLocked(@PathVariable Integer id) {
+        userService.accountLocked(id);
+    }
+
+    @PostMapping("/account-non-locked/{id}")
+    private void accountNonLocked(@PathVariable Integer id) {
+        userService.accountNonLocked(id);
+    }
 }

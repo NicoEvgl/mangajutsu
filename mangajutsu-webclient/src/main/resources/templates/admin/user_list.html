@@ -12,15 +12,15 @@
           <div class="block-heading">
             <h2 class="text-info" th:text="#{user-list.name}"></h2>
           </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${success != null}"
+          >
+            <p th:text="${success}"></p>
+          </div>
           <div class="row">
             <div class="card shadow mb-3">
-              <div class="card-header py-3">
-                <a
-                  href="javascript:history.go(-1)"
-                  class="btn btn-outline-primary btn-block"
-                  th:text="#{view.button.back}"
-                ></a>
-              </div>
               <div class="card-body">
                 <table class="table text-justify my-0">
                   <thead>
@@ -30,6 +30,7 @@
                       <th th:text="#{form.input.firstName}"></th>
                       <th th:text="#{form.input.lastName}"></th>
                       <th th:text="#{form.input.role}"></th>
+                      <th th:text="#{form.user.loginDisabled}"></th>
                     </tr>
                   </thead>
                   <tbody th:each="user : ${users}">
@@ -42,6 +43,7 @@
                         th:each="role : ${user.userRoles}"
                         th:text="${role.code.toUpperCase()}"
                       ></td>
+                      <td th:text="${user.loginDisabled}"></td>
                       <td>
                         <a
                           class="btn btn-outline-secondary btn-sm"
@@ -49,11 +51,18 @@
                           th:text="#{form.assign-role.name}"
                         ></a>
                       </td>
-                      <td>
+                      <td th:if="${!user.loginDisabled}">
                         <a
                           class="btn btn-outline-secondary btn-sm"
-                          th:href="@{'/admin/lock-account/' + ${user.id} + '/'}"
+                          th:href="@{'/admin/account-locked/' + ${user.id} + '/'}"
                           th:text="#{lock-account.name}"
+                        ></a>
+                      </td>
+                      <td th:unless="${!user.loginDisabled}">
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/admin/account-non-locked/' + ${user.id} + '/'}"
+                          th:text="#{non-lock-account.name}"
                         ></a>
                       </td>
                     </tr>

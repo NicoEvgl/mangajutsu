@@ -67,4 +67,39 @@ public class AdminController {
 
         return "redirect:/admin/user-list";
     }
+
+    @GetMapping("/account-locked/{id}")
+    private String accountLocked(@PathVariable Integer id, RedirectAttributes redirectAttributes, final Model model) {
+        try {
+            mangajutsuProxy.accountLocked(id);
+        } catch (FeignException e) {
+            model.addAttribute("error",
+                    messageSource.getMessage("error.admin.lock-account", null, LocaleContextHolder.getLocale()));
+            model.addAttribute("user", mangajutsuProxy.getUserDetails(id));
+            return "admin/user_list";
+        }
+        redirectAttributes.addFlashAttribute("success",
+                messageSource.getMessage("account-locked.success.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("user", mangajutsuProxy.getUserDetails(id));
+
+        return "redirect:/admin/user-list";
+    }
+
+    @GetMapping("/account-non-locked/{id}")
+    private String accountNonLocked(@PathVariable Integer id, RedirectAttributes redirectAttributes,
+            final Model model) {
+        try {
+            mangajutsuProxy.accountNonLocked(id);
+        } catch (FeignException e) {
+            model.addAttribute("error",
+                    messageSource.getMessage("error.admin.non-lock-account", null, LocaleContextHolder.getLocale()));
+            model.addAttribute("user", mangajutsuProxy.getUserDetails(id));
+            return "admin/user_list";
+        }
+        redirectAttributes.addFlashAttribute("success",
+                messageSource.getMessage("account-non-locked.success.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("user", mangajutsuProxy.getUserDetails(id));
+
+        return "redirect:/admin/user-list";
+    }
 }

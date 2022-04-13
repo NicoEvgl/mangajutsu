@@ -160,6 +160,24 @@ public class UserServiceImpl implements UserService {
         userRepository.save(user);
     }
 
+    @Override
+    public void accountLocked(Integer id) {
+        UserEntity user = userRepository.getById(id);
+        if (user != null) {
+            user.setLoginDisabled(true);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void accountNonLocked(Integer id) {
+        UserEntity user = userRepository.getById(id);
+        if (user != null) {
+            user.setLoginDisabled(false);
+            userRepository.save(user);
+        }
+    }
+
     private void encodePassword(UserModel source, UserEntity target) {
         target.setPassword(bCryptPasswordEncoder.encode(source.getPassword()));
     }
