@@ -21,7 +21,7 @@ public class VerifTokenServiceImpl implements VerifTokenService {
     private static final Charset US_ASCII = Charset.forName("US-ASCII");
 
     @Autowired
-    VerifTokenRepository verifTokenRepository;
+    private VerifTokenRepository verifTokenRepository;
 
     @Value("${mangajutsu.verif.token.validity}")
     private int tokenValidityInSeconds;

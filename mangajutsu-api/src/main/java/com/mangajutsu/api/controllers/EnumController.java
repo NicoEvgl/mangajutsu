@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class EnumController {
 
     @Autowired
-    EnumService enumService;
+    private EnumService enumService;
 
     @GetMapping("/types")
     public List<String> getTypes() {

@@ -18,19 +18,19 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    VerifTokenService verifTokenService;
+    private VerifTokenService verifTokenService;
 
     @Autowired
-    BruteForceProtectionService bruteForceProtectionService;
+    private BruteForceProtectionService bruteForceProtectionService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    VerifTokenRepository verifTokenRepository;
+    private VerifTokenRepository verifTokenRepository;
 
     @GetMapping("/find-user/{username}")
     public UserEntity findUserByUsername(@PathVariable String username) {

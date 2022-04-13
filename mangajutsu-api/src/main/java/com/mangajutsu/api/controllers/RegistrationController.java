@@ -26,13 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class RegistrationController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    VerifTokenService verifTokenService;
+    private VerifTokenService verifTokenService;
 
     @PostMapping
     public void userRegistration(@RequestBody UserModel userModel) throws UserAlreadyExistException {

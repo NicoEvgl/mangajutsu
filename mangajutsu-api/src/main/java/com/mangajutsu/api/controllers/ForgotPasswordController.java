@@ -24,16 +24,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class ForgotPasswordController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    VerifTokenService verifTokenService;
+    private VerifTokenService verifTokenService;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/reset")
     public void resetPassword(final ForgotPasswordModel forgotPassword) throws UnknownIdentifierException {
