@@ -1,5 +1,9 @@
 package com.mangajutsu.webclient.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -8,6 +12,7 @@ import com.mangajutsu.webclient.exceptions.FileStorageException;
 import com.mangajutsu.webclient.models.FileModel;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
 import com.mangajutsu.webclient.services.FileStrorageService;
+import com.mangajutsu.webclient.utils.UploadFileProperties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -38,6 +43,9 @@ public class FileController {
     private FileStrorageService fileStrorageService;
 
     @Autowired
+    private UploadFileProperties uploadFileProperties;
+
+    @Autowired
     private MessageSource messageSource;
 
     @GetMapping("{title}/upload-file")
@@ -54,6 +62,11 @@ public class FileController {
             file.setUrl(fileDownloadUrl("/img/upload/", file.getFileName()));
             mangajutsuProxy.uploadFile(file, title);
         } catch (FileStorageException e) {
+            model.addAttribute("error",
+                    messageSource.getMessage("error.store-file", null, LocaleContextHolder.getLocale()));
+            return "file/upload_file";
+
+        } catch (FeignException e) {
             model.addAttribute("error",
                     messageSource.getMessage("error.upload-file", null, LocaleContextHolder.getLocale()));
             return "file/upload_file";
@@ -148,10 +161,16 @@ public class FileController {
     }
 
     @GetMapping("{title}/delete-file/{id}")
-    public String deleteFile(@PathVariable Integer id, final Model model, RedirectAttributes redirectAttributes) {
+    public String deleteFile(@PathVariable Integer id, final Model model, RedirectAttributes redirectAttributes)
+            throws IOException {
+        FileModel file = mangajutsuProxy.getFileDetails(id);
+        Path path = Paths.get(uploadFileProperties.getUploadDir()).toAbsolutePath().normalize()
+                .resolve(file.getFileName());
+        System.err.println(path);
         try {
+            Files.deleteIfExists(path);
             mangajutsuProxy.deleteFile(id);
-        } catch (FeignException e) {
+        } catch (IOException e) {
             model.addAttribute("error",
                     messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
