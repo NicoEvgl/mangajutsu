@@ -1,8 +1,8 @@
 package com.mangajutsu.api.enums;
 
 public enum FileTypesEnum {
-    Image("Image"),
-    Video("Vidéo");
+    Image("image"),
+    Video("video");
 
     private final String param;
 
@@ -13,5 +13,4 @@ public enum FileTypesEnum {
     public String getParam() {
         return this.param;
     }
-
 }

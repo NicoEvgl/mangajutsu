@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.core.io.Resource;
+
 public class FileModel implements Serializable {
     private Integer id;
     @NotEmpty(message = "{upload-file.validation.fileName}")
@@ -14,9 +16,20 @@ public class FileModel implements Serializable {
     @NotEmpty(message = "{upload-file.validation.url}")
     private String url;
 
+    private Resource resource;
     private AnimeModel anime;
 
     // Getters & Setters //
+
+    public FileModel() {
+    }
+
+    public FileModel(String fileName, String type, long size, String url) {
+        this.fileName = fileName;
+        this.type = type;
+        this.size = size;
+        this.url = url;
+    }
 
     public Integer getId() {
         return id;
@@ -52,6 +65,14 @@ public class FileModel implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Resource getResource() {
+        return resource;
+    }
+
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public AnimeModel getAnime() {

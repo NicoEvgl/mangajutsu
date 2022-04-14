@@ -33,7 +33,7 @@
                 />
                 <div th:if="${not #lists.isEmpty(files)}">
                   <img
-                    th:if="${file.type == 'Image'}"
+                    th:if="${#strings.contains(file.type,'image')}"
                     th:src="${file.url}"
                     th:alt="${file.fileName}"
                     class="card-img-top w-100 d-block"
@@ -42,7 +42,7 @@
                   <iframe
                     width="auto"
                     height="auto"
-                    th:if="${file.type == 'Vidéo'}"
+                    th:if="${#strings.contains(file.type,'video')}"
                     th:src="@{https://www.youtube.com/embed/{url} (url=${file.url})}"
                     frameborder="1"
                     alt="no video attached"

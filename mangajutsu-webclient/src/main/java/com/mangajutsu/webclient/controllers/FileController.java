@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.mangajutsu.webclient.exceptions.FileStorageException;
 import com.mangajutsu.webclient.models.FileModel;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
+import com.mangajutsu.webclient.services.FileStrorageService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -18,7 +20,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import feign.FeignException;
 
@@ -30,7 +35,36 @@ public class FileController {
     private MangajutsuProxy mangajutsuProxy;
 
     @Autowired
+    private FileStrorageService fileStrorageService;
+
+    @Autowired
     private MessageSource messageSource;
+
+    @GetMapping("{title}/upload-file")
+    public String uploadFile(@PathVariable String title, final Model model) {
+        model.addAttribute("file", new FileModel());
+        return "file/upload_file";
+    }
+
+    @PostMapping("{title}/upload-file")
+    public String uploadFile(@PathVariable String title, @RequestParam("multipartFile") MultipartFile multipartFile,
+            RedirectAttributes redirectAttributes, final Model model) throws FileStorageException {
+        try {
+            FileModel file = fileStrorageService.store(multipartFile);
+            file.setUrl(fileDownloadUrl("/img/upload/", file.getFileName()));
+            mangajutsuProxy.uploadFile(file, title);
+        } catch (FileStorageException e) {
+            model.addAttribute("error",
+                    messageSource.getMessage("error.upload-file", null, LocaleContextHolder.getLocale()));
+            return "file/upload_file";
+        }
+        redirectAttributes.addFlashAttribute("success",
+                messageSource.getMessage("upload-file.success.msg", null, LocaleContextHolder.getLocale()));
+
+        model.addAttribute("title", title);
+
+        return "redirect:/anime/anime-details/{title}";
+    }
 
     @GetMapping("/{title}/add-file")
     public String addFile(@PathVariable String title, final Model model) {
@@ -40,7 +74,7 @@ public class FileController {
         if (!model.containsAttribute("file")) {
             model.addAttribute("file", new FileModel());
         }
-        return "file/upload_file";
+        return "file/add_file";
     }
 
     @PostMapping("/{title}/add-file")
@@ -125,8 +159,15 @@ public class FileController {
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("delete-file.success.msg", null, LocaleContextHolder.getLocale()));
+
         model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
 
         return "redirect:/file/{title}/file-list";
+    }
+
+    public String fileDownloadUrl(final String baseURL, final String fileName) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(baseURL)
+                .path(fileName).toUriString();
     }
 }
