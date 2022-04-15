@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FileRepository extends JpaRepository<FileEntity, Integer> {
     List<FileEntity> findAllByAnime_Title(String title, Sort sort);
+
+    List<FileEntity> findAllByMovie_Title(String title, Sort sort);
 }

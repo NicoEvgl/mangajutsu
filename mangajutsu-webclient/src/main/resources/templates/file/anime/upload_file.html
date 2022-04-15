@@ -18,24 +18,12 @@
           <div>
             <form
               class="form-group"
-              th:action="@{'/file/' + ${title} + '/upload-file'}"
+              th:action="@{'/file/anime/' + ${title} + '/upload-file'}"
               enctype="multipart/form-data"
               th:object="${file}"
               method="post"
             >
-              <div class="form-group">
-                <input
-                  type="file"
-                  name="multipartFile"
-                  accept="image/png, image/jpeg"
-                  class="form-control item"
-                />
-              </div>
-              <button
-                type="submit"
-                class="btn btn-primary btn-block"
-                th:text="#{form.upload-file.name}"
-              ></button>
+              <div th:replace="fragments/file :: upload_form"></div>
             </form>
           </div>
         </div>

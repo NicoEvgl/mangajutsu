@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
 import com.mangajutsu.api.dao.entities.FileEntity;
+import com.mangajutsu.api.dao.entities.MovieEntity;
 import com.mangajutsu.api.dao.repositories.AnimeRepository;
 import com.mangajutsu.api.dao.repositories.FileRepository;
+import com.mangajutsu.api.dao.repositories.MovieRepository;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.FileService;
 
@@ -20,10 +22,13 @@ public class FileServiceImpl implements FileService {
     private AnimeRepository animeRepository;
 
     @Autowired
+    private MovieRepository movieRepository;
+
+    @Autowired
     private FileRepository fileRepository;
 
     @Override
-    public void uploadFile(FileEntity file, String title) throws ResourceNotFoundException {
+    public void addAnimeFile(FileEntity file, String title) throws ResourceNotFoundException {
         if (file == null || title == null) {
             throw new ResourceNotFoundException("File or Anime not found");
         }
@@ -34,8 +39,25 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public void addMovieFile(FileEntity file, String title) throws ResourceNotFoundException {
+        if (file == null || title == null) {
+            throw new ResourceNotFoundException("File or Anime not found");
+        }
+        MovieEntity movie = movieRepository.findByTitle(title);
+        file.setMovie(movie);
+        movie.getFiles().add(file);
+        fileRepository.save(file);
+    }
+
+    @Override
     public List<FileEntity> getAnimeFiles(String title) {
         List<FileEntity> files = fileRepository.findAllByAnime_Title(title, Sort.by(Sort.Direction.ASC, "fileName"));
+        return files;
+    }
+
+    @Override
+    public List<FileEntity> getMovieFiles(String title) {
+        List<FileEntity> files = fileRepository.findAllByMovie_Title(title, Sort.by(Sort.Direction.ASC, "fileName"));
         return files;
     }
 

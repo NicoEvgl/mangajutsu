@@ -41,19 +41,19 @@
                   <a
                     sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
                     class="btn btn-outline-secondary"
-                    th:href="@{'/file/' + ${movie.title} + '/add-file'}"
+                    th:href="@{'/file/movie/' + ${movie.title} + '/add-file'}"
                     th:text="#{form.add-file.name}"
                   ></a>
                   <a
                     sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
                     class="btn btn-outline-secondary"
-                    th:href="@{'/file/' + ${movie.title} + '/upload-file'}"
+                    th:href="@{'/file/movie/' + ${movie.title} + '/upload-file'}"
                     th:text="#{form.upload-file.name}"
                   ></a>
                   <a
                     sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
                     class="btn btn-outline-secondary"
-                    th:href="@{'/file/' + ${movie.title} + '/file-list'}"
+                    th:href="@{'/file/movie/' + ${movie.title} + '/file-list'}"
                     th:text="#{file-list.name}"
                   ></a>
                   <div class="gallery">

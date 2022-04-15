@@ -22,14 +22,27 @@ public class FileController {
     @Autowired
     private FileService fileService;
 
-    @PostMapping("/{title}/add-file")
-    public void uploadFile(@RequestBody FileEntity file, @PathVariable String title) throws ResourceNotFoundException {
-        fileService.uploadFile(file, title);
+    @PostMapping("/anime/{title}/add-file")
+    public void addAnimeFile(@RequestBody FileEntity file, @PathVariable String title)
+            throws ResourceNotFoundException {
+        fileService.addAnimeFile(file, title);
+    }
+
+    @PostMapping("/movie/{title}/add-file")
+    public void addMovieFile(@RequestBody FileEntity file, @PathVariable String title)
+            throws ResourceNotFoundException {
+        fileService.addMovieFile(file, title);
     }
 
     @GetMapping("/{title}/anime-files")
     public List<FileEntity> getAnimeFiles(@PathVariable String title) {
         List<FileEntity> files = fileService.getAnimeFiles(title);
+        return files;
+    }
+
+    @GetMapping("/{title}/movie-files")
+    public List<FileEntity> getMovieFiles(@PathVariable String title) {
+        List<FileEntity> files = fileService.getMovieFiles(title);
         return files;
     }
 

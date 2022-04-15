@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page fileList-page">
+      <section class="clean-block clean-services dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="#{file-list.name}"></h2>
+          </div>
+          <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <p th:text="${error}"></p>
+          </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${success != null}"
+          >
+            <p th:text="${success}"></p>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4" th:each="file : ${files}">
+              <div class="card">
+                <div th:replace="fragments/file :: file_list"></div>
+                <div class="card-body">
+                  <h4
+                    class="card-title"
+                    style="height: 50px"
+                    th:text="${file.fileName}"
+                  ></h4>
+                  <a
+                    class="btn btn-outline-secondary btn-sm"
+                    th:href="@{'/file/movie/' + ${file.movie.title} + '/update-file/' + ${file.id} + '/'}"
+                    th:text="#{view.button.update}"
+                  ></a>
+                  <a
+                    class="btn btn-outline-secondary btn-sm"
+                    th:href="@{'/file/movie/' + ${file.movie.title} + '/delete-file/' + ${file.id} + '/'}"
+                    th:text="#{view.button.delete}"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

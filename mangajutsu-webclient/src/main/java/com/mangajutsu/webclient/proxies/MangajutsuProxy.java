@@ -105,11 +105,17 @@ public interface MangajutsuProxy {
     @GetMapping("/enum/file-types")
     List<String> getFileTypes();
 
-    @PostMapping("/file/{title}/add-file")
-    void uploadFile(@RequestBody FileModel file, @PathVariable String title);
+    @PostMapping("/file/anime/{title}/add-file")
+    void addAnimeFile(@RequestBody FileModel file, @PathVariable String title);
+
+    @PostMapping("/file/movie/{title}/add-file")
+    void addMovieFile(@RequestBody FileModel file, @PathVariable String title);
 
     @GetMapping("/file/{title}/anime-files")
     List<FileModel> getAnimeFiles(@PathVariable String title);
+
+    @GetMapping("/file/{title}/movie-files")
+    List<FileModel> getMovieFiles(@PathVariable String title);
 
     @GetMapping("/file/file-details/{id}")
     FileModel getFileDetails(@PathVariable Integer id);

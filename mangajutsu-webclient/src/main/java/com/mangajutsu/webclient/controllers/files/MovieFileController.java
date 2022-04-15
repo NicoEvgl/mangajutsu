@@ -1,4 +1,4 @@
-package com.mangajutsu.webclient.controllers;
+package com.mangajutsu.webclient.controllers.files;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,9 +33,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import feign.FeignException;
 
 @Controller
-@RequestMapping("/file")
-public class FileController {
-
+@RequestMapping("/file/movie")
+public class MovieFileController {
     @Autowired
     private MangajutsuProxy mangajutsuProxy;
 
@@ -48,35 +47,35 @@ public class FileController {
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping("{title}/upload-file")
+    @GetMapping("/{title}/upload-file")
     public String uploadFile(@PathVariable String title, final Model model) {
         model.addAttribute("file", new FileModel());
-        return "file/upload_file";
+        return "file/movie/upload_file";
     }
 
-    @PostMapping("{title}/upload-file")
+    @PostMapping("/{title}/upload-file")
     public String uploadFile(@PathVariable String title, @RequestParam("multipartFile") MultipartFile multipartFile,
             RedirectAttributes redirectAttributes, final Model model) throws FileStorageException {
         try {
             FileModel file = fileStrorageService.store(multipartFile);
             file.setUrl(fileDownloadUrl("/img/upload/", file.getFileName()));
-            mangajutsuProxy.uploadFile(file, title);
+            mangajutsuProxy.addMovieFile(file, title);
         } catch (FileStorageException e) {
             model.addAttribute("error",
                     messageSource.getMessage("error.store-file", null, LocaleContextHolder.getLocale()));
-            return "file/upload_file";
+            return "file/movie/upload_file";
 
         } catch (FeignException e) {
             model.addAttribute("error",
                     messageSource.getMessage("error.upload-file", null, LocaleContextHolder.getLocale()));
-            return "file/upload_file";
+            return "file/movie/upload_file";
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("upload-file.success.msg", null, LocaleContextHolder.getLocale()));
 
         model.addAttribute("title", title);
 
-        return "redirect:/anime/anime-details/{title}";
+        return "redirect:/movie/movie-details/{title}";
     }
 
     @GetMapping("/{title}/add-file")
@@ -87,7 +86,7 @@ public class FileController {
         if (!model.containsAttribute("file")) {
             model.addAttribute("file", new FileModel());
         }
-        return "file/add_file";
+        return "file/movie/add_file";
     }
 
     @PostMapping("/{title}/add-file")
@@ -97,15 +96,15 @@ public class FileController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.file",
                     bindingResult);
             redirectAttributes.addFlashAttribute("file", file);
-            return "redirect:/file/{title}/add-file";
+            return "redirect:/file/movie/{title}/add-file";
         }
         try {
-            mangajutsuProxy.uploadFile(file, title);
+            mangajutsuProxy.addMovieFile(file, title);
         } catch (FeignException e) {
             redirectAttributes.addFlashAttribute("error",
                     messageSource.getMessage("error.upload-file", null, LocaleContextHolder.getLocale()));
             redirectAttributes.addFlashAttribute("file", file);
-            return "redirect:/file/{title}/add-file";
+            return "redirect:/file/movie/{title}/add-file";
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("upload-file.success.msg", null, LocaleContextHolder.getLocale()));
@@ -113,14 +112,14 @@ public class FileController {
         model.addAttribute("title", title);
         model.addAttribute("file", file);
 
-        return "redirect:/anime/anime-details/{title}";
+        return "redirect:/movie/movie-details/{title}";
     }
 
     @GetMapping("/{title}/file-list")
     public String filesList(@PathVariable String title, final Model model) {
-        List<FileModel> files = mangajutsuProxy.getAnimeFiles(title);
+        List<FileModel> files = mangajutsuProxy.getMovieFiles(title);
         model.addAttribute("files", files);
-        return "file/file_list";
+        return "file/movie/file_list";
     }
 
     @GetMapping("{title}/update-file/{id}")
@@ -132,7 +131,7 @@ public class FileController {
         if (!model.containsAttribute("file")) {
             model.addAttribute("file", file);
         }
-        return "file/update_file";
+        return "file/movie/update_file";
     }
 
     @PostMapping("{title}/update-file/{id}")
@@ -142,7 +141,7 @@ public class FileController {
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.file",
                     bindingResult);
             redirectAttributes.addFlashAttribute("file", file);
-            return "redirect:/file/{title}/file-list";
+            return "redirect:/file/movie/{title}/file-list";
         }
         try {
             mangajutsuProxy.updateFile(file, id);
@@ -150,14 +149,14 @@ public class FileController {
             redirectAttributes.addFlashAttribute("error",
                     messageSource.getMessage("error.update-file", null, LocaleContextHolder.getLocale()));
             redirectAttributes.addFlashAttribute("file", file);
-            return "redirect:/file/{title}/file-list";
+            return "redirect:/file/movie/{title}/file-list";
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("update-file.success.msg", null, LocaleContextHolder.getLocale()));
 
         model.addAttribute("file", file);
 
-        return "redirect:/file/{title}/file-list";
+        return "redirect:/file/movie/{title}/file-list";
     }
 
     @GetMapping("{title}/delete-file/{id}")
@@ -173,7 +172,7 @@ public class FileController {
             model.addAttribute("error",
                     messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
-            return "file/file_list";
+            return "file/movie/file_list";
         } catch (FeignException e) {
             model.addAttribute("error",
                     messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
@@ -184,7 +183,7 @@ public class FileController {
 
         model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
 
-        return "redirect:/file/{title}/file-list";
+        return "redirect:/file/movie/{title}/file-list";
     }
 
     public String fileDownloadUrl(final String baseURL, final String fileName) {

@@ -10,9 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public interface FileService {
 
-    void uploadFile(FileEntity file, String title) throws ResourceNotFoundException;
+    void addAnimeFile(FileEntity file, String title) throws ResourceNotFoundException;
+
+    void addMovieFile(FileEntity file, String title) throws ResourceNotFoundException;
 
     List<FileEntity> getAnimeFiles(String title);
+
+    List<FileEntity> getMovieFiles(String title);
 
     FileEntity getFileDetails(Integer id);
 

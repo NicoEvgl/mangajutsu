@@ -38,7 +38,7 @@ public class ReviewEntity implements Serializable {
     private MovieEntity movie;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = true)
     private UserEntity user;
 
     // Getters & Setters //

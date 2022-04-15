@@ -62,7 +62,7 @@ public class AnimeEntity implements Serializable {
     private String synopsis;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = true)
     private UserEntity user;
 
     @JsonIgnore

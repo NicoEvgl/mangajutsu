@@ -25,31 +25,7 @@
           <div class="row">
             <div class="col-md-6 col-lg-4" th:each="file : ${files}">
               <div class="card">
-                <img
-                  th:if="${#lists.isEmpty(files)}"
-                  th:src="@{/img/no_found.png}"
-                  alt="no image found"
-                  class="card-img-top w-100 d-block"
-                />
-                <div th:if="${not #lists.isEmpty(files)}">
-                  <img
-                    th:if="${#strings.contains(file.type,'image')}"
-                    th:src="${file.url}"
-                    th:alt="${file.fileName}"
-                    class="card-img-top w-100 d-block"
-                  />
-                  <p></p>
-                  <iframe
-                    width="auto"
-                    height="auto"
-                    th:if="${#strings.contains(file.type,'video')}"
-                    th:src="@{https://www.youtube.com/embed/{url} (url=${file.url})}"
-                    frameborder="1"
-                    alt="no video attached"
-                    allowfullscreen="0"
-                  >
-                  </iframe>
-                </div>
+                <div th:replace="fragments/file :: file_list"></div>
                 <div class="card-body">
                   <h4
                     class="card-title"
@@ -58,12 +34,12 @@
                   ></h4>
                   <a
                     class="btn btn-outline-secondary btn-sm"
-                    th:href="@{'/file/' + ${file.anime.title} + '/update-file/' + ${file.id} + '/'}"
+                    th:href="@{'/file/anime/' + ${file.anime.title} + '/update-file/' + ${file.id} + '/'}"
                     th:text="#{view.button.update}"
                   ></a>
                   <a
                     class="btn btn-outline-secondary btn-sm"
-                    th:href="@{'/file/' + ${file.anime.title} + '/delete-file/' + ${file.id} + '/'}"
+                    th:href="@{'/file/anime/' + ${file.anime.title} + '/delete-file/' + ${file.id} + '/'}"
                     th:text="#{view.button.delete}"
                   ></a>
                 </div>
