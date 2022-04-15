@@ -1,7 +1,8 @@
 package com.mangajutsu.api.enums;
 
 public enum FileTypesEnum {
-    Image("image"),
+    Image_Jpeg("image/jpeg"),
+    Image_Png("image/png"),
     Video("video");
 
     private final String param;

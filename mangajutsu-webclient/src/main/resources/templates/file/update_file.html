@@ -57,6 +57,15 @@
                 <input
                   type="text"
                   class="form-control item"
+                  th:field="*{size}"
+                  th:placeholder="#{form.upload-file.size}"
+                  th:errorclass="is-invalid"
+                />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control item"
                   th:field="*{url}"
                   th:placeholder="#{form.upload-file.url}"
                   th:errorclass="is-invalid"
