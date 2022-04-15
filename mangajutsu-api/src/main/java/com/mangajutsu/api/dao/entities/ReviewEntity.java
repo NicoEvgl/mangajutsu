@@ -34,6 +34,10 @@ public class ReviewEntity implements Serializable {
     private AnimeEntity anime;
 
     @ManyToOne
+    @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false)
+    private MovieEntity movie;
+
+    @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     private UserEntity user;
 
@@ -73,6 +77,14 @@ public class ReviewEntity implements Serializable {
 
     public void setAnime(AnimeEntity anime) {
         this.anime = anime;
+    }
+
+    public MovieEntity getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieEntity movie) {
+        this.movie = movie;
     }
 
     public UserEntity getUser() {

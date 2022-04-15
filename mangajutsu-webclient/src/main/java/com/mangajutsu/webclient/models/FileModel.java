@@ -8,16 +8,17 @@ import org.springframework.core.io.Resource;
 
 public class FileModel implements Serializable {
     private Integer id;
-    @NotEmpty(message = "{upload-file.validation.fileName}")
+    @NotEmpty(message = "{upload-file.valid.fileName}")
     private String fileName;
-    @NotEmpty(message = "{upload-file.validation.type}")
+    @NotEmpty(message = "{upload-file.valid.type}")
     private String type;
     private long size;
-    @NotEmpty(message = "{upload-file.validation.url}")
+    @NotEmpty(message = "{upload-file.valid.url}")
     private String url;
 
     private Resource resource;
     private AnimeModel anime;
+    private MovieModel movie;
 
     // Getters & Setters //
 
@@ -81,5 +82,13 @@ public class FileModel implements Serializable {
 
     public void setAnime(AnimeModel anime) {
         this.anime = anime;
+    }
+
+    public MovieModel getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieModel movie) {
+        this.movie = movie;
     }
 }

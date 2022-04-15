@@ -9,14 +9,15 @@ import javax.validation.constraints.Size;
 public class ReviewModel implements Serializable {
     private Integer id;
     private float rating;
-    @NotEmpty(message = "{add-review.validation.content}")
-    @Size(min = 1, max = 3000, message = "{add-review.validation.content-size}")
+    @NotEmpty(message = "{add-review.valid.content}")
+    @Size(min = 1, max = 3000, message = "{add-review.valid.content-size}")
     private String content;
     private Timestamp releaseDate;
     private Timestamp updateDate;
 
     private UserModel user;
     private AnimeModel anime;
+    private MovieModel movie;
 
     // Getters & Setters //
 
@@ -70,5 +71,13 @@ public class ReviewModel implements Serializable {
 
     public void setAnime(AnimeModel anime) {
         this.anime = anime;
+    }
+
+    public MovieModel getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieModel movie) {
+        this.movie = movie;
     }
 }

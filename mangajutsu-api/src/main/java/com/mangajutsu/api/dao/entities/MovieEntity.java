@@ -16,8 +16,8 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "anime", schema = "public")
-public class AnimeEntity implements Serializable {
+@Table(name = "movie", schema = "public")
+public class MovieEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -28,36 +28,28 @@ public class AnimeEntity implements Serializable {
     private String titleVo;
     @Column(name = "origin", nullable = true, length = 50)
     private String origin;
-    @Column(name = "status", nullable = false, length = 25)
-    private String status;
     @Column(name = "rating", nullable = false, columnDefinition = "float default 0")
     private float rating;
     @Column(name = "release_date", nullable = false, length = 50)
     private String releaseDate;
-    @Column(name = "end_date", nullable = true, length = 50)
-    private String endDate;
-    @Column(name = "nb_episodes", nullable = false)
-    private Integer nbEpisodes;
     @Column(name = "duration", nullable = true, length = 20)
     private String duration;
     @Column(name = "type", nullable = false)
     private String type;
     @Column(name = "genre", nullable = false)
     private String genre;
-    @Column(name = "mangaka", nullable = false, length = 50)
-    private String mangaka;
+    @Column(name = "director", nullable = false, length = 50)
+    private String director;
     @Column(name = "producer", nullable = true, length = 50)
     private String producer;
     @Column(name = "studios", nullable = false, length = 50)
     private String studios;
-    @Column(name = "publisher", nullable = true, length = 300)
-    private String publisher;
-    @Column(name = "publisher_url", nullable = true)
-    private String publisherUrl;
     @Column(name = "publisher_vod", nullable = true, length = 300)
     private String publisherVod;
     @Column(name = "publisher_vod_url", nullable = true)
     private String publisherVodUrl;
+    @Column(name = "dealer_url", nullable = true)
+    private String dealerUrl;
     @Column(name = "synopsis", nullable = false, length = 1000)
     private String synopsis;
 
@@ -66,17 +58,21 @@ public class AnimeEntity implements Serializable {
     private UserEntity user;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "anime")
+    @OneToMany(mappedBy = "movie")
     private List<FileEntity> files;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "anime")
+    @OneToMany(mappedBy = "movie")
     private List<ReviewEntity> reviews;
 
     // Getters & Setters //
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -103,14 +99,6 @@ public class AnimeEntity implements Serializable {
         this.origin = origin;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public float getRating() {
         return rating;
     }
@@ -125,22 +113,6 @@ public class AnimeEntity implements Serializable {
 
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    public String getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-
-    public Integer getNbEpisodes() {
-        return nbEpisodes;
-    }
-
-    public void setNbEpisodes(Integer nbEpisodes) {
-        this.nbEpisodes = nbEpisodes;
     }
 
     public String getDuration() {
@@ -167,12 +139,12 @@ public class AnimeEntity implements Serializable {
         this.genre = genre;
     }
 
-    public String getMangaka() {
-        return mangaka;
+    public String getDirector() {
+        return director;
     }
 
-    public void setMangaka(String mangaka) {
-        this.mangaka = mangaka;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public String getProducer() {
@@ -191,22 +163,6 @@ public class AnimeEntity implements Serializable {
         this.studios = studios;
     }
 
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
-    }
-
-    public String getPublisherUrl() {
-        return publisherUrl;
-    }
-
-    public void setPublisherUrl(String publisherUrl) {
-        this.publisherUrl = publisherUrl;
-    }
-
     public String getPublisherVod() {
         return publisherVod;
     }
@@ -221,6 +177,14 @@ public class AnimeEntity implements Serializable {
 
     public void setPublisherVodUrl(String publisherVodUrl) {
         this.publisherVodUrl = publisherVodUrl;
+    }
+
+    public String getDealerUrl() {
+        return dealerUrl;
+    }
+
+    public void setDealerUrl(String dealerUrl) {
+        this.dealerUrl = dealerUrl;
     }
 
     public String getSynopsis() {

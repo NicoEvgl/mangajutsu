@@ -48,7 +48,7 @@ public class ForgotPasswordController {
             return "redirect:/login";
         }
         redirectAttributes.addFlashAttribute("success",
-                messageSource.getMessage("user.forgot-password.msg", null, LocaleContextHolder.getLocale()));
+                messageSource.getMessage("user.forgot-password.success.msg", null, LocaleContextHolder.getLocale()));
         return "redirect:/login";
     }
 
@@ -57,7 +57,7 @@ public class ForgotPasswordController {
             final RedirectAttributes redirectAttributes, final Model model) {
         if (StringUtils.isEmpty(token)) {
             redirectAttributes.addFlashAttribute("error", messageSource
-                    .getMessage("registration.verification.token.missing", null, LocaleContextHolder.getLocale()));
+                    .getMessage("registration.verif.token.missing", null, LocaleContextHolder.getLocale()));
             return "redirect:/password/change";
         }
         ForgotPasswordModel forgotPassword = new ForgotPasswordModel();
@@ -78,12 +78,12 @@ public class ForgotPasswordController {
         try {
             mangajutsuProxy.changePassword(forgotPassword.getPassword(), forgotPassword.getToken());
         } catch (FeignException e) {
-            bindingResult.rejectValue("error", messageSource.getMessage("registration.verification.token.invalid", null,
+            bindingResult.rejectValue("error", messageSource.getMessage("registration.verif.token.invalid", null,
                     LocaleContextHolder.getLocale()));
             return "redirect:/password/change";
         }
         redirectAttributes.addFlashAttribute("success",
-                messageSource.getMessage("user.update-password.msg", null, LocaleContextHolder.getLocale()));
+                messageSource.getMessage("user.update-password.success.msg", null, LocaleContextHolder.getLocale()));
         setResetPasswordForm(model, new ForgotPasswordModel());
         return "redirect:/login";
     }

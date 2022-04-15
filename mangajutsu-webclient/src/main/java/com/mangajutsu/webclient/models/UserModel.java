@@ -15,25 +15,25 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 @FieldMatchValidator.List({
-        @FieldMatchValidator(first = "password", second = "confirmPassword", message = "{registration.validation.confirm-password}"),
+        @FieldMatchValidator(first = "password", second = "confirmPassword", message = "{registration.valid.confirm-password}"),
         // @FieldMatchValidator(first = "email", second = "confirmEmail", message = "The
         // email fields must match")
 })
 
 public class UserModel implements Serializable {
     private Integer id;
-    @NotEmpty(message = "{registration.validation.firstName}")
+    @NotEmpty(message = "{registration.valid.firstName}")
     private String firstName;
-    @NotEmpty(message = "{registration.validation.lastName}")
+    @NotEmpty(message = "{registration.valid.lastName}")
     private String lastName;
-    @NotEmpty(message = "{registration.validation.username}")
+    @NotEmpty(message = "{registration.valid.username}")
     private String username;
-    @NotEmpty(message = "{registration.validation.email}")
-    @Email(message = "{registration.validation.email}")
+    @NotEmpty(message = "{registration.valid.email}")
+    @Email(message = "{registration.valid.email}")
     private String email;
-    @NotEmpty(message = "{registration.validation.password}")
+    @NotEmpty(message = "{registration.valid.password}")
     private String password;
-    @NotEmpty(message = "{registration.validation.password}")
+    @NotEmpty(message = "{registration.valid.password}")
     private String confirmPassword;
     private boolean enabled;
     private int failedLoginAttempts;
@@ -41,6 +41,7 @@ public class UserModel implements Serializable {
 
     private Set<RoleModel> userRoles;
     private Set<AnimeModel> animes;
+    private Set<MovieModel> movies;
     private List<ReviewModel> reviews;
 
     public Collection<? extends GrantedAuthority> getAuthorities(Set<RoleModel> userRoles) {
@@ -143,6 +144,14 @@ public class UserModel implements Serializable {
 
     public void setAnimes(Set<AnimeModel> animes) {
         this.animes = animes;
+    }
+
+    public Set<MovieModel> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(Set<MovieModel> movies) {
+        this.movies = movies;
     }
 
     public List<ReviewModel> getReviews() {

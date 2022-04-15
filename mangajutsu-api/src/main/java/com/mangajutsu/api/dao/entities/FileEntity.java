@@ -31,6 +31,10 @@ public class FileEntity implements Serializable {
     @JoinColumn(name = "anime_id", referencedColumnName = "id", nullable = true)
     private AnimeEntity anime;
 
+    @ManyToOne
+    @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = true)
+    private MovieEntity movie;
+
     // Getters & Setters //
 
     public Integer getId() {
@@ -75,5 +79,13 @@ public class FileEntity implements Serializable {
 
     public void setAnime(AnimeEntity anime) {
         this.anime = anime;
+    }
+
+    public MovieEntity getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieEntity movie) {
+        this.movie = movie;
     }
 }
