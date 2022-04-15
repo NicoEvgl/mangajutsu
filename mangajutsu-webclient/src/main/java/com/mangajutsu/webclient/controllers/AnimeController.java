@@ -58,6 +58,9 @@ public class AnimeController {
         anime.setFiles(files);
         anime.setReviews(reviews);
 
+        for (ReviewModel review : reviews) {
+            model.addAttribute("userReviewed", review.getUser().getUsername());
+        }
         model.addAttribute("anime", anime);
         return "anime/anime_details";
     }

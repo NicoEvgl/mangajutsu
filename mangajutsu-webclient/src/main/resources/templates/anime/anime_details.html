@@ -292,6 +292,7 @@
                   <div class="tab-pane fade show" role="tabpanel1" id="reviews">
                     <p class="my-5" sec:authorize="isAuthenticated()">
                       <a
+                        th:if="${#authentication.name != userReviewed}"
                         class="btn btn-outline-primary"
                         th:href="@{'/review/' + ${anime.title} + '/add-review' + '/'}"
                       >
@@ -315,7 +316,7 @@
                       <div class="review-item">
                         <div
                           class="align-items-sm-start"
-                          th:if="${#authentication.name == review.user.username or #authorization.expression('hasAnyAuthority(''ADMIN_ROLE'')')}"
+                          th:if="${#authentication.name == userReviewed or #authorization.expression('hasAnyAuthority(''ADMIN_ROLE'')')}"
                         >
                           <a
                             class="btn btn-sm btn-outline-primary"

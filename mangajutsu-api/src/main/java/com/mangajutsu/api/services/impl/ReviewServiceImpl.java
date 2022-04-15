@@ -2,6 +2,7 @@ package com.mangajutsu.api.services.impl;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
 import com.mangajutsu.api.dao.entities.ReviewEntity;
@@ -30,8 +31,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void create(ReviewEntity review, String username, String title) throws ResourceNotFoundException {
-        if (review == null || title == null) {
-            throw new ResourceNotFoundException("Review or Anime not found");
+        if (Objects.isNull(review) || title == null || username == null) {
+            throw new ResourceNotFoundException("Ressource not found");
         }
         addAnimeToReview(review, title);
         addUserToReview(review, username);

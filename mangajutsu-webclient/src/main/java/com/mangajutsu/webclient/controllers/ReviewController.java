@@ -1,5 +1,7 @@
 package com.mangajutsu.webclient.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.mangajutsu.webclient.models.ReviewModel;
@@ -47,7 +49,15 @@ public class ReviewController {
         }
         UserPrincipal userInSession = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
+        List<ReviewModel> animeReviews = mangajutsuProxy.getAnimeReviews(title);
+        String userReviewed = "";
+        for (ReviewModel animeReview : animeReviews) {
+            userReviewed = animeReview.getUser().getUsername();
+        }
         try {
+            if (userInSession.getUsername().equals(userReviewed)) {
+                return "errors/access_denied";
+            }
             mangajutsuProxy.addReview(review, userInSession.getUsername(), title);
         } catch (FeignException e) {
             model.addAttribute("error",

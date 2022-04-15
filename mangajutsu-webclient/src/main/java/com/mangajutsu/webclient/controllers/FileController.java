@@ -166,7 +166,6 @@ public class FileController {
         FileModel file = mangajutsuProxy.getFileDetails(id);
         Path path = Paths.get(uploadFileProperties.getUploadDir()).toAbsolutePath().normalize()
                 .resolve(file.getFileName());
-        System.err.println(path);
         try {
             Files.deleteIfExists(path);
             mangajutsuProxy.deleteFile(id);
