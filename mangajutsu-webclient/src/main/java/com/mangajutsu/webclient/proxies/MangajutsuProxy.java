@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.FileModel;
+import com.mangajutsu.webclient.models.MovieModel;
 import com.mangajutsu.webclient.models.ReviewModel;
 import com.mangajutsu.webclient.models.RoleModel;
 import com.mangajutsu.webclient.models.UserModel;
@@ -81,6 +82,14 @@ public interface MangajutsuProxy {
 
     @GetMapping("/enum/genres")
     List<String> getGenres();
+
+    // Movie //
+
+    @GetMapping("/movie/movie-list")
+    List<MovieModel> getMovieList();
+
+    @GetMapping("/movie/movie-details/{title}")
+    MovieModel getMovieDetails(@PathVariable String title);
 
     // File //
 

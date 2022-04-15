@@ -30,11 +30,11 @@ public class ReviewEntity implements Serializable {
     private Timestamp releaseDate;
 
     @ManyToOne
-    @JoinColumn(name = "anime_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "anime_id", referencedColumnName = "id", nullable = true)
     private AnimeEntity anime;
 
     @ManyToOne
-    @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "movie_id", referencedColumnName = "id", nullable = true)
     private MovieEntity movie;
 
     @ManyToOne

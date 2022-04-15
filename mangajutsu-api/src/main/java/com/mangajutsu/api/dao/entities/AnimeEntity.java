@@ -47,7 +47,7 @@ public class AnimeEntity implements Serializable {
     @Column(name = "mangaka", nullable = false, length = 50)
     private String mangaka;
     @Column(name = "producer", nullable = true, length = 50)
-    private String producer;
+    private String director;
     @Column(name = "studios", nullable = false, length = 50)
     private String studios;
     @Column(name = "publisher", nullable = true, length = 300)
@@ -175,12 +175,12 @@ public class AnimeEntity implements Serializable {
         this.mangaka = mangaka;
     }
 
-    public String getProducer() {
-        return producer;
+    public String getDirector() {
+        return director;
     }
 
-    public void setProducer(String producer) {
-        this.producer = producer;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public String getStudios() {

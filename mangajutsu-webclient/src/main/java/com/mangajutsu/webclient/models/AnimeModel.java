@@ -28,7 +28,7 @@ public class AnimeModel implements Serializable {
     private String genre;
     @NotEmpty(message = "{add-anime.valid.mangaka}")
     private String mangaka;
-    private String producer;
+    private String director;
     @NotEmpty(message = "{add-anime.valid.studios}")
     private String studios;
     private String publisher;
@@ -145,12 +145,12 @@ public class AnimeModel implements Serializable {
         this.mangaka = mangaka;
     }
 
-    public String getProducer() {
-        return producer;
+    public String getDirector() {
+        return director;
     }
 
-    public void setProducer(String producer) {
-        this.producer = producer;
+    public void setDirector(String director) {
+        this.director = director;
     }
 
     public String getStudios() {
