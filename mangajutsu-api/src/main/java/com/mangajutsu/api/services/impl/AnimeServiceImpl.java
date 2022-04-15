@@ -103,6 +103,20 @@ public class AnimeServiceImpl implements AnimeService {
         animeRepository.save(editedAnime);
     }
 
+    @Override
+    public void deleteAnime(String title) {
+        AnimeEntity anime = animeRepository.findByTitle(title);
+        if (!anime.getReviews().isEmpty()) {
+            for (ReviewEntity review : anime.getReviews()) {
+                reviewService.deleteReview(review.getId());
+            }
+        }
+        for (FileEntity file : anime.getFiles()) {
+            fileService.deleteFile(file.getId());
+        }
+        animeRepository.delete(anime);
+    }
+
     public void addUserToAnime(AnimeEntity anime, String username) {
         UserEntity user = userService.findByUsername(username);
         anime.setUser(user);
@@ -124,19 +138,5 @@ public class AnimeServiceImpl implements AnimeService {
             anime.setRating(0);
             animeRepository.save(anime);
         }
-    }
-
-    @Override
-    public void deleteAnime(String title) {
-        AnimeEntity anime = animeRepository.findByTitle(title);
-        if (!anime.getReviews().isEmpty()) {
-            for (ReviewEntity review : anime.getReviews()) {
-                reviewService.deleteReview(review.getId());
-            }
-        }
-        for (FileEntity file : anime.getFiles()) {
-            fileService.deleteFile(file.getId());
-        }
-        animeRepository.delete(anime);
     }
 }

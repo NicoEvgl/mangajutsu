@@ -174,6 +174,10 @@ public class FileController {
                     messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
             model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
             return "file/file_list";
+        } catch (FeignException e) {
+            model.addAttribute("error",
+                    messageSource.getMessage("error.delete-file", null, LocaleContextHolder.getLocale()));
+            model.addAttribute("file", mangajutsuProxy.getFileDetails(id));
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("delete-file.success.msg", null, LocaleContextHolder.getLocale()));
