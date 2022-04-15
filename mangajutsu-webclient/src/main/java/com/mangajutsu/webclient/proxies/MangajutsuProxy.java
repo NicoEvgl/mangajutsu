@@ -91,6 +91,15 @@ public interface MangajutsuProxy {
     @GetMapping("/movie/movie-details/{title}")
     MovieModel getMovieDetails(@PathVariable String title);
 
+    @PostMapping("/movie/add-movie")
+    void addMovie(@RequestBody MovieModel movie, @RequestParam("username") String username);
+
+    @PostMapping("/movie/update-movie/{title}")
+    void updateMovie(@RequestBody MovieModel movie, @PathVariable String title);
+
+    @GetMapping("/enum/movie-types")
+    List<String> getMovieTypes();
+
     // File //
 
     @GetMapping("/enum/file-types")

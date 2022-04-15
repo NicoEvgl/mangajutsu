@@ -6,7 +6,7 @@
   <head th:replace="fragments/header :: head"></head>
   <body>
     <header th:replace="fragments/header :: header"></header>
-    <main class="page addAnime-page">
+    <main class="page addMovie-page">
       <section class="clean-block clean-form dark">
         <div class="container">
           <div class="block-heading">
@@ -17,8 +17,8 @@
           </div>
           <form
             class="form-group"
-            th:action="@{'/anime/update-anime/' + ${anime.title}}"
-            th:object="${anime}"
+            th:action="@{'/movie/update-movie/' + ${movie.title}}"
+            th:object="${movie}"
             method="post"
           >
             <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
@@ -63,20 +63,6 @@
                 th:errorclass="is-invalid"
               />
             </div>
-            <div class="input-group mb-3">
-              <select class="form-control" th:field="*{status}">
-                <option
-                  value=""
-                  selected
-                  th:text="#{form.object.status}"
-                ></option>
-                <option
-                  th:each="status : ${statusList}"
-                  th:value="${status}"
-                  th:text="${status}"
-                ></option>
-              </select>
-            </div>
             <div class="form-row">
               <div class="col">
                 <div class="input-group mb-3">
@@ -85,30 +71,6 @@
                     class="form-control item"
                     th:field="*{releaseDate}"
                     th:placeholder="#{form.object.release-date}"
-                    th:errorclass="is-invalid"
-                  />
-                </div>
-              </div>
-              <div class="col">
-                <div class="input-group mb-3">
-                  <input
-                    type="text"
-                    class="form-control item"
-                    th:field="*{endDate}"
-                    th:placeholder="#{form.object.end-date}"
-                    th:errorclass="is-invalid"
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col">
-                <div class="input-group mb-3">
-                  <input
-                    type="text"
-                    class="form-control item"
-                    th:field="*{nbEpisodes}"
-                    th:placeholder="#{form.object.nb-episodes}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -170,8 +132,8 @@
                   <input
                     type="text"
                     class="form-control item"
-                    th:field="*{mangaka}"
-                    th:placeholder="#{form.object.mangaka}"
+                    th:field="*{director}"
+                    th:placeholder="#{form.object.director}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -181,8 +143,8 @@
                   <input
                     type="text"
                     class="form-control item"
-                    th:field="*{director}"
-                    th:placeholder="#{form.object.director}"
+                    th:field="*{producer}"
+                    th:placeholder="#{form.object.producer}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -196,30 +158,6 @@
                 th:placeholder="#{form.object.studios}"
                 th:errorclass="is-invalid"
               />
-            </div>
-            <div class="form-row">
-              <div class="col">
-                <div class="input-group mb-3">
-                  <input
-                    type="text"
-                    class="form-control item"
-                    th:field="*{publisher}"
-                    th:placeholder="#{form.object.publisher}"
-                    th:errorclass="is-invalid"
-                  />
-                </div>
-              </div>
-              <div class="col">
-                <div class="input-group mb-3">
-                  <input
-                    type="text"
-                    class="form-control item"
-                    th:field="*{publisherUrl}"
-                    th:placeholder="#{form.object.publisher-url}"
-                    th:errorclass="is-invalid"
-                  />
-                </div>
-              </div>
             </div>
             <div class="form-row">
               <div class="col">
@@ -246,14 +184,23 @@
               </div>
             </div>
             <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control item"
+                th:field="*{dealerUrl}"
+                th:placeholder="#{form.object.dealer-url}"
+                th:errorclass="is-invalid"
+              />
+            </div>
+            <div class="input-group mb-3">
               <textarea
                 class="form-control"
                 name="synopsis"
                 id="editor"
                 th:name="synopsis"
                 th:field="*{synopsis}"
-                rows="5"
-                th:value="${anime.synopsis}"
+                rows="10"
+                th:value="${movie.synopsis}"
                 th:placeholder="#{form.object.synopsis} + ' (max: 1000 caractères) : '"
                 th:errorclass="is-invalid"
               ></textarea>

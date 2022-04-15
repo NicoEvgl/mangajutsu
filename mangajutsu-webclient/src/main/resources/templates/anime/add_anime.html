@@ -12,6 +12,9 @@
           <div class="block-heading">
             <h2 class="text-login" th:text="#{form.add-anime.name}"></h2>
           </div>
+          <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <p th:text="${error}"></p>
+          </div>
           <form
             class="form-group"
             th:action="@{/anime/add-anime}"
@@ -248,7 +251,7 @@
                 id="editor"
                 th:name="synopsis"
                 th:field="*{synopsis}"
-                rows="5"
+                rows="10"
                 th:value="${anime.synopsis}"
                 th:placeholder="#{form.object.synopsis} + ' (max: 1000 caractères) : '"
                 th:errorclass="is-invalid"

@@ -35,4 +35,9 @@ public class EnumController {
     public List<String> getFileTypes() {
         return enumService.getFileTypesEnumStringValues();
     }
+
+    @GetMapping("/movie-types")
+    public List<String> getMovieTypes() {
+        return enumService.getMovieTypesEnumStringValues();
+    }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.mangajutsu.api.enums.FileTypesEnum;
 import com.mangajutsu.api.enums.GenresEnum;
+import com.mangajutsu.api.enums.MovieTypesEnum;
 import com.mangajutsu.api.enums.StatusEnum;
 import com.mangajutsu.api.enums.TypesEnum;
 import com.mangajutsu.api.services.EnumService;
@@ -56,5 +57,16 @@ public class EnumServiceImpl implements EnumService {
             fileTypesStringValues.add(fileType.getParam());
         }
         return fileTypesStringValues;
+    }
+
+    @Override
+    public List<String> getMovieTypesEnumStringValues() {
+        MovieTypesEnum[] movieTypes = MovieTypesEnum.values();
+        List<String> movieTypesStringValues = new ArrayList<>();
+
+        for (MovieTypesEnum movieType : movieTypes) {
+            movieTypesStringValues.add(movieType.getParam());
+        }
+        return movieTypesStringValues;
     }
 }

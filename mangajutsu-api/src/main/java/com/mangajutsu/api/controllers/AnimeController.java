@@ -3,7 +3,7 @@ package com.mangajutsu.api.controllers;
 import java.util.List;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
-import com.mangajutsu.api.exceptions.AnimeAlreadyExistException;
+import com.mangajutsu.api.exceptions.ResourceAlreadyExistException;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.AnimeService;
 
@@ -42,7 +42,7 @@ public class AnimeController {
     }
 
     @PostMapping("/add-anime")
-    public void addAnime(@RequestBody AnimeEntity anime, String username) throws AnimeAlreadyExistException {
+    public void addAnime(@RequestBody AnimeEntity anime, String username) throws ResourceAlreadyExistException {
         animeService.addAnime(anime, username);
     }
 

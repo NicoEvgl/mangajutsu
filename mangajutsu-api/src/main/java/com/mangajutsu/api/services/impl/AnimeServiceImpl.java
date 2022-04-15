@@ -9,7 +9,7 @@ import com.mangajutsu.api.dao.entities.FileEntity;
 import com.mangajutsu.api.dao.entities.ReviewEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.repositories.AnimeRepository;
-import com.mangajutsu.api.exceptions.AnimeAlreadyExistException;
+import com.mangajutsu.api.exceptions.ResourceAlreadyExistException;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.AnimeService;
 import com.mangajutsu.api.services.FileService;
@@ -62,9 +62,9 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
-    public void addAnime(AnimeEntity anime, String username) throws AnimeAlreadyExistException {
+    public void addAnime(AnimeEntity anime, String username) throws ResourceAlreadyExistException {
         if (checkIfAnimeExist(anime.getTitle())) {
-            throw new AnimeAlreadyExistException("Anime already exist");
+            throw new ResourceAlreadyExistException("Anime already exist");
         }
         addUserToAnime(anime, username);
         animeRepository.save(anime);

@@ -13,4 +13,6 @@ public interface EnumService {
     List<String> getGenresEnumStringValues();
 
     List<String> getFileTypesEnumStringValues();
+
+    List<String> getMovieTypesEnumStringValues();
 }

@@ -145,12 +145,12 @@ public class AnimeController {
             mangajutsuProxy.updateAnime(anime, anime.getTitle());
         } catch (FeignException e) {
             redirectAttributes.addFlashAttribute("error",
-                    messageSource.getMessage("error.edit-anime", null, LocaleContextHolder.getLocale()));
+                    messageSource.getMessage("error.update-anime", null, LocaleContextHolder.getLocale()));
             model.addAttribute("anime", anime);
             return "redirect:/anime/update-anime/{title}";
         }
         redirectAttributes.addFlashAttribute("success",
-                messageSource.getMessage("edit-anime.success.msg", null, LocaleContextHolder.getLocale()));
+                messageSource.getMessage("update-anime.success.msg", null, LocaleContextHolder.getLocale()));
         model.addAttribute("anime", anime);
 
         return "redirect:/anime/anime-details/{title}";
