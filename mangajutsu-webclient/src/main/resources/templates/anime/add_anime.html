@@ -33,7 +33,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{title}"
-                    th:placeholder="#{form.anime.title}"
+                    th:placeholder="#{form.object.title}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -44,7 +44,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{titleVo}"
-                    th:placeholder="#{form.anime.titleVo}"
+                    th:placeholder="#{form.object.titleVo}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -55,7 +55,7 @@
                 type="text"
                 class="form-control item"
                 th:field="*{origin}"
-                th:placeholder="#{form.anime.origin}"
+                th:placeholder="#{form.object.origin}"
                 th:errorclass="is-invalid"
               />
             </div>
@@ -64,7 +64,7 @@
                 <option
                   value=""
                   selected
-                  th:text="#{form.anime.status}"
+                  th:text="#{form.object.status}"
                 ></option>
                 <option
                   th:each="status : ${statusList}"
@@ -80,7 +80,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{releaseDate}"
-                    th:placeholder="#{form.anime.release-date}"
+                    th:placeholder="#{form.object.release-date}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -91,7 +91,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{endDate}"
-                    th:placeholder="#{form.anime.end-date}"
+                    th:placeholder="#{form.object.end-date}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -104,7 +104,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{nbEpisodes}"
-                    th:placeholder="#{form.anime.nb-episodes}"
+                    th:placeholder="#{form.object.nb-episodes}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -115,7 +115,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{duration}"
-                    th:placeholder="#{form.anime.duration}"
+                    th:placeholder="#{form.object.duration}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -128,7 +128,7 @@
                     <option
                       value=""
                       selected
-                      th:text="#{form.anime.type}"
+                      th:text="#{form.object.type}"
                     ></option>
                     <option
                       th:each="type : ${types}"
@@ -149,7 +149,7 @@
                     <option
                       value=""
                       selected
-                      th:text="#{form.anime.genre}"
+                      th:text="#{form.object.genre}"
                     ></option>
                     <option
                       th:each="genre : ${genres}"
@@ -167,7 +167,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{mangaka}"
-                    th:placeholder="#{form.anime.mangaka}"
+                    th:placeholder="#{form.object.mangaka}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -177,8 +177,8 @@
                   <input
                     type="text"
                     class="form-control item"
-                    th:field="*{producer}"
-                    th:placeholder="#{form.anime.producer}"
+                    th:field="*{director}"
+                    th:placeholder="#{form.object.director}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -189,7 +189,7 @@
                 type="text"
                 class="form-control item"
                 th:field="*{studios}"
-                th:placeholder="#{form.anime.studios}"
+                th:placeholder="#{form.object.studios}"
                 th:errorclass="is-invalid"
               />
             </div>
@@ -200,7 +200,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{publisher}"
-                    th:placeholder="#{form.anime.publisher}"
+                    th:placeholder="#{form.object.publisher}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -211,7 +211,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{publisherUrl}"
-                    th:placeholder="#{form.anime.publisher-url}"
+                    th:placeholder="#{form.object.publisher-url}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -224,7 +224,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{publisherVod}"
-                    th:placeholder="#{form.anime.publisher-vod}"
+                    th:placeholder="#{form.object.publisher-vod}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -235,7 +235,7 @@
                     type="text"
                     class="form-control item"
                     th:field="*{publisherVodUrl}"
-                    th:placeholder="#{form.anime.publisher-vod-url}"
+                    th:placeholder="#{form.object.publisher-vod-url}"
                     th:errorclass="is-invalid"
                   />
                 </div>
@@ -250,7 +250,7 @@
                 th:field="*{synopsis}"
                 rows="5"
                 th:value="${anime.synopsis}"
-                th:placeholder="#{form.anime.synopsis} + ' (max: 1000 caractères) : '"
+                th:placeholder="#{form.object.synopsis} + ' (max: 1000 caractères) : '"
                 th:errorclass="is-invalid"
               ></textarea>
             </div>

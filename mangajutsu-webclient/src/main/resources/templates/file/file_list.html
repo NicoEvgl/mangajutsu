@@ -59,12 +59,12 @@
                   <a
                     class="btn btn-outline-secondary btn-sm"
                     th:href="@{'/file/' + ${file.anime.title} + '/update-file/' + ${file.id} + '/'}"
-                    th:text="#{update-file.name}"
+                    th:text="#{view.button.update}"
                   ></a>
                   <a
                     class="btn btn-outline-secondary btn-sm"
                     th:href="@{'/file/' + ${file.anime.title} + '/delete-file/' + ${file.id} + '/'}"
-                    th:text="#{delete-file.name}"
+                    th:text="#{view.button.delete}"
                   ></a>
                 </div>
               </div>

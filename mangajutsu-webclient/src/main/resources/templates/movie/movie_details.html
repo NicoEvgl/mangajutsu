@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page movieDetails-page">
+      <section class="clean-block clean-product dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="${movie.title}"></h2>
+            <span sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')">
+              <a
+                class="btn btn-sm btn-outline-primary"
+                th:href="@{'/movie/update-movie/' + ${movie.title} + '/'}"
+                th:text="#{view.button.update}"
+              ></a>
+              <a
+                class="btn btn-outline-secondary btn-sm"
+                th:href="@{'/movie/delete-movie/' + ${movie.title} + '/'}"
+                th:text="#{view.button.delete}"
+              ></a>
+            </span>
+          </div>
+          <div class="alert alert-danger" role="alert" th:if="${error != null}">
+            <p th:text="${error}"></p>
+          </div>
+          <div
+            class="alert alert-success"
+            role="alert"
+            th:if="${success != null}"
+          >
+            <p th:text="${success}"></p>
+          </div>
+          <div class="block-content">
+            <div class="product-info">
+              <div class="row">
+                <div class="col-md-6">
+                  <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/' + ${movie.title} + '/add-file'}"
+                    th:text="#{form.add-file.name}"
+                  ></a>
+                  <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/' + ${movie.title} + '/upload-file'}"
+                    th:text="#{form.upload-file.name}"
+                  ></a>
+                  <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/' + ${movie.title} + '/file-list'}"
+                    th:text="#{file-list.name}"
+                  ></a>
+                  <div class="gallery">
+                    <img
+                      th:src="@{/img/no_found.png}"
+                      alt="no image found"
+                      class="img-fluid d-block mx-auto"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info">
+                    <div class="summary">
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.rating}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.rating}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.title}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.title}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.titleVo}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.titleVo}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.origin}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.origin}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.release-date}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.releaseDate}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.duration}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.duration}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.type}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.type}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.genre}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.genre}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.director}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.director}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.producer}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.producer}">></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.studios}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.studios}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.publisher-vod}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <a
+                          th:if="${#strings.contains(movie.publisherVod,'Netflix')}"
+                          th:href="${movie.publisherVodUrl}"
+                        >
+                          <img
+                            th:src="@{https://img.icons8.com/color/48/000000/netflix-desktop-app--v1.png}"
+                            th:alt="${movie.publisherVod}"
+                          />
+                        </a>
+                        <a
+                          th:unless="${#strings.contains(movie.publisherVod,'Netflix')}"
+                          th:href="${movie.publisherVodUrl}"
+                        >
+                          <img
+                            th:src="@{https://img.icons8.com/ios-glyphs/30/000000/dvd-logo.png}"
+                            th:alt="${movie.publisherVod}"
+                          />
+                        </a>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.dealerUrl}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <a th:href="${movie.dealerUrl}">
+                          <img
+                            th:src="@{https://img.icons8.com/ios-glyphs/30/000000/dvd-logo.png}"
+                            alt="dvd-logo"
+                          />
+                        </a>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.synopsis}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.synopsis}"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

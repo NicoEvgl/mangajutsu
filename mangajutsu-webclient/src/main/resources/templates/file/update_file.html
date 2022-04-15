@@ -10,7 +10,7 @@
       <section class="clean-block clean-form dark">
         <div class="container">
           <div class="block-heading">
-            <h2 class="text-info" th:text="#{update-file.name}"></h2>
+            <h2 class="text-info" th:text="#{view.button.update}"></h2>
           </div>
           <div class="alert alert-danger" role="alert" th:if="${error != null}">
             <p th:text="${error}"></p>
@@ -74,7 +74,7 @@
               <button
                 type="submit"
                 class="btn btn-primary btn-block"
-                th:text="#{update-file.name}"
+                th:text="#{view.button.update}"
               ></button>
             </form>
           </div>

@@ -6,16 +6,16 @@
   <head th:replace="fragments/header :: head"></head>
   <body>
     <header th:replace="fragments/header :: header"></header>
-    <main class="page animeList-page">
+    <main class="page movieList-page">
       <section class="clean-block clean-services dark">
         <div class="container">
           <div class="block-heading">
-            <h2 class="text-info" th:text="#{anime-list.name}"></h2>
+            <h2 class="text-info" th:text="#{movie-list.name}"></h2>
             <span>
               <a
                 class="btn btn-sm btn-outline-primary"
-                th:href="@{/anime/add-anime}"
-                th:text="#{form.add-anime.name}"
+                th:href="@{/movie/add-movie}"
+                th:text="#{form.add-movie.name}"
               ></a>
             </span>
           </div>
@@ -27,26 +27,26 @@
             <p th:text="${success}"></p>
           </div>
           <div class="row">
-            <div class="col-md-6 col-lg-4" th:each="anime : ${animes}">
+            <div class="col-md-6 col-lg-4" th:each="movie : ${movies}">
               <div class="card">
                 <div class="card-body">
                   <a
                     class="btn btn-outline-secondary btn-sm"
-                    th:href="@{'/anime/anime-details/' + ${anime.title} + '/'}"
+                    th:href="@{'/movie/movie-details/' + ${movie.title} + '/'}"
                   >
                     <img
-                      th:if="${#lists.isEmpty(anime.files)}"
+                      th:if="${#lists.isEmpty(movie.files)}"
                       th:src="@{/img/no_found.png}"
                       alt="no image found"
                       style="width: 120px; height: auto"
                     />
                     <img
-                      th:if="${not #lists.isEmpty(anime.files)}"
-                      th:src="${anime.files.get(0).url}"
-                      alt="${anime.files.get(0).fileName}"
+                      th:if="${not #lists.isEmpty(movie.files)}"
+                      th:src="${movie.files.get(0).url}"
+                      alt="${movie.files.get(0).fileName}"
                       style="width: 120px; height: auto"
                     />
-                    <h5 class="card-title" th:text="${anime.title}"></h5>
+                    <h5 class="card-title" th:text="${movie.title}"></h5>
                   </a>
                 </div>
               </div>

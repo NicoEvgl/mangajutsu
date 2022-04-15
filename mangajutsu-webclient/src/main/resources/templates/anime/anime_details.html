@@ -15,12 +15,12 @@
               <a
                 class="btn btn-sm btn-outline-primary"
                 th:href="@{'/anime/update-anime/' + ${anime.title} + '/'}"
-                th:text="#{form.edit-anime.name}"
+                th:text="#{view.button.update}"
               ></a>
               <a
                 class="btn btn-outline-secondary btn-sm"
                 th:href="@{'/anime/delete-anime/' + ${anime.title} + '/'}"
-                th:text="#{delete-anime.name}"
+                th:text="#{view.button.delete}"
               ></a>
             </span>
           </div>
@@ -90,7 +90,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.rating}"
+                          th:text="#{form.object.rating}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.rating}"></p>
@@ -98,7 +98,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.title}"
+                          th:text="#{form.object.title}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.title}"></p>
@@ -106,7 +106,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.titleVo}"
+                          th:text="#{form.object.titleVo}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.titleVo}"></p>
@@ -114,7 +114,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.origin}"
+                          th:text="#{form.object.origin}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.origin}"></p>
@@ -122,7 +122,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.status}"
+                          th:text="#{form.object.status}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.status}"></p>
@@ -130,7 +130,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.release-date}"
+                          th:text="#{form.object.release-date}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.releaseDate}"></p>
@@ -141,7 +141,7 @@
                       >
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.end-date}"
+                          th:text="#{form.object.end-date}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.endDate}"></p>
@@ -149,7 +149,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.nb-episodes}"
+                          th:text="#{form.object.nb-episodes}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.nbEpisodes}"></p>
@@ -157,7 +157,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.duration}"
+                          th:text="#{form.object.duration}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.duration}"></p>
@@ -165,7 +165,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.type}"
+                          th:text="#{form.object.type}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.type}"></p>
@@ -173,7 +173,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.genre}"
+                          th:text="#{form.object.genre}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.genre}"></p>
@@ -181,7 +181,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.mangaka}"
+                          th:text="#{form.object.mangaka}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.mangaka}"></p>
@@ -189,15 +189,15 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.producer}"
+                          th:text="#{form.object.director}"
                           style="font-weight: bolder"
                         ></h7>
-                        <p class="value" th:text="${anime.producer}">></p>
+                        <p class="value" th:text="${anime.director}">></p>
                       </div>
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.studios}"
+                          th:text="#{form.object.studios}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.studios}"></p>
@@ -205,7 +205,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.publisher}"
+                          th:text="#{form.object.publisher}"
                           style="font-weight: bolder"
                         ></h7>
                         <a
@@ -233,7 +233,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.publisher-vod}"
+                          th:text="#{form.object.publisher-vod}"
                           style="font-weight: bolder"
                         ></h7>
                         <a
@@ -264,7 +264,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.anime.synopsis}"
+                          th:text="#{form.object.synopsis}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.synopsis}"></p>

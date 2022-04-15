@@ -113,12 +113,12 @@
                   <a
                     class="btn btn-outline-primary btn-sm"
                     th:href="@{'/anime/update-anime/' + ${anime.title} + '/'}"
-                    th:text="#{form.edit-anime.name}"
+                    th:text="#{view.button.update}"
                   ></a>
                   <a
                     class="btn btn-outline-primary btn-sm"
                     th:href="@{'/anime/delete-anime/' + ${anime.title} + '/'}"
-                    th:text="#{delete-anime.name}"
+                    th:text="#{view.button.delete}"
                   ></a>
                 </div>
               </div>
