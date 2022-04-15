@@ -1,0 +1,22 @@
+<!-- success alert -->
+<div th:fragment="success">
+  <div class="alert alert-success" role="alert" th:if="${success != null}">
+    <p th:text="${success}"></p>
+  </div>
+</div>
+
+<!-- error alert -->
+<div th:fragment="error">
+  <div class="alert alert-danger" role="alert" th:if="${error != null}">
+    <p th:text="${error}"></p>
+  </div>
+</div>
+
+<!-- fields error alert -->
+<div th:fragment="fields_error">
+  <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+    <ul>
+      <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+    </ul>
+  </div>
+</div>

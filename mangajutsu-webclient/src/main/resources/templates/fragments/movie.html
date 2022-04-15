@@ -1,0 +1,170 @@
+<!-- Movie form-->
+<div th:fragment="form">
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{title}"
+          th:placeholder="#{form.object.title}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{titleVo}"
+          th:placeholder="#{form.object.titleVo}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control item"
+      th:field="*{origin}"
+      th:placeholder="#{form.object.origin}"
+      th:errorclass="is-invalid"
+    />
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{releaseDate}"
+          th:placeholder="#{form.object.release-date}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{duration}"
+          th:placeholder="#{form.object.duration}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col select-style">
+      <div class="input-group mb-3">
+        <select class="form-control" th:field="*{type}">
+          <option value="" selected th:text="#{form.object.type}"></option>
+          <option
+            th:each="type : ${types}"
+            th:value="${type}"
+            th:text="${type}"
+          ></option>
+        </select>
+      </div>
+    </div>
+    <div class="col select-style">
+      <div class="input-group mb-3">
+        <select
+          multiple="multiple"
+          id="myMulti"
+          class="form-control"
+          th:field="*{genre}"
+        >
+          <option value="" selected th:text="#{form.object.genre}"></option>
+          <option
+            th:each="genre : ${genres}"
+            th:value="${genre}"
+            th:text="${genre}"
+          ></option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{director}"
+          th:placeholder="#{form.object.director}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{producer}"
+          th:placeholder="#{form.object.producer}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control item"
+      th:field="*{studios}"
+      th:placeholder="#{form.object.studios}"
+      th:errorclass="is-invalid"
+    />
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{publisherVod}"
+          th:placeholder="#{form.object.publisher-vod}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{publisherVodUrl}"
+          th:placeholder="#{form.object.publisher-vod-url}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control item"
+      th:field="*{dealerUrl}"
+      th:placeholder="#{form.object.dealer-url}"
+      th:errorclass="is-invalid"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <textarea
+      class="form-control"
+      name="synopsis"
+      id="editor"
+      th:name="synopsis"
+      th:field="*{synopsis}"
+      rows="10"
+      th:value="${movie.synopsis}"
+      th:placeholder="#{form.object.synopsis} + ' (max: 1000 caractères) : '"
+      th:errorclass="is-invalid"
+    ></textarea>
+  </div>
+</div>

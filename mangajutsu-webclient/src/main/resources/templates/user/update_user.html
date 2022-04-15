@@ -11,20 +11,14 @@
         <div class="block-heading">
           <h2 class="text-login" th:text="#{form.update-user.name}"></h2>
         </div>
-        <div class="alert alert-danger" role="alert" th:if="${error != null}">
-          <p th:text="${error}"></p>
-        </div>
+        <div th:replace="fragments/alert :: error"></div>
         <form
           class="form-group"
           th:action="@{'/update-user/' + ${userInSession.user.id} + '/'}"
           th:object="${userInSession}"
           method="post"
         >
-          <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-            <ul>
-              <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-            </ul>
-          </div>
+          <div th:replace="fragments/alert :: fields_error"></div>
           <div class="input-group mb-3">
             <input
               type="text"

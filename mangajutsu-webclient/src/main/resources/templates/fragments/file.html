@@ -1,10 +1,5 @@
 <!-- Upload image url form-->
-<div th:fragment="file_form">
-  <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-    <ul>
-      <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-    </ul>
-  </div>
+<div th:fragment="form">
   <div class="form-group">
     <input
       type="text"
@@ -42,15 +37,10 @@
       th:errorclass="is-invalid"
     />
   </div>
-  <button
-    type="submit"
-    class="btn btn-primary btn-block"
-    th:text="#{form.upload-file.name}"
-  ></button>
 </div>
 
 <!-- Upload image source form-->
-<div th:fragment="upload_form">
+<div th:fragment="upload">
   <div class="form-group">
     <input
       type="file"
@@ -67,7 +57,7 @@
 </div>
 
 <!-- File list-->
-<div th:fragment="file_list">
+<div th:fragment="list">
   <img
     th:if="${#lists.isEmpty(files)}"
     th:src="@{/img/no_found.png}"

@@ -1,112 +1,107 @@
-<!DOCTYPE html>
-<html
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
->
-  <head th:fragment="head">
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+<!-- <head> -->
+<head th:fragment="head">
+  <meta charset="utf-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  />
 
-    <title>MangaJutsu</title>
+  <title>MangaJutsu</title>
 
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
-    <link rel="stylesheet" th:href="@{/fonts/simple-line-icons.min.css}" />
-    <link rel="stylesheet" th:href="@{/css/smoothproducts.css}" />
-    <link rel="stylesheet" th:href="@{/css/heroic-features.css}" />
-    <link
-      rel="stylesheet"
-      th:href="@{https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css}"
-    />
-    <link
-      rel="stylesheet"
-      th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"
-    />
-    <link
-      rel="stylesheet"
-      th:href="@{https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i}"
-    />
-  </head>
-  <body>
-    <header th:fragment="header">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-          <a class="navbar-brand" th:href="@{/index}">
-            <img
-              th:src="@{/img/navbar_icon.png}"
-              alt="home icon"
-              style="width: 50px; height: auto"
-            />
-          </a>
-          <button
-            class="navbar-toggler"
-            data-toggle="collapse"
-            data-target="#navbarTogglerDemo02"
-          >
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul
-              class="navbar-nav mr-auto mt-2 mt-lg-0"
-              sec:authorize="isAuthenticated()"
-            >
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  th:href="@{/personal-space}"
-                  sec:authentication="name"
-                ></a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  th:href="@{/anime/anime-list}"
-                  th:text="#{navbar.item.anime-list}"
-                ></a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link"
-                  th:href="@{/movie/movie-list}"
-                  th:text="#{navbar.item.movie-list}"
-                ></a>
-              </li>
-              <li class="nav-item">
-                <form id="logoutForm" th:action="@{/logout}" method="post">
-                  <input
-                    class="btn"
-                    type="submit"
-                    th:value="#{navbar.item.logout}"
-                    name="logout"
-                  />
-                </form>
-              </li>
-            </ul>
-            <select
-              class="form-control select2 select2-hidden-accessible"
-              style="width: 17%"
-              data-select2-id="1"
-              tabindex="-1"
-              aria-hidden="true"
-              id="locale"
-            >
-              <option
-                value="fr"
-                th:text="#{lang.fr}"
-                th:selected="__${#locale}__=='fr'"
-              ></option>
-              <option
-                value="en"
-                th:text="#{lang.en}"
-                th:selected="__${#locale}__=='en'"
-              ></option>
-            </select>
-          </div>
-        </div>
-      </nav>
-    </header>
-  </body>
-</html>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/fonts/simple-line-icons.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/smoothproducts.css}" />
+  <link rel="stylesheet" th:href="@{/css/heroic-features.css}" />
+  <link
+    rel="stylesheet"
+    th:href="@{https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.10.0/baguetteBox.min.css}"
+  />
+  <link
+    rel="stylesheet"
+    th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}"
+  />
+  <link
+    rel="stylesheet"
+    th:href="@{https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i}"
+  />
+</head>
+
+<!-- <header> -->
+<header th:fragment="header">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" th:href="@{/index}">
+        <img
+          th:src="@{/img/navbar_icon.png}"
+          alt="home icon"
+          style="width: 50px; height: auto"
+        />
+      </a>
+      <button
+        class="navbar-toggler"
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo02"
+      >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul
+          class="navbar-nav mr-auto mt-2 mt-lg-0"
+          sec:authorize="isAuthenticated()"
+        >
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              th:href="@{/personal-space}"
+              sec:authentication="name"
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              th:href="@{/anime/anime-list}"
+              th:text="#{navbar.item.anime-list}"
+            ></a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              th:href="@{/movie/movie-list}"
+              th:text="#{navbar.item.movie-list}"
+            ></a>
+          </li>
+          <li class="nav-item">
+            <form id="logoutForm" th:action="@{/logout}" method="post">
+              <input
+                class="btn"
+                type="submit"
+                th:value="#{navbar.item.logout}"
+                name="logout"
+              />
+            </form>
+          </li>
+        </ul>
+        <select
+          class="form-control select2 select2-hidden-accessible"
+          style="width: 17%"
+          data-select2-id="1"
+          tabindex="-1"
+          aria-hidden="true"
+          id="locale"
+        >
+          <option
+            value="fr"
+            th:text="#{lang.fr}"
+            th:selected="__${#locale}__=='fr'"
+          ></option>
+          <option
+            value="en"
+            th:text="#{lang.en}"
+            th:selected="__${#locale}__=='en'"
+          ></option>
+        </select>
+      </div>
+    </div>
+  </nav>
+</header>

@@ -12,9 +12,7 @@
           <div class="block-heading">
             <h2 class="text-info" th:text="#{form.upload-file.name}"></h2>
           </div>
-          <div class="alert alert-danger" role="alert" th:if="${error != null}">
-            <p th:text="${error}"></p>
-          </div>
+          <div th:replace="fragments/alert :: error"></div>
           <div>
             <form
               class="form-group"
@@ -23,7 +21,7 @@
               th:object="${file}"
               method="post"
             >
-              <div th:replace="fragments/file :: upload_form"></div>
+              <div th:replace="fragments/file :: upload"></div>
             </form>
           </div>
         </div>

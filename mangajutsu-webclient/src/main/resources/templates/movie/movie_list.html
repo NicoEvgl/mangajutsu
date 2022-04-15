@@ -11,7 +11,7 @@
         <div class="container">
           <div class="block-heading">
             <h2 class="text-info" th:text="#{movie-list.name}"></h2>
-            <span>
+            <span sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')">
               <a
                 class="btn btn-sm btn-outline-primary"
                 th:href="@{/movie/add-movie}"
@@ -19,13 +19,7 @@
               ></a>
             </span>
           </div>
-          <div
-            class="alert alert-success"
-            role="alert"
-            th:if="${success != null}"
-          >
-            <p th:text="${success}"></p>
-          </div>
+          <div th:replace="fragments/alert :: success"></div>
           <div class="row">
             <div class="col-md-6 col-lg-4" th:each="movie : ${movies}">
               <div class="card">

@@ -21,9 +21,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="alert alert-danger" role="alert" th:if="${error != null}">
-            <p th:text="${error}"></p>
-          </div>
+          <div th:replace="fragments/alert :: error"></div>
           <form
             class="form-group"
             th:action="@{'/admin/' + ${id} + '/add-role' + '/'}"

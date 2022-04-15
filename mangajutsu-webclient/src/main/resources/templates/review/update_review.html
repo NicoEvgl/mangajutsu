@@ -12,48 +12,15 @@
           <div class="block-heading">
             <h2 class="text-login" th:text="#{view.button.update}"></h2>
           </div>
-          <div class="alert alert-danger" role="alert" th:if="${error != null}">
-            <p th:text="${error}"></p>
-          </div>
+          <div th:replace="fragments/alert :: error"></div>
           <form
             class="form-group"
             th:action="@{'/review/' + ${review.anime.title} + '/update-review/' + ${review.id} + '/'}"
             th:object="${review}"
             method="post"
           >
-            <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-              <ul>
-                <li
-                  th:each="err : ${#fields.errors('*')}"
-                  th:text="${err}"
-                ></li>
-              </ul>
-            </div>
-            <div class="form-group">
-              <div class="col select-style">
-                <div class="input-group mb-3">
-                  <select class="form-control" th:field="*{rating}">
-                    <option value="1" label="1"></option>
-                    <option value="2" label="2"></option>
-                    <option value="3" label="3"></option>
-                    <option value="4" label="4"></option>
-                    <option value="5" label="5"></option>
-                  </select>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <textarea
-                class="form-control"
-                name="content"
-                id="editor"
-                th:name="content"
-                th:field="*{content}"
-                rows="10"
-                th:value="${review.content}"
-                th:placeholder="'3000 max.'"
-                th:errorclass="is-invalid"
-              ></textarea>
+            <div th:replace="fragments/alert :: fields_error"></div>
+            <div th:replace="fragments/review :: form"></div>
             </div>
             <div class="form-group">
               <button

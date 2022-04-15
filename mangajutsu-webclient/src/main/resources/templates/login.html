@@ -12,16 +12,8 @@
           <div class="block-heading">
             <h3 class="text-info" th:text="#{form.login.name}"></h3>
           </div>
-          <div
-            class="alert alert-success"
-            role="alert"
-            th:if="${success != null}"
-          >
-            <p th:text="${success}"></p>
-          </div>
-          <div class="alert alert-danger" role="alert" th:if="${error != null}">
-            <p th:text="${error}"></p>
-          </div>
+          <div th:replace="fragments/alert :: error"></div>
+          <div th:replace="fragments/alert :: success"></div>
           <div
             class="alert alert-danger"
             role="alert"

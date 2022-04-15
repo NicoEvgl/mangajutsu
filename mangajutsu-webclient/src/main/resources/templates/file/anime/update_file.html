@@ -12,9 +12,7 @@
           <div class="block-heading">
             <h2 class="text-info" th:text="#{view.button.update}"></h2>
           </div>
-          <div class="alert alert-danger" role="alert" th:if="${error != null}">
-            <p th:text="${error}"></p>
-          </div>
+          <div th:replace="fragments/alert :: error"></div>
           <div>
             <form
               class="form-group"
@@ -22,7 +20,13 @@
               th:object="${file}"
               method="post"
             >
-              <div th:replace="fragments/file :: file_form"></div>
+              <div th:replace="fragments/alert :: fields_error"></div>
+              <div th:replace="fragments/file :: form"></div>
+              <button
+                type="submit"
+                class="btn btn-primary btn-block"
+                th:text="#{view.button.update}"
+              ></button>
             </form>
           </div>
         </div>

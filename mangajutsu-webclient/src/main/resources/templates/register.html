@@ -19,11 +19,7 @@
           th:object="${user}"
           method="post"
         >
-          <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-            <ul>
-              <li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
-            </ul>
-          </div>
+          <div th:replace="fragments/alert :: fields_error"></div>
           <div class="form-row">
             <div class="col">
               <div class="input-group mb-3">

@@ -15,13 +15,7 @@
               th:text="'Profil de ' + ${user.username}"
             ></h4>
           </div>
-          <div
-            class="alert alert-success"
-            role="alert"
-            th:if="${success != null}"
-          >
-            <p th:text="${success}"></p>
-          </div>
+          <div th:replace="fragments/alert :: success"></div>
           <div class="row">
             <div class="col">
               <div class="card shadow mb-3">
