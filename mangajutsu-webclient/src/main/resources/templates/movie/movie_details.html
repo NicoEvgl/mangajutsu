@@ -241,10 +241,10 @@
               </ul>
               <div class="tab-content" id="TabContent">
                 <div class="tab-pane fade show" role="tabpanel1" id="reviews">
+                  <div th:each="userReviewed : ${usersReviewed}"></div>
                   <p class="my-5" sec:authorize="isAuthenticated()">
                     <a
-                      th:each="userReviewed : ${usersReviewed}"
-                      th:if="${!#strings.contains(usersReviewed, #authentication.name)}"
+                      th:if="${!#lists.contains(usersReviewed, #authentication.name)}"
                       class="btn btn-outline-primary"
                       th:href="@{'/review/movie/' + ${movie.title} + '/add-review' + '/'}"
                     >
