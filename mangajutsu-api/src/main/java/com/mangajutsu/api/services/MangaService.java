@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 public interface MangaService {
     List<MangaEntity> getMangaList();
 
+    List<MangaEntity> getTopMangaList();
+
     MangaEntity getMangaDetails(String title);
 
     List<MangaEntity> getUserMangas(String username);

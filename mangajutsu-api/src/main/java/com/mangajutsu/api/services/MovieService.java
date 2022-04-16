@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 public interface MovieService {
     List<MovieEntity> getMovieList();
 
+    List<MovieEntity> getTopMovieList();
+
     MovieEntity getMovieDetails(String title);
 
     List<MovieEntity> getUserMovies(String username);

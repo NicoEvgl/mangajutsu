@@ -60,6 +60,9 @@ public interface MangajutsuProxy {
         @GetMapping("/manga/manga-list")
         List<MangaModel> getMangaList();
 
+        @GetMapping("/manga/top-manga-list")
+        List<MangaModel> getTopMangaList();
+
         @GetMapping("/manga/manga-details/{title}")
         MangaModel getMangaDetails(@PathVariable String title);
 
@@ -80,6 +83,9 @@ public interface MangajutsuProxy {
         @GetMapping("/anime/anime-list")
         List<AnimeModel> getAnimeList();
 
+        @GetMapping("/anime/top-anime-list")
+        List<AnimeModel> getTopAnimeList();
+
         @GetMapping("/anime/anime-details/{title}")
         AnimeModel getAnimeDetails(@PathVariable String title);
 
@@ -99,6 +105,9 @@ public interface MangajutsuProxy {
 
         @GetMapping("/movie/movie-list")
         List<MovieModel> getMovieList();
+
+        @GetMapping("/movie/top-movie-list")
+        List<MovieModel> getTopMovieList();
 
         @GetMapping("/movie/movie-details/{title}")
         MovieModel getMovieDetails(@PathVariable String title);

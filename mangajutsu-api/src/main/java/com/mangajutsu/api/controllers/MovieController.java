@@ -29,6 +29,12 @@ public class MovieController {
         return movies;
     }
 
+    @GetMapping("/top-movie-list")
+    public List<MovieEntity> getTopMovieList() {
+        List<MovieEntity> movies = movieService.getTopMovieList();
+        return movies;
+    }
+
     @GetMapping("/movie-details/{title}")
     public MovieEntity getMovieDetails(@PathVariable String title) {
         MovieEntity movie = movieService.getMovieDetails(title);

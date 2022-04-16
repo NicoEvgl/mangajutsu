@@ -98,7 +98,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.object.titleVo}"
+                          th:text="#{form.object.title-vo}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${manga.titleVo}"></p>
@@ -193,22 +193,17 @@
                           style="font-weight: bolder"
                         ></h7>
                         <a
-                          th:if="${#strings.contains(manga.editor,'Kana')}"
+                          th:if="${#strings.contains(manga.editor,'Pika')}"
                           th:href="${manga.editorUrl}"
                         >
                           <img
-                            th:src="@{https://www.kana.fr/wp-content/themes/kana/assets/images/logo.svg}"
+                            th:src="@{https://www.pika.fr/sites/default/files/admin/logo-pika-edition.png}"
                             th:alt="${manga.editor}"
-                            style="
-                              margin-left: 20px;
-                              width: 25px;
-                              height: auto;
-                              transform: rotate(270deg);
-                            "
+                            style="margin-left: 20px; width: 35px; height: auto"
                           />
                         </a>
                         <a
-                          th:unless="${#strings.contains(manga.editor,'Kana')}"
+                          th:unless="${#strings.contains(manga.editor,'Pika')}"
                           th:href="${manga.editorUrl}"
                           th:text="${manga.editor}"
                         >

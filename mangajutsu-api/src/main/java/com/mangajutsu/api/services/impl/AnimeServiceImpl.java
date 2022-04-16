@@ -46,6 +46,16 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
+    public List<AnimeEntity> getTopAnimeList() {
+        List<AnimeEntity> animes = animeRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+        for (AnimeEntity anime : animes) {
+            List<FileEntity> files = fileService.getAnimeFiles(anime.getTitle());
+            anime.setFiles(files);
+        }
+        return animes;
+    }
+
+    @Override
     public AnimeEntity getAnimeDetails(String title) {
         AnimeEntity anime = animeRepository.findByTitle(title);
         if (anime != null) {
@@ -57,7 +67,7 @@ public class AnimeServiceImpl implements AnimeService {
     @Override
     public List<AnimeEntity> getUserAnimes(String username) {
         List<AnimeEntity> animes = animeRepository.findAllByUser_Username(username,
-                Sort.by(Sort.Direction.ASC, "title"));
+                Sort.by(Sort.Direction.DESC, "createdAt"));
         return animes;
     }
 

@@ -24,8 +24,14 @@ public class MangaController {
     private MangaService mangaService;
 
     @GetMapping("/manga-list")
-    public List<MangaEntity> getAnimeList() {
+    public List<MangaEntity> getMangaList() {
         List<MangaEntity> mangas = mangaService.getMangaList();
+        return mangas;
+    }
+
+    @GetMapping("/top-manga-list")
+    public List<MangaEntity> getTopMangaList() {
+        List<MangaEntity> mangas = mangaService.getTopMangaList();
         return mangas;
     }
 

@@ -98,7 +98,7 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.object.titleVo}"
+                          th:text="#{form.object.title-vo}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${anime.titleVo}"></p>
@@ -229,6 +229,24 @@
                           style="font-weight: bolder"
                         ></h7>
                         <a
+                          th:if="${#strings.contains(anime.publisherVod,'Crunchyroll')}"
+                          th:href="${anime.publisherVodUrl}"
+                        >
+                          <img
+                            th:src="@{https://img.icons8.com/fluency/48/000000/crunchyroll.png}"
+                            th:alt="${anime.publisherVod}"
+                          />
+                        </a>
+                        <a
+                          th:if="${#strings.contains(anime.publisherVod,'Wakanim')}"
+                          th:href="${anime.publisherVodUrl}"
+                        >
+                          <img
+                            th:src="@{https://img.icons8.com/color/48/000000/wakanim.png}"
+                            th:alt="${anime.publisherVod}"
+                          />
+                        </a>
+                        <a
                           th:if="${#strings.contains(anime.publisherVod,'ADN')}"
                           th:href="${anime.publisherVodUrl}"
                         >
@@ -247,7 +265,7 @@
                           />
                         </a>
                         <a
-                          th:unless="${#strings.contains(anime.publisherVod,'ADN') || #strings.contains(anime.publisherVod,'Netflix')}"
+                          th:unless="${#strings.contains(anime.publisherVod,'ADN') || #strings.contains(anime.publisherVod,'Netflix') || #strings.contains(anime.publisherVod,'Wakanim') || #strings.contains(anime.publisherVod,'Crunchyroll')}"
                           th:href="${anime.publisherVodUrl}"
                           th:text="${anime.publisherVod}"
                         >

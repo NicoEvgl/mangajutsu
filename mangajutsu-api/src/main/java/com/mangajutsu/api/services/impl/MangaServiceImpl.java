@@ -46,6 +46,16 @@ public class MangaServiceImpl implements MangaService {
     }
 
     @Override
+    public List<MangaEntity> getTopMangaList() {
+        List<MangaEntity> mangas = mangaRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+        for (MangaEntity manga : mangas) {
+            List<FileEntity> files = fileService.getMangaFiles(manga.getTitle());
+            manga.setFiles(files);
+        }
+        return mangas;
+    }
+
+    @Override
     public MangaEntity getMangaDetails(String title) {
         MangaEntity manga = mangaRepository.findByTitle(title);
         if (manga != null) {
@@ -57,7 +67,7 @@ public class MangaServiceImpl implements MangaService {
     @Override
     public List<MangaEntity> getUserMangas(String username) {
         List<MangaEntity> mangas = mangaRepository.findAllByUser_Username(username,
-                Sort.by(Sort.Direction.ASC, "title"));
+                Sort.by(Sort.Direction.DESC, "createdAt"));
         return mangas;
     }
 

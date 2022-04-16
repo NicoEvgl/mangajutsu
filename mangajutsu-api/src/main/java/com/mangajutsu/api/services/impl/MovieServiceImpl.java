@@ -42,6 +42,16 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<MovieEntity> getTopMovieList() {
+        List<MovieEntity> movies = movieRepository.findAll(Sort.by(Sort.Direction.DESC, "rating"));
+        for (MovieEntity movie : movies) {
+            List<FileEntity> files = fileService.getMovieFiles(movie.getTitle());
+            movie.setFiles(files);
+        }
+        return movies;
+    }
+
+    @Override
     public MovieEntity getMovieDetails(String title) {
         MovieEntity movie = movieRepository.findByTitle(title);
         if (movie != null) {
@@ -53,7 +63,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieEntity> getUserMovies(String username) {
         List<MovieEntity> movies = movieRepository.findAllByUser_Username(username,
-                Sort.by(Sort.Direction.ASC, "title"));
+                Sort.by(Sort.Direction.DESC, "createdAt"));
         return movies;
     }
 
