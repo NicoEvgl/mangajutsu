@@ -1,6 +1,7 @@
 package com.mangajutsu.webclient.models;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -13,6 +14,7 @@ public class MovieModel implements Serializable {
     private String titleVo;
     private String origin;
     private float rating;
+    private String releaseDateVo;
     @NotEmpty(message = "{add-movie.valid.release-date}")
     private String releaseDate;
     @NotEmpty(message = "{add-movie.valid.duration}")
@@ -32,6 +34,7 @@ public class MovieModel implements Serializable {
     @NotEmpty(message = "{add-movie.valid.synopsis}")
     @Size(min = 1, max = 1000, message = "{add-anime.valid.synopsis-size}")
     private String synopsis;
+    private Timestamp createdAt;
 
     private UserModel user;
     private List<FileModel> files;
@@ -73,6 +76,14 @@ public class MovieModel implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getReleaseDateVo() {
+        return releaseDateVo;
+    }
+
+    public void setReleaseDateVo(String releaseDateVo) {
+        this.releaseDateVo = releaseDateVo;
     }
 
     public String getReleaseDate() {
@@ -161,6 +172,10 @@ public class MovieModel implements Serializable {
 
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
     public UserModel getUser() {

@@ -114,7 +114,15 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
-                          th:text="#{form.object.release-date}"
+                          th:text="#{form.object.release-date-vo}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${movie.releaseDateVo}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.release-date-vf}"
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${movie.releaseDate}"></p>

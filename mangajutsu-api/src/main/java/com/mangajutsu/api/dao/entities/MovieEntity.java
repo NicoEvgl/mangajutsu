@@ -1,6 +1,7 @@
 package com.mangajutsu.api.dao.entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "movie", schema = "public")
@@ -30,6 +33,8 @@ public class MovieEntity implements Serializable {
     private String origin;
     @Column(name = "rating", nullable = false, columnDefinition = "float default 0")
     private float rating;
+    @Column(name = "release_date_vo", nullable = true, length = 50)
+    private String releaseDateVo;
     @Column(name = "release_date", nullable = false, length = 50)
     private String releaseDate;
     @Column(name = "duration", nullable = true, length = 20)
@@ -52,6 +57,9 @@ public class MovieEntity implements Serializable {
     private String dealerUrl;
     @Column(name = "synopsis", nullable = false, length = 1000)
     private String synopsis;
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Timestamp createdAt;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = true)
@@ -69,10 +77,6 @@ public class MovieEntity implements Serializable {
 
     public Integer getId() {
         return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {
@@ -105,6 +109,14 @@ public class MovieEntity implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getReleaseDateVo() {
+        return releaseDateVo;
+    }
+
+    public void setReleaseDateVo(String releaseDateVo) {
+        this.releaseDateVo = releaseDateVo;
     }
 
     public String getReleaseDate() {
@@ -193,6 +205,10 @@ public class MovieEntity implements Serializable {
 
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
     public UserEntity getUser() {

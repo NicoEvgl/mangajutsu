@@ -1,6 +1,7 @@
 package com.mangajutsu.webclient.models;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
@@ -38,6 +39,7 @@ public class AnimeModel implements Serializable {
     @NotEmpty(message = "{add-anime.valid.synopsis}")
     @Size(min = 1, max = 1000, message = "{add-anime.valid.synopsis-size}")
     private String synopsis;
+    private Timestamp createdAt;
 
     private UserModel user;
     private List<FileModel> files;
@@ -199,6 +201,10 @@ public class AnimeModel implements Serializable {
 
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
     public UserModel getUser() {

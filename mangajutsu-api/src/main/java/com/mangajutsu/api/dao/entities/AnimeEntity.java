@@ -1,6 +1,7 @@
 package com.mangajutsu.api.dao.entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "anime", schema = "public")
@@ -60,6 +63,9 @@ public class AnimeEntity implements Serializable {
     private String publisherVodUrl;
     @Column(name = "synopsis", nullable = false, length = 1000)
     private String synopsis;
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private Timestamp createdAt;
 
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = true)
@@ -229,6 +235,10 @@ public class AnimeEntity implements Serializable {
 
     public void setSynopsis(String synopsis) {
         this.synopsis = synopsis;
+    }
+
+    public Timestamp getCreatedAt() {
+        return createdAt;
     }
 
     public UserEntity getUser() {
