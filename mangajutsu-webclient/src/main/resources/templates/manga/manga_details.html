@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+>
+  <head th:replace="fragments/header :: head"></head>
+  <body>
+    <header th:replace="fragments/header :: header"></header>
+    <main class="page mangaDetails-page">
+      <section class="clean-block clean-product dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2 class="text-info" th:text="${manga.title}"></h2>
+            <span sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')">
+              <a
+                class="btn btn-sm btn-outline-primary"
+                th:href="@{'/manga/update-manga/' + ${manga.title} + '/'}"
+                th:text="#{view.button.update}"
+              ></a>
+              <a
+                class="btn btn-outline-secondary btn-sm"
+                th:href="@{'/manga/delete-manga/' + ${manga.title} + '/'}"
+                th:text="#{view.button.delete}"
+              ></a>
+            </span>
+          </div>
+          <div th:replace="fragments/alert :: error"></div>
+          <div th:replace="fragments/alert :: success"></div>
+          <div class="block-content">
+            <div class="product-info">
+              <div class="row">
+                <div class="col-md-6">
+                  <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/manga/' + ${manga.title} + '/add-file'}"
+                    th:text="#{form.add-file.name}"
+                  ></a>
+                  <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/manga/' + ${manga.title} + '/upload-file'}"
+                    th:text="#{form.upload-file.name}"
+                  ></a>
+                  <a
+                    sec:authorize="hasAnyAuthority('ADMIN_ROLE', 'MEMBER_ROLE')"
+                    class="btn btn-outline-secondary"
+                    th:href="@{'/file/manga/' + ${manga.title} + '/file-list'}"
+                    th:text="#{file-list.name}"
+                  ></a>
+                  <div class="gallery">
+                    <img
+                      th:if="${#lists.isEmpty(manga.files)}"
+                      th:src="@{/img/no_found.png}"
+                      alt="no image found"
+                      class="img-fluid d-block mx-auto"
+                    />
+                    <div th:if="${not #lists.isEmpty(manga.files)}">
+                      <img
+                        th:src="${manga.files.get(0).url}"
+                        th:alt="${manga.files.get(0).fileName}"
+                        class="img-fluid d-block mx-auto"
+                      />
+                      <p></p>
+                      <iframe
+                        th:each="file : ${manga.files}"
+                        width="462"
+                        height="320"
+                        th:if="${file.type == 'video'}"
+                        th:src="@{https://www.youtube.com/embed/{url} (url=${file.url})}"
+                        frameborder="1"
+                        alt="no video attached"
+                        allowfullscreen="0"
+                      >
+                      </iframe>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="info">
+                    <div class="summary">
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.rating}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.rating}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.title}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.title}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.titleVo}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.titleVo}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.origin}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.origin}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.status}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.status}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.release-date}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.releaseDate}"></p>
+                      </div>
+                      <div
+                        class="card-text"
+                        th:if="${manga.status == 'Terminé'}"
+                      >
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.end-date}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.endDate}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.nb-chapters}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.nbChapters}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.nb-tomes}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.nbTomes}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.type}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.type}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.genre}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.genre}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.mangaka}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.mangaka}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.editor-vo}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.editorVo}">></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.editor}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <a
+                          th:if="${#strings.contains(manga.editor,'Kana')}"
+                          th:href="${manga.editorUrl}"
+                        >
+                          <img
+                            th:src="@{https://www.kana.fr/wp-content/themes/kana/assets/images/logo.svg}"
+                            th:alt="${manga.editor}"
+                            style="
+                              margin-left: 20px;
+                              width: 25px;
+                              height: auto;
+                              transform: rotate(270deg);
+                            "
+                          />
+                        </a>
+                        <a
+                          th:unless="${#strings.contains(manga.editor,'Kana')}"
+                          th:href="${manga.editorUrl}"
+                          th:text="${manga.editor}"
+                        >
+                        </a>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.synopsis}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.synopsis}"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-info">
+              <div>
+                <ul class="nav nav-tabs" id="Tab">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      role="tab"
+                      data-toggle="tab"
+                      id="sectors-tab"
+                      href="#reviews"
+                      th:text="#{reviews.name}"
+                    ></a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="TabContent">
+                  <div class="tab-pane fade show" role="tabpanel1" id="reviews">
+                    <p class="my-5" sec:authorize="isAuthenticated()">
+                      <a
+                        th:if="${#authentication.name != userReviewed}"
+                        class="btn btn-outline-primary"
+                        th:href="@{'/review/manga/' + ${manga.title} + '/add-review' + '/'}"
+                      >
+                        <i
+                          class="icon-plus ml-1"
+                          th:text="#{form.add-review.name}"
+                        ></i>
+                      </a>
+                    </p>
+                    <a
+                      class="btn btn-outline-primary"
+                      sec:authorize="isAnonymous()"
+                      th:href="@{/login}"
+                    >
+                      <i
+                        class="icon-login ml-1"
+                        th:text="#{add-review.text.request-login}"
+                      ></i>
+                    </a>
+                    <div class="reviews" th:each="review : ${manga.reviews}">
+                      <div class="review-item">
+                        <div
+                          class="align-items-sm-start"
+                          th:if="${#authentication.name == userReviewed or #authorization.expression('hasAnyAuthority(''ADMIN_ROLE'')')}"
+                        >
+                          <a
+                            class="btn btn-sm btn-outline-primary"
+                            th:href="@{'/review/manga/' + ${review.manga.title} + '/update-review/' + ${review.id} + '/'}"
+                          >
+                            <i class="icon-pencil ml-1"></i>
+                          </a>
+                          <a
+                            class="btn btn-sm btn-outline-danger"
+                            th:href="@{'/review/manga/' + ${review.manga.title} + '/delete-review/' + ${review.id} + '/'}"
+                          >
+                            <i class="icon-trash ml-1"></i>
+                          </a>
+                        </div>
+                        <span class="text-muted">
+                          <a
+                            th:href="@{'/user-profile/' + ${review.user.id}}"
+                            th:text="${review.user.username}"
+                          ></a
+                          >,
+                          <p
+                            th:text="${#dates.format(review.releaseDate, 'dd MMM yyyy - HH:mm')}"
+                          ></p>
+                        </span>
+                        <div class="card-text">
+                          <p
+                            class="value"
+                            id="rating"
+                            style="font-weight: bolder"
+                            th:text="${review.rating}"
+                          ></p>
+                          <p th:text="${review.content}"></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    <div th:replace="fragments/footer :: scripts"></div>
+  </body>
+</html>

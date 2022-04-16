@@ -6,27 +6,24 @@
   <head th:replace="fragments/header :: head"></head>
   <body>
     <header th:replace="fragments/header :: header"></header>
-    <main class="page updateAnime-page">
+    <main class="page uploadFile-page">
       <section class="clean-block clean-form dark">
         <div class="container">
           <div class="block-heading">
-            <h2 class="text-login" th:text="#{view.button.update}"></h2>
+            <h2 class="text-info" th:text="#{form.upload-file.name}"></h2>
           </div>
           <div th:replace="fragments/alert :: error"></div>
-          <form
-            class="form-group"
-            th:action="@{'/anime/update-anime/' + ${anime.title}}"
-            th:object="${anime}"
-            method="post"
-          >
-            <div th:replace="fragments/alert :: fields_error"></div>
-            <div th:replace="fragments/anime :: form"></div>
-            <button
-              type="submit"
-              class="btn btn-primary btn-block"
-              th:text="#{view.button.update}"
-            ></button>
-          </form>
+          <div>
+            <form
+              class="form-group"
+              th:action="@{'/file/manga/' + ${title} + '/upload-file'}"
+              enctype="multipart/form-data"
+              th:object="${file}"
+              method="post"
+            >
+              <div th:replace="fragments/file :: upload"></div>
+            </form>
+          </div>
         </div>
       </section>
     </main>

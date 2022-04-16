@@ -1,0 +1,186 @@
+<!-- Manga form -->
+<div th:fragment="form">
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{title}"
+          th:placeholder="#{form.object.title}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{titleVo}"
+          th:placeholder="#{form.object.title-vo}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control item"
+      th:field="*{origin}"
+      th:placeholder="#{form.object.origin}"
+      th:errorclass="is-invalid"
+    />
+  </div>
+  <div class="input-group mb-3">
+    <select class="form-control" th:field="*{status}">
+      <option value="" selected th:text="#{form.object.status}"></option>
+      <option
+        th:each="status : ${statusList}"
+        th:value="${status}"
+        th:text="${status}"
+      ></option>
+    </select>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{releaseDate}"
+          th:placeholder="#{form.object.release-date}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{endDate}"
+          th:placeholder="#{form.object.end-date}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{nbChapters}"
+          th:placeholder="#{form.object.nb-chapters}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{nbTomes}"
+          th:placeholder="#{form.object.nb-tomes}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col select-style">
+      <div class="input-group mb-3">
+        <select class="form-control" th:field="*{type}">
+          <option value="" selected th:text="#{form.object.type}"></option>
+          <option
+            th:each="type : ${types}"
+            th:value="${type}"
+            th:text="${type}"
+          ></option>
+        </select>
+      </div>
+    </div>
+    <div class="col select-style">
+      <div class="input-group mb-3">
+        <select
+          multiple="multiple"
+          id="myMulti"
+          class="form-control"
+          th:field="*{genre}"
+        >
+          <option value="" selected th:text="#{form.object.genre}"></option>
+          <option
+            th:each="genre : ${genres}"
+            th:value="${genre}"
+            th:text="${genre}"
+          ></option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{mangaka}"
+          th:placeholder="#{form.object.mangaka}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{editorVo}"
+          th:placeholder="#{form.object.editor-vo}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{editor}"
+          th:placeholder="#{form.object.editor}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+    <div class="col">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control item"
+          th:field="*{editorUrl}"
+          th:placeholder="#{form.object.editor-url}"
+          th:errorclass="is-invalid"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+    <textarea
+      class="form-control"
+      name="synopsis"
+      id="editor"
+      th:name="synopsis"
+      th:field="*{synopsis}"
+      rows="10"
+      th:value="${manga.synopsis}"
+      th:placeholder="#{form.object.synopsis} + ' (max: 1000 caractères) : '"
+      th:errorclass="is-invalid"
+    ></textarea>
+  </div>
+</div>

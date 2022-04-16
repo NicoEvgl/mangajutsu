@@ -6,7 +6,7 @@
   <head th:replace="fragments/header :: head"></head>
   <body>
     <header th:replace="fragments/header :: header"></header>
-    <main class="page updateAnime-page">
+    <main class="page updateManga-page">
       <section class="clean-block clean-form dark">
         <div class="container">
           <div class="block-heading">
@@ -15,12 +15,12 @@
           <div th:replace="fragments/alert :: error"></div>
           <form
             class="form-group"
-            th:action="@{'/anime/update-anime/' + ${anime.title}}"
-            th:object="${anime}"
+            th:action="@{'/manga/update-manga/' + ${manga.title}}"
+            th:object="${manga}"
             method="post"
           >
             <div th:replace="fragments/alert :: fields_error"></div>
-            <div th:replace="fragments/anime :: form"></div>
+            <div th:replace="fragments/manga :: form"></div>
             <button
               type="submit"
               class="btn btn-primary btn-block"
