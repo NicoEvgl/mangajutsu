@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ReviewService {
+    void addMangaReview(ReviewEntity review, String username, String title) throws ResourceNotFoundException;
+
     void addAnimeReview(ReviewEntity review, String username, String title) throws ResourceNotFoundException;
 
     void addMovieReview(ReviewEntity review, String username, String title) throws ResourceNotFoundException;
+
+    List<ReviewEntity> getMangaReviews(String title);
 
     List<ReviewEntity> getAnimeReviews(String title);
 

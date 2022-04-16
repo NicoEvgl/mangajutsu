@@ -32,7 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import feign.FeignException;
 
 @Controller
-@RequestMapping("anime")
+@RequestMapping("/anime")
 public class AnimeController {
 
     @Autowired

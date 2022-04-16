@@ -22,6 +22,12 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @PostMapping("/manga/{title}/add-review")
+    public void addMangaReview(@RequestBody ReviewEntity review, String username, @PathVariable String title)
+            throws ResourceNotFoundException {
+        reviewService.addMangaReview(review, username, title);
+    }
+
     @PostMapping("/anime/{title}/add-review")
     public void addAnimeReview(@RequestBody ReviewEntity review, String username, @PathVariable String title)
             throws ResourceNotFoundException {
@@ -32,6 +38,12 @@ public class ReviewController {
     public void addMovieReview(@RequestBody ReviewEntity review, String username, @PathVariable String title)
             throws ResourceNotFoundException {
         reviewService.addMovieReview(review, username, title);
+    }
+
+    @GetMapping("/{title}/manga-reviews")
+    public List<ReviewEntity> getMangaReviews(@PathVariable String title) {
+        List<ReviewEntity> reviews = reviewService.getMangaReviews(title);
+        return reviews;
     }
 
     @GetMapping("/{title}/anime-reviews")

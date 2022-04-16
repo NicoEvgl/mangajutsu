@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Objects;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
+import com.mangajutsu.api.dao.entities.MangaEntity;
 import com.mangajutsu.api.dao.entities.MovieEntity;
 import com.mangajutsu.api.dao.entities.ReviewEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.repositories.AnimeRepository;
+import com.mangajutsu.api.dao.repositories.MangaRepository;
 import com.mangajutsu.api.dao.repositories.MovieRepository;
 import com.mangajutsu.api.dao.repositories.ReviewRepository;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
@@ -26,6 +28,9 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepository;
 
     @Autowired
+    private MangaRepository mangaRepository;
+
+    @Autowired
     private AnimeRepository animeRepository;
 
     @Autowired
@@ -33,6 +38,17 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
     private UserService userService;
+
+    @Override
+    public void addMangaReview(ReviewEntity review, String username, String title) throws ResourceNotFoundException {
+        if (Objects.isNull(review) || title == null || username == null) {
+            throw new ResourceNotFoundException("Ressource not found");
+        }
+        addMangaToReview(review, title);
+        addUserToReview(review, username);
+
+        reviewRepository.save(review);
+    }
 
     @Override
     public void addAnimeReview(ReviewEntity review, String username, String title) throws ResourceNotFoundException {
@@ -54,6 +70,13 @@ public class ReviewServiceImpl implements ReviewService {
         addUserToReview(review, username);
 
         reviewRepository.save(review);
+    }
+
+    @Override
+    public List<ReviewEntity> getMangaReviews(String title) {
+        List<ReviewEntity> reviews = reviewRepository.findAllByManga_Title(title,
+                Sort.by(Sort.Direction.DESC, "releaseDate"));
+        return reviews;
     }
 
     @Override
@@ -99,6 +122,12 @@ public class ReviewServiceImpl implements ReviewService {
         UserEntity user = userService.findByUsername(username);
         review.setUser(user);
         user.getReviews().add(review);
+    }
+
+    public void addMangaToReview(ReviewEntity review, String title) {
+        MangaEntity manga = mangaRepository.findByTitle(title);
+        review.setManga(manga);
+        manga.getReviews().add(review);
     }
 
     public void addAnimeToReview(ReviewEntity review, String title) {
