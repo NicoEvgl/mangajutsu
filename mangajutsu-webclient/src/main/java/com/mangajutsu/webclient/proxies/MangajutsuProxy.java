@@ -91,11 +91,17 @@ public interface MangajutsuProxy {
     @GetMapping("/movie/movie-details/{title}")
     MovieModel getMovieDetails(@PathVariable String title);
 
+    @GetMapping("/movie/user-movies/{username}")
+    List<MovieModel> getUserMovies(@PathVariable String username);
+
     @PostMapping("/movie/add-movie")
     void addMovie(@RequestBody MovieModel movie, @RequestParam("username") String username);
 
     @PostMapping("/movie/update-movie/{title}")
     void updateMovie(@RequestBody MovieModel movie, @PathVariable String title);
+
+    @DeleteMapping("/movie/delete-movie/{title}")
+    void deleteMovie(@PathVariable String title);
 
     @GetMapping("/enum/movie-types")
     List<String> getMovieTypes();
@@ -128,12 +134,19 @@ public interface MangajutsuProxy {
 
     // Review //
 
-    @PostMapping("/review/{title}/add-review")
-    void addReview(@RequestBody ReviewModel review, @RequestParam("username") String username,
+    @PostMapping("/review/anime/{title}/add-review")
+    void addAnimeReview(@RequestBody ReviewModel review, @RequestParam("username") String username,
+            @PathVariable String title);
+
+    @PostMapping("/review/movie/{title}/add-review")
+    void addMovieReview(@RequestBody ReviewModel review, @RequestParam("username") String username,
             @PathVariable String title);
 
     @GetMapping("/review/{title}/anime-reviews")
     List<ReviewModel> getAnimeReviews(@PathVariable String title);
+
+    @GetMapping("/review/{title}/movie-reviews")
+    List<ReviewModel> getMovieReviews(@PathVariable String title);
 
     @GetMapping("/review/review-details/{id}")
     ReviewModel getReviewDetails(@PathVariable Integer id);

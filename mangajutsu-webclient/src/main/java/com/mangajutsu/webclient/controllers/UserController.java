@@ -21,6 +21,7 @@ import javax.validation.Valid;
 
 import com.mangajutsu.webclient.models.AnimeModel;
 import com.mangajutsu.webclient.models.ForgotPasswordModel;
+import com.mangajutsu.webclient.models.MovieModel;
 import com.mangajutsu.webclient.models.UserModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
@@ -63,7 +64,13 @@ public class UserController {
             anime.setFiles(mangajutsuProxy.getAnimeFiles(anime.getTitle()));
         }
 
+        List<MovieModel> movies = mangajutsuProxy.getUserMovies(userInSession.getUsername());
+        for (MovieModel movie : movies) {
+            movie.setFiles(mangajutsuProxy.getMovieFiles(movie.getTitle()));
+        }
+
         model.addAttribute("animes", animes);
+        model.addAttribute("movies", movies);
         model.addAttribute("userInSession", userInSession);
 
         return "user/personal_space";

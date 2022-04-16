@@ -22,19 +22,31 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @PostMapping("{title}/add-review")
-    public void addReview(@RequestBody ReviewEntity review, String username, @PathVariable String title)
+    @PostMapping("/anime/{title}/add-review")
+    public void addAnimeReview(@RequestBody ReviewEntity review, String username, @PathVariable String title)
             throws ResourceNotFoundException {
-        reviewService.create(review, username, title);
+        reviewService.addAnimeReview(review, username, title);
     }
 
-    @GetMapping("{title}/anime-reviews")
+    @PostMapping("/movie/{title}/add-review")
+    public void addMovieReview(@RequestBody ReviewEntity review, String username, @PathVariable String title)
+            throws ResourceNotFoundException {
+        reviewService.addMovieReview(review, username, title);
+    }
+
+    @GetMapping("/{title}/anime-reviews")
     public List<ReviewEntity> getAnimeReviews(@PathVariable String title) {
         List<ReviewEntity> reviews = reviewService.getAnimeReviews(title);
         return reviews;
     }
 
-    @GetMapping("review-details/{id}")
+    @GetMapping("/{title}/movie-reviews")
+    public List<ReviewEntity> getMovieReviews(@PathVariable String title) {
+        List<ReviewEntity> reviews = reviewService.getMovieReviews(title);
+        return reviews;
+    }
+
+    @GetMapping("/review-details/{id}")
     public ReviewEntity getFileDetails(@PathVariable Integer id) {
         ReviewEntity review = reviewService.getReviewDetails(id);
         return review;

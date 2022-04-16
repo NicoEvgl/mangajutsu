@@ -14,9 +14,13 @@ public interface MovieService {
 
     MovieEntity getMovieDetails(String title);
 
+    List<MovieEntity> getUserMovies(String username);
+
     void addMovie(MovieEntity movie, String username) throws ResourceAlreadyExistException;
 
     boolean checkIfMovieExist(String title);
 
     void updateMovie(MovieEntity movie, String title) throws ResourceNotFoundException;
+
+    void deleteMovie(String title);
 }

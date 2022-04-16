@@ -2,8 +2,7 @@ package com.mangajutsu.api.enums;
 
 public enum MovieTypesEnum {
     Film("film"),
-    OAV("oav"),
-    Court_Metrage("court-métrage");
+    OAV("oav");
 
     private final String param;
 

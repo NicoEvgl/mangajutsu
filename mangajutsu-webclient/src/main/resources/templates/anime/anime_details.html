@@ -286,7 +286,7 @@
                       <a
                         th:if="${#authentication.name != userReviewed}"
                         class="btn btn-outline-primary"
-                        th:href="@{'/review/' + ${anime.title} + '/add-review' + '/'}"
+                        th:href="@{'/review/anime/' + ${anime.title} + '/add-review' + '/'}"
                       >
                         <i
                           class="icon-plus ml-1"
@@ -312,13 +312,13 @@
                         >
                           <a
                             class="btn btn-sm btn-outline-primary"
-                            th:href="@{'/review/' + ${review.anime.title} + '/update-review/' + ${review.id} + '/'}"
+                            th:href="@{'/review/anime/' + ${review.anime.title} + '/update-review/' + ${review.id} + '/'}"
                           >
                             <i class="icon-pencil ml-1"></i>
                           </a>
                           <a
                             class="btn btn-sm btn-outline-danger"
-                            th:href="@{'/review/' + ${review.anime.title} + '/delete-review/' + ${review.id} + '/'}"
+                            th:href="@{'/review/anime/' + ${review.anime.title} + '/delete-review/' + ${review.id} + '/'}"
                           >
                             <i class="icon-trash ml-1"></i>
                           </a>

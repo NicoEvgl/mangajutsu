@@ -120,6 +120,59 @@
           </div>
         </div>
       </section>
+      <section class="clean-block clean-services dark">
+        <div class="container">
+          <div class="block-heading">
+            <h2
+              class="text-info"
+              th:text="#{personal-space.my-movie.list.name}"
+            ></h2>
+            <a
+              class="btn btn-outline-primary btn-block"
+              th:href="@{/movie/add-movie}"
+              th:text="#{form.add-movie.name}"
+            ></a>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4" th:each="movie : ${movies}">
+              <div class="card">
+                <div class="card-body">
+                  <img
+                    th:if="${#lists.isEmpty(movie.files)}"
+                    th:src="@{/img/no_found.png}"
+                    alt="no image found"
+                    style="width: 120px; height: auto"
+                  />
+                  <img
+                    th:if="${not #lists.isEmpty(movie.files)}"
+                    th:src="${movie.files.get(0).url}"
+                    alt="${movie.files.get(0).fileName}"
+                    style="width: 120px; height: auto"
+                  />
+                  <h4 class="card-title" th:text="${movie.title}"></h4>
+                </div>
+                <div class="card-footer">
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    th:href="@{'/movie/movie-details/' + ${movie.title} + '/'}"
+                    th:text="#{view.button.watch}"
+                  ></a>
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    th:href="@{'/movie/update-movie/' + ${movie.title} + '/'}"
+                    th:text="#{view.button.update}"
+                  ></a>
+                  <a
+                    class="btn btn-outline-primary btn-sm"
+                    th:href="@{'/movie/delete-movie/' + ${movie.title} + '/'}"
+                    th:text="#{view.button.delete}"
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
     <footer th:insert="fragments/footer :: footer"></footer>
     <div th:insert="fragments/footer :: scripts"></div>

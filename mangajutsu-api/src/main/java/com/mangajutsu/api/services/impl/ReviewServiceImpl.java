@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Objects;
 
 import com.mangajutsu.api.dao.entities.AnimeEntity;
+import com.mangajutsu.api.dao.entities.MovieEntity;
 import com.mangajutsu.api.dao.entities.ReviewEntity;
 import com.mangajutsu.api.dao.entities.UserEntity;
 import com.mangajutsu.api.dao.repositories.AnimeRepository;
+import com.mangajutsu.api.dao.repositories.MovieRepository;
 import com.mangajutsu.api.dao.repositories.ReviewRepository;
 import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.ReviewService;
@@ -21,16 +23,19 @@ import org.springframework.stereotype.Service;
 public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
     private AnimeRepository animeRepository;
 
     @Autowired
-    private ReviewRepository reviewRepository;
+    private MovieRepository movieRepository;
 
     @Autowired
     private UserService userService;
 
     @Override
-    public void create(ReviewEntity review, String username, String title) throws ResourceNotFoundException {
+    public void addAnimeReview(ReviewEntity review, String username, String title) throws ResourceNotFoundException {
         if (Objects.isNull(review) || title == null || username == null) {
             throw new ResourceNotFoundException("Ressource not found");
         }
@@ -41,8 +46,26 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public void addMovieReview(ReviewEntity review, String username, String title) throws ResourceNotFoundException {
+        if (Objects.isNull(review) || title == null || username == null) {
+            throw new ResourceNotFoundException("Ressource not found");
+        }
+        addMovieToReview(review, title);
+        addUserToReview(review, username);
+
+        reviewRepository.save(review);
+    }
+
+    @Override
     public List<ReviewEntity> getAnimeReviews(String title) {
         List<ReviewEntity> reviews = reviewRepository.findAllByAnime_Title(title,
+                Sort.by(Sort.Direction.DESC, "releaseDate"));
+        return reviews;
+    }
+
+    @Override
+    public List<ReviewEntity> getMovieReviews(String title) {
+        List<ReviewEntity> reviews = reviewRepository.findAllByMovie_Title(title,
                 Sort.by(Sort.Direction.DESC, "releaseDate"));
         return reviews;
     }
@@ -82,5 +105,11 @@ public class ReviewServiceImpl implements ReviewService {
         AnimeEntity anime = animeRepository.findByTitle(title);
         review.setAnime(anime);
         anime.getReviews().add(review);
+    }
+
+    public void addMovieToReview(ReviewEntity review, String title) {
+        MovieEntity movie = movieRepository.findByTitle(title);
+        review.setMovie(movie);
+        movie.getReviews().add(review);
     }
 }

@@ -50,10 +50,30 @@
                   ></a>
                   <div class="gallery">
                     <img
+                      th:if="${#lists.isEmpty(movie.files)}"
                       th:src="@{/img/no_found.png}"
                       alt="no image found"
                       class="img-fluid d-block mx-auto"
                     />
+                    <div th:if="${not #lists.isEmpty(movie.files)}">
+                      <img
+                        th:src="${movie.files.get(0).url}"
+                        th:alt="${movie.files.get(0).fileName}"
+                        class="img-fluid d-block mx-auto"
+                      />
+                      <p></p>
+                      <iframe
+                        th:each="file : ${movie.files}"
+                        width="462"
+                        height="320"
+                        th:if="${file.type == 'video'}"
+                        th:src="@{https://www.youtube.com/embed/{url} (url=${file.url})}"
+                        frameborder="1"
+                        alt="no video attached"
+                        allowfullscreen="0"
+                      >
+                      </iframe>
+                    </div>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -192,6 +212,88 @@
                           style="font-weight: bolder"
                         ></h7>
                         <p class="value" th:text="${movie.synopsis}"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="product-info">
+              <div>
+                <ul class="nav nav-tabs" id="Tab">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      role="tab"
+                      data-toggle="tab"
+                      id="sectors-tab"
+                      href="#reviews"
+                      th:text="#{reviews.name}"
+                    ></a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="TabContent">
+                  <div class="tab-pane fade show" role="tabpanel1" id="reviews">
+                    <p class="my-5" sec:authorize="isAuthenticated()">
+                      <a
+                        th:if="${#authentication.name != userReviewed}"
+                        class="btn btn-outline-primary"
+                        th:href="@{'/review/movie/' + ${movie.title} + '/add-review' + '/'}"
+                      >
+                        <i
+                          class="icon-plus ml-1"
+                          th:text="#{form.add-review.name}"
+                        ></i>
+                      </a>
+                    </p>
+                    <a
+                      class="btn btn-outline-primary"
+                      sec:authorize="isAnonymous()"
+                      th:href="@{/login}"
+                    >
+                      <i
+                        class="icon-login ml-1"
+                        th:text="#{add-review.text.request-login}"
+                      ></i>
+                    </a>
+                    <div class="reviews" th:each="review : ${movie.reviews}">
+                      <div class="review-item">
+                        <div
+                          class="align-items-sm-start"
+                          th:if="${#authentication.name == userReviewed or #authorization.expression('hasAnyAuthority(''ADMIN_ROLE'')')}"
+                        >
+                          <a
+                            class="btn btn-sm btn-outline-primary"
+                            th:href="@{'/review/movie/' + ${review.movie.title} + '/update-review/' + ${review.id} + '/'}"
+                          >
+                            <i class="icon-pencil ml-1"></i>
+                          </a>
+                          <a
+                            class="btn btn-sm btn-outline-danger"
+                            th:href="@{'/review/movie/' + ${review.movie.title} + '/delete-review/' + ${review.id} + '/'}"
+                          >
+                            <i class="icon-trash ml-1"></i>
+                          </a>
+                        </div>
+                        <span class="text-muted">
+                          <a
+                            th:href="@{'/user-profile/' + ${review.user.id}}"
+                            th:text="${review.user.username}"
+                          ></a
+                          >,
+                          <p
+                            th:text="${#dates.format(review.releaseDate, 'dd MMM yyyy - HH:mm')}"
+                          ></p>
+                        </span>
+                        <div class="card-text">
+                          <p
+                            class="value"
+                            id="rating"
+                            style="font-weight: bolder"
+                            th:text="${review.rating}"
+                          ></p>
+                          <p th:text="${review.content}"></p>
+                        </div>
                       </div>
                     </div>
                   </div>

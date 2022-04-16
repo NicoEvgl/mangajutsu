@@ -10,12 +10,12 @@
       <section class="clean-block clean-form dark">
         <div class="container">
           <div class="block-heading">
-            <h2 class="text-login" th:text="#{form.add-review.name}"></h2>
+            <h2 class="text-login" th:text="#{view.button.update}"></h2>
           </div>
           <div th:replace="fragments/alert :: error"></div>
           <form
             class="form-group"
-            th:action="@{'/review/' + ${title} + '/add-review' + '/'}"
+            th:action="@{'/review/anime/' + ${review.anime.title} + '/update-review/' + ${review.id} + '/'}"
             th:object="${review}"
             method="post"
           >
@@ -25,7 +25,7 @@
               <button
                 type="submit"
                 class="btn btn-primary btn-block"
-                th:text="#{form.add-review.name}"
+                th:text="#{view.button.update}"
               ></button>
             </div>
             <div class="form-group">

@@ -160,12 +160,12 @@ public class AnimeController {
     public String deleteAnime(@PathVariable String title, RedirectAttributes redirectAttributes, final Model model)
             throws IOException {
         List<FileModel> files = mangajutsuProxy.getAnimeFiles(title);
-        FileModel animeFile = new FileModel();
-        for (FileModel file : files) {
-            animeFile = file;
+        FileModel file = new FileModel();
+        for (FileModel animeFile : files) {
+            file = animeFile;
         }
         Path path = Paths.get(uploadFileProperties.getUploadDir()).toAbsolutePath().normalize()
-                .resolve(animeFile.getFileName());
+                .resolve(file.getFileName());
         try {
             Files.deleteIfExists(path);
             mangajutsuProxy.deleteAnime(title);

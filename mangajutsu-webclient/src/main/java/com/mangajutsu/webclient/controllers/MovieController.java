@@ -1,12 +1,19 @@
 package com.mangajutsu.webclient.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.validation.Valid;
 
+import com.mangajutsu.webclient.models.FileModel;
 import com.mangajutsu.webclient.models.MovieModel;
+import com.mangajutsu.webclient.models.ReviewModel;
 import com.mangajutsu.webclient.models.UserPrincipal;
 import com.mangajutsu.webclient.proxies.MangajutsuProxy;
+import com.mangajutsu.webclient.utils.UploadFileProperties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -32,11 +39,19 @@ public class MovieController {
     private MangajutsuProxy mangajutsuProxy;
 
     @Autowired
+    private UploadFileProperties uploadFileProperties;
+
+    @Autowired
     private MessageSource messageSource;
 
     @GetMapping("/movie-list")
     public String movieList(final Model model) {
         List<MovieModel> movies = mangajutsuProxy.getMovieList();
+
+        for (MovieModel movie : movies) {
+            List<FileModel> files = mangajutsuProxy.getMovieFiles(movie.getTitle());
+            movie.setFiles(files);
+        }
 
         model.addAttribute("movies", movies);
         return "movie/movie_list";
@@ -45,7 +60,15 @@ public class MovieController {
     @GetMapping("/movie-details/{title}")
     public String movieDetails(@PathVariable String title, final Model model) {
         MovieModel movie = mangajutsuProxy.getMovieDetails(title);
+        List<FileModel> files = mangajutsuProxy.getMovieFiles(title);
+        List<ReviewModel> reviews = mangajutsuProxy.getMovieReviews(title);
 
+        movie.setFiles(files);
+        movie.setReviews(reviews);
+
+        for (ReviewModel review : reviews) {
+            model.addAttribute("userReviewed", review.getUser().getUsername());
+        }
         model.addAttribute("movie", movie);
         return "movie/movie_details";
     }
@@ -128,5 +151,36 @@ public class MovieController {
         model.addAttribute("movie", movie);
 
         return "redirect:/movie/movie-details/{title}";
+    }
+
+    @GetMapping("/delete-movie/{title}")
+    public String deleteMovie(@PathVariable String title, RedirectAttributes redirectAttributes, final Model model)
+            throws IOException {
+        List<FileModel> files = mangajutsuProxy.getMovieFiles(title);
+        FileModel file = new FileModel();
+        for (FileModel movieFile : files) {
+            file = movieFile;
+        }
+        Path path = Paths.get(uploadFileProperties.getUploadDir()).toAbsolutePath().normalize()
+                .resolve(file.getFileName());
+        try {
+            Files.deleteIfExists(path);
+            mangajutsuProxy.deleteMovie(title);
+        } catch (FeignException e) {
+            redirectAttributes.addFlashAttribute("error",
+                    messageSource.getMessage("error.delete-movie", null, LocaleContextHolder.getLocale()));
+            redirectAttributes.addFlashAttribute("movie", mangajutsuProxy.getMovieDetails(title));
+            return "redirect:/movie/movie-details/{title}";
+        } catch (IOException e) {
+            redirectAttributes.addFlashAttribute("error",
+                    messageSource.getMessage("error.delete-movie", null, LocaleContextHolder.getLocale()));
+            redirectAttributes.addFlashAttribute("movie", mangajutsuProxy.getMovieDetails(title));
+            return "redirect:/movie/movie-details/{title}";
+        }
+        redirectAttributes.addFlashAttribute("success",
+                messageSource.getMessage("delete-movie.success.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("movie", mangajutsuProxy.getMovieDetails(title));
+
+        return "redirect:/movie/movie-list";
     }
 }

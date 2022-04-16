@@ -1,4 +1,4 @@
-package com.mangajutsu.webclient.controllers;
+package com.mangajutsu.webclient.controllers.reviews;
 
 import java.util.List;
 
@@ -25,69 +25,67 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import feign.FeignException;
 
 @Controller
-@RequestMapping("/review")
-public class ReviewController {
-
+@RequestMapping("/review/movie")
+public class MovieReviewController {
     @Autowired
     private MangajutsuProxy mangajutsuProxy;
 
     @Autowired
     private MessageSource messageSource;
 
-    @GetMapping("{title}/add-review/")
+    @GetMapping("/{title}/add-review/")
     public String addReview(@PathVariable String title, final Model model) {
         model.addAttribute("review", new ReviewModel());
-        return "review/add_review";
+        return "review/movie/add_review";
     }
 
-    @PostMapping("{title}/add-review/")
+    @PostMapping("/{title}/add-review/")
     public String addReview(@PathVariable String title, @Valid @ModelAttribute("review") ReviewModel review,
             BindingResult bindingResult, RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("review", review);
-            return "review/add_review";
+            return "review/movie/add_review";
         }
         UserPrincipal userInSession = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-        List<ReviewModel> animeReviews = mangajutsuProxy.getAnimeReviews(title);
+        List<ReviewModel> movieReviews = mangajutsuProxy.getMovieReviews(title);
         String userReviewed = "";
-        for (ReviewModel animeReview : animeReviews) {
-            userReviewed = animeReview.getUser().getUsername();
+        for (ReviewModel movieReview : movieReviews) {
+            userReviewed = movieReview.getUser().getUsername();
         }
         try {
             if (userInSession.getUsername().equals(userReviewed)) {
                 return "errors/access_denied";
             }
-            mangajutsuProxy.addReview(review, userInSession.getUsername(), title);
+            mangajutsuProxy.addMovieReview(review, userInSession.getUsername(), title);
         } catch (FeignException e) {
             model.addAttribute("error",
                     messageSource.getMessage("error.add-review", null, LocaleContextHolder.getLocale()));
             model.addAttribute("review", review);
-            return "review/add_review";
+            return "review/movie/add_review";
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("add-review.success.msg", null, LocaleContextHolder.getLocale()));
-
         model.addAttribute("title", title);
         model.addAttribute("review", review);
 
-        return "redirect:/anime/anime-details/{title}";
+        return "redirect:/movie/movie-details/{title}";
     }
 
-    @GetMapping("{title}/update-review/{id}")
+    @GetMapping("/{title}/update-review/{id}")
     public String updateReview(@PathVariable Integer id, final Model model) {
         ReviewModel review = mangajutsuProxy.getReviewDetails(id);
         model.addAttribute("review", review);
-        return "review/update_review";
+        return "review/movie/update_review";
     }
 
-    @PostMapping("{title}/update-review/{id}")
+    @PostMapping("/{title}/update-review/{id}")
     public String updateReview(@PathVariable Integer id, @Valid @ModelAttribute("review") ReviewModel review,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes, final Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("review", review);
-            return "review/update_review";
+            return "review/movie/update_review";
         }
         try {
             mangajutsuProxy.updateReview(review, id);
@@ -95,17 +93,16 @@ public class ReviewController {
             model.addAttribute("error",
                     messageSource.getMessage("error.update-review", null, LocaleContextHolder.getLocale()));
             model.addAttribute("review", review);
-            return "review/add_review";
+            return "review/movie/update_review";
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("update-review.success.msg", null, LocaleContextHolder.getLocale()));
-
         model.addAttribute("review", review);
 
-        return "redirect:/anime/anime-details/{title}";
+        return "redirect:/movie/movie-details/{title}";
     }
 
-    @GetMapping("{title}/delete-review/{id}")
+    @GetMapping("/{title}/delete-review/{id}")
     public String deleteReview(@PathVariable Integer id, RedirectAttributes redirectAttributes, final Model model) {
         try {
             mangajutsuProxy.deleteReview(id);
@@ -113,13 +110,12 @@ public class ReviewController {
             model.addAttribute("error",
                     messageSource.getMessage("error.delete-review", null, LocaleContextHolder.getLocale()));
             model.addAttribute("review", mangajutsuProxy.getReviewDetails(id));
-            return "review/add_review";
+            return "review/movie/add_review";
         }
         redirectAttributes.addFlashAttribute("success",
                 messageSource.getMessage("delete-review.success.msg", null, LocaleContextHolder.getLocale()));
+        model.addAttribute("review", mangajutsuProxy.getReviewDetails(id));
 
-        model.addAttribute("review", mangajutsuProxy.getFileDetails(id));
-
-        return "redirect:/anime/anime-details/{title}";
+        return "redirect:/movie/movie-details/{title}";
     }
 }

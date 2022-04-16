@@ -8,6 +8,7 @@ import com.mangajutsu.api.exceptions.ResourceNotFoundException;
 import com.mangajutsu.api.services.MovieService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,6 +35,12 @@ public class MovieController {
         return movie;
     }
 
+    @GetMapping("/user-movies/{username}")
+    public List<MovieEntity> getUserMovies(@PathVariable String username) {
+        List<MovieEntity> movies = movieService.getUserMovies(username);
+        return movies;
+    }
+
     @PostMapping("/add-movie")
     public void addMovie(@RequestBody MovieEntity movie, String username) throws ResourceAlreadyExistException {
         movieService.addMovie(movie, username);
@@ -43,5 +50,10 @@ public class MovieController {
     public void updateMovie(@RequestBody MovieEntity movie, @PathVariable String title)
             throws ResourceNotFoundException {
         movieService.updateMovie(movie, title);
+    }
+
+    @DeleteMapping("/delete-movie/{title}")
+    public void deleteMovie(@PathVariable String title) {
+        movieService.deleteMovie(title);
     }
 }
