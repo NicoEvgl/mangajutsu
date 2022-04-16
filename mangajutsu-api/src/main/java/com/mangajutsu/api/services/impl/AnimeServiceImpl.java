@@ -56,6 +56,16 @@ public class AnimeServiceImpl implements AnimeService {
     }
 
     @Override
+    public List<AnimeEntity> getLastAnimeList() {
+        List<AnimeEntity> animes = animeRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        for (AnimeEntity anime : animes) {
+            List<FileEntity> files = fileService.getAnimeFiles(anime.getTitle());
+            anime.setFiles(files);
+        }
+        return animes;
+    }
+
+    @Override
     public AnimeEntity getAnimeDetails(String title) {
         AnimeEntity anime = animeRepository.findByTitle(title);
         if (anime != null) {

@@ -14,6 +14,8 @@ public interface MovieService {
 
     List<MovieEntity> getTopMovieList();
 
+    List<MovieEntity> getLastMovieList();
+
     MovieEntity getMovieDetails(String title);
 
     List<MovieEntity> getUserMovies(String username);

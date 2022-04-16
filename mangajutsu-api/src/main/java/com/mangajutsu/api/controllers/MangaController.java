@@ -35,6 +35,12 @@ public class MangaController {
         return mangas;
     }
 
+    @GetMapping("/last-manga-list")
+    public List<MangaEntity> getLastMangaList() {
+        List<MangaEntity> mangas = mangaService.getLastMangaList();
+        return mangas;
+    }
+
     @GetMapping("/manga-details/{title}")
     public MangaEntity getMangaDetails(@PathVariable String title) {
         MangaEntity manga = mangaService.getMangaDetails(title);

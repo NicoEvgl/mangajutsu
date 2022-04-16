@@ -35,6 +35,12 @@ public class MovieController {
         return movies;
     }
 
+    @GetMapping("/last-movie-list")
+    public List<MovieEntity> getLastMovieList() {
+        List<MovieEntity> movies = movieService.getLastMovieList();
+        return movies;
+    }
+
     @GetMapping("/movie-details/{title}")
     public MovieEntity getMovieDetails(@PathVariable String title) {
         MovieEntity movie = movieService.getMovieDetails(title);

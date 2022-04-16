@@ -14,6 +14,8 @@ public interface MangaService {
 
     List<MangaEntity> getTopMangaList();
 
+    List<MangaEntity> getLastMangaList();
+
     MangaEntity getMangaDetails(String title);
 
     List<MangaEntity> getUserMangas(String username);

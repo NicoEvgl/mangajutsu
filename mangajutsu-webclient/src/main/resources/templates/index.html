@@ -7,99 +7,259 @@
   <body>
     <header th:replace="fragments/header :: header"></header>
     <main class="page home-page">
-      <section class="clean-block clean-info dark">
+      <section class="clean-block clean-services dark">
         <div class="container">
           <div class="jumbotron my-4">
             <h1 class="display-3" th:text="#{home.text.welcome}"></h1>
             <p class="lead" th:text="#{home.text.lead}"></p>
           </div>
-        </div>
-      </section>
-      <section class="clean-block clean-services dark">
-        <div class="container">
           <div class="block-heading">
-            <h2 class="text-info" th:text="#{home.top-manga-list.name}"></h2>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-lg-4" th:each="manga : ${mangas}">
-              <div class="card">
-                <div class="card-body">
-                  <a
-                    class="btn btn-outline-secondary btn-sm"
-                    th:href="@{'/manga/manga-details/' + ${manga.title} + '/'}"
-                  >
-                    <img
-                      th:if="${#lists.isEmpty(manga.files)}"
-                      th:src="@{/img/no_found.png}"
-                      alt="no image found"
-                      style="width: 120px; height: auto"
-                    />
-                    <img
-                      th:if="${not #lists.isEmpty(manga.files)}"
-                      th:src="${manga.files.get(0).url}"
-                      alt="${manga.files.get(0).fileName}"
-                      style="width: 120px; height: auto"
-                    />
-                    <h5 class="card-title" th:text="${manga.title}"></h5>
-                  </a>
+            <h2 class="text-info" th:text="#{home.top-object-list.name}"></h2>
+            <ul class="nav nav-tabs" id="Tab">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  role="tab"
+                  data-toggle="tab"
+                  id="mangas-tab"
+                  href="#mangas"
+                  th:text="#{home.tab.manga.name}"
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  role="tab"
+                  data-toggle="tab"
+                  id="animes-tab"
+                  href="#animes"
+                  th:text="#{home.tab.anime.name}"
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  role="tab"
+                  data-toggle="tab"
+                  id="movies-tab"
+                  href="#movies"
+                  th:text="#{home.tab.movie.name}"
+                ></a>
+              </li>
+            </ul>
+            <div class="tab-content" id="TabContent">
+              <div class="tab-pane fade show" role="tabpanel" id="mangas">
+                <div class="row">
+                  <div class="col-md-6 col-lg-4" th:each="manga : ${topMangas}">
+                    <div class="card">
+                      <div class="card-body">
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/manga/manga-details/' + ${manga.title} + '/'}"
+                        >
+                          <img
+                            th:if="${#lists.isEmpty(manga.files)}"
+                            th:src="@{/img/no_found.png}"
+                            alt="no image found"
+                            style="width: 120px; height: auto"
+                          />
+                          <img
+                            th:if="${not #lists.isEmpty(manga.files)}"
+                            th:src="${manga.files.get(0).url}"
+                            alt="${manga.files.get(0).fileName}"
+                            style="width: 120px; height: auto"
+                          />
+                          <h5 class="card-title" th:text="${manga.title}"></h5>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade show" role="tabpanel" id="animes">
+                <div class="row">
+                  <div class="col-md-6 col-lg-4" th:each="anime : ${topAnimes}">
+                    <div class="card">
+                      <div class="card-body">
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/anime/anime-details/' + ${anime.title} + '/'}"
+                        >
+                          <img
+                            th:if="${#lists.isEmpty(anime.files)}"
+                            th:src="@{/img/no_found.png}"
+                            alt="no image found"
+                            style="width: 120px; height: auto"
+                          />
+                          <img
+                            th:if="${not #lists.isEmpty(anime.files)}"
+                            th:src="${anime.files.get(0).url}"
+                            alt="${anime.files.get(0).fileName}"
+                            style="width: 120px; height: auto"
+                          />
+                          <h5 class="card-title" th:text="${anime.title}"></h5>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade show" role="tabpanel" id="movies">
+                <div class="row">
+                  <div class="col-md-6 col-lg-4" th:each="movie : ${topMovies}">
+                    <div class="card">
+                      <div class="card-body">
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/movie/movie-details/' + ${movie.title} + '/'}"
+                        >
+                          <img
+                            th:if="${#lists.isEmpty(movie.files)}"
+                            th:src="@{/img/no_found.png}"
+                            alt="no image found"
+                            style="width: 120px; height: auto"
+                          />
+                          <img
+                            th:if="${not #lists.isEmpty(movie.files)}"
+                            th:src="${movie.files.get(0).url}"
+                            alt="${movie.files.get(0).fileName}"
+                            style="width: 120px; height: auto"
+                          />
+                          <h5 class="card-title" th:text="${movie.title}"></h5>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="block-heading">
-            <h2 class="text-info" th:text="#{home.top-anime-list.name}"></h2>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-lg-4" th:each="anime : ${animes}">
-              <div class="card">
-                <div class="card-body">
-                  <a
-                    class="btn btn-outline-secondary btn-sm"
-                    th:href="@{'/anime/anime-details/' + ${anime.title} + '/'}"
+            <h2 class="text-info" th:text="#{home.last-object-list.name}"></h2>
+            <ul class="nav nav-tabs" id="Tab">
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  role="tab"
+                  data-toggle="tab"
+                  id="mangas-tab"
+                  href="#lastMangas"
+                  th:text="#{home.tab.manga.name}"
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  role="tab"
+                  data-toggle="tab"
+                  id="animes-tab"
+                  href="#lastAnimes"
+                  th:text="#{home.tab.anime.name}"
+                ></a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  role="tab"
+                  data-toggle="tab"
+                  id="movies-tab"
+                  href="#lastMovies"
+                  th:text="#{home.tab.movie.name}"
+                ></a>
+              </li>
+            </ul>
+            <div class="tab-content" id="TabContent">
+              <div class="tab-pane fade show" role="tabpanel" id="lastMangas">
+                <div class="row">
+                  <div
+                    class="col-md-6 col-lg-4"
+                    th:each="manga : ${lastMangas}"
                   >
-                    <img
-                      th:if="${#lists.isEmpty(anime.files)}"
-                      th:src="@{/img/no_found.png}"
-                      alt="no image found"
-                      style="width: 120px; height: auto"
-                    />
-                    <img
-                      th:if="${not #lists.isEmpty(anime.files)}"
-                      th:src="${anime.files.get(0).url}"
-                      alt="${anime.files.get(0).fileName}"
-                      style="width: 120px; height: auto"
-                    />
-                    <h5 class="card-title" th:text="${anime.title}"></h5>
-                  </a>
+                    <div class="card">
+                      <div class="card-body">
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/manga/manga-details/' + ${manga.title} + '/'}"
+                        >
+                          <img
+                            th:if="${#lists.isEmpty(manga.files)}"
+                            th:src="@{/img/no_found.png}"
+                            alt="no image found"
+                            style="width: 120px; height: auto"
+                          />
+                          <img
+                            th:if="${not #lists.isEmpty(manga.files)}"
+                            th:src="${manga.files.get(0).url}"
+                            alt="${manga.files.get(0).fileName}"
+                            style="width: 120px; height: auto"
+                          />
+                          <h5 class="card-title" th:text="${manga.title}"></h5>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="block-heading">
-            <h2 class="text-info" th:text="#{home.top-movie-list.name}"></h2>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-lg-4" th:each="movie : ${movies}">
-              <div class="card">
-                <div class="card-body">
-                  <a
-                    class="btn btn-outline-secondary btn-sm"
-                    th:href="@{'/movie/movie-details/' + ${movie.title} + '/'}"
+              <div class="tab-pane fade show" role="tabpanel" id="lastAnimes">
+                <div class="row">
+                  <div
+                    class="col-md-6 col-lg-4"
+                    th:each="anime : ${lastAnimes}"
                   >
-                    <img
-                      th:if="${#lists.isEmpty(movie.files)}"
-                      th:src="@{/img/no_found.png}"
-                      alt="no image found"
-                      style="width: 120px; height: auto"
-                    />
-                    <img
-                      th:if="${not #lists.isEmpty(movie.files)}"
-                      th:src="${movie.files.get(0).url}"
-                      alt="${movie.files.get(0).fileName}"
-                      style="width: 120px; height: auto"
-                    />
-                    <h5 class="card-title" th:text="${movie.title}"></h5>
-                  </a>
+                    <div class="card">
+                      <div class="card-body">
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/anime/anime-details/' + ${anime.title} + '/'}"
+                        >
+                          <img
+                            th:if="${#lists.isEmpty(anime.files)}"
+                            th:src="@{/img/no_found.png}"
+                            alt="no image found"
+                            style="width: 120px; height: auto"
+                          />
+                          <img
+                            th:if="${not #lists.isEmpty(anime.files)}"
+                            th:src="${anime.files.get(0).url}"
+                            alt="${anime.files.get(0).fileName}"
+                            style="width: 120px; height: auto"
+                          />
+                          <h5 class="card-title" th:text="${anime.title}"></h5>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane fade show" role="tabpanel" id="lastMovies">
+                <div class="row">
+                  <div
+                    class="col-md-6 col-lg-4"
+                    th:each="movie : ${lastMovies}"
+                  >
+                    <div class="card">
+                      <div class="card-body">
+                        <a
+                          class="btn btn-outline-secondary btn-sm"
+                          th:href="@{'/movie/movie-details/' + ${movie.title} + '/'}"
+                        >
+                          <img
+                            th:if="${#lists.isEmpty(movie.files)}"
+                            th:src="@{/img/no_found.png}"
+                            alt="no image found"
+                            style="width: 120px; height: auto"
+                          />
+                          <img
+                            th:if="${not #lists.isEmpty(movie.files)}"
+                            th:src="${movie.files.get(0).url}"
+                            alt="${movie.files.get(0).fileName}"
+                            style="width: 120px; height: auto"
+                          />
+                          <h5 class="card-title" th:text="${movie.title}"></h5>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

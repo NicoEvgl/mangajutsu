@@ -15,6 +15,8 @@ public interface AnimeService {
 
     List<AnimeEntity> getTopAnimeList();
 
+    List<AnimeEntity> getLastAnimeList();
+
     AnimeEntity getAnimeDetails(String title);
 
     List<AnimeEntity> getUserAnimes(String username);

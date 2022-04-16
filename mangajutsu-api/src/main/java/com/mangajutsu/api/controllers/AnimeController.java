@@ -35,6 +35,12 @@ public class AnimeController {
         return animes;
     }
 
+    @GetMapping("/last-anime-list")
+    public List<AnimeEntity> getLastAnimeList() {
+        List<AnimeEntity> animes = animeService.getLastAnimeList();
+        return animes;
+    }
+
     @GetMapping("/anime-details/{title}")
     public AnimeEntity getAnimeDetails(@PathVariable String title) {
         AnimeEntity anime = animeService.getAnimeDetails(title);

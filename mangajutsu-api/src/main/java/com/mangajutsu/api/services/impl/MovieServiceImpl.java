@@ -52,6 +52,16 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public List<MovieEntity> getLastMovieList() {
+        List<MovieEntity> movies = movieRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt"));
+        for (MovieEntity movie : movies) {
+            List<FileEntity> files = fileService.getMovieFiles(movie.getTitle());
+            movie.setFiles(files);
+        }
+        return movies;
+    }
+
+    @Override
     public MovieEntity getMovieDetails(String title) {
         MovieEntity movie = movieRepository.findByTitle(title);
         if (movie != null) {
