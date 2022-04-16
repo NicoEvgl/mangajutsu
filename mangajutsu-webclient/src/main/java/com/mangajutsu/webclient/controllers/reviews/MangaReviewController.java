@@ -1,5 +1,6 @@
 package com.mangajutsu.webclient.controllers.reviews;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -36,6 +37,18 @@ public class MangaReviewController {
 
     @GetMapping("/{title}/add-review/")
     public String addReview(@PathVariable String title, final Model model) {
+        List<ReviewModel> mangaReviews = mangajutsuProxy.getMangaReviews(title);
+        List<String> usersReviewed = new ArrayList<>();
+        UserPrincipal userInSession = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+        for (ReviewModel mangaReview : mangaReviews) {
+            usersReviewed.add(mangaReview.getUser().getUsername());
+        }
+        for (String userReviewed : usersReviewed) {
+            if (userInSession.getUsername().equals(userReviewed)) {
+                return "errors/access_denied";
+            }
+        }
         model.addAttribute("review", new ReviewModel());
         return "review/manga/add_review";
     }
@@ -49,15 +62,7 @@ public class MangaReviewController {
         }
         UserPrincipal userInSession = (UserPrincipal) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
-        List<ReviewModel> mangaReviews = mangajutsuProxy.getMangaReviews(title);
-        String userReviewed = "";
-        for (ReviewModel mangaReview : mangaReviews) {
-            userReviewed = mangaReview.getUser().getUsername();
-        }
         try {
-            if (userInSession.getUsername().equals(userReviewed)) {
-                return "errors/access_denied";
-            }
             mangajutsuProxy.addMangaReview(review, userInSession.getUsername(), title);
         } catch (FeignException e) {
             model.addAttribute("error",

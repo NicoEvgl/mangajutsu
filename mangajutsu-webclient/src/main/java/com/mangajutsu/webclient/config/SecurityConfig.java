@@ -43,7 +43,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login", "/register/**", "/password/**")
                 .permitAll()
                 .antMatchers("/admin/**").hasAnyAuthority("ADMIN_ROLE")
-                .antMatchers("/anime/add-anime", "/anime/update-anime/**", "/anime/delete-anime/**", "/movie/add-movie",
+                .antMatchers("/manga/add-manga", "/manga/update-manga/**", "/manga/delete-manga/**", "/anime/add-anime",
+                        "/anime/update-anime/**", "/anime/delete-anime/**", "/movie/add-movie",
                         "/movie/update-movie/**", "/movie/delete-movie/**", "/file/**")
                 .hasAnyAuthority("ADMIN_ROLE", "MEMBER_ROLE")
                 .anyRequest().authenticated()

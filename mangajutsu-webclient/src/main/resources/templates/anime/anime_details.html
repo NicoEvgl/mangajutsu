@@ -285,79 +285,82 @@
               </div>
             </div>
             <div class="product-info">
-              <ul class="nav nav-tabs" id="Tab">
-                <li class="nav-item">
-                  <a
-                    class="nav-link"
-                    role="tab"
-                    data-toggle="tab"
-                    id="sectors-tab"
-                    href="#reviews"
-                    th:text="#{reviews.name}"
-                  ></a>
-                </li>
-              </ul>
-              <div class="tab-content" id="TabContent">
-                <div class="tab-pane fade show" role="tabpanel1" id="reviews">
-                  <p class="my-5" sec:authorize="isAuthenticated()">
+              <div>
+                <ul class="nav nav-tabs" id="Tab">
+                  <li class="nav-item">
                     <a
-                      th:if="${#authentication.name != userReviewed}"
+                      class="nav-link"
+                      role="tab"
+                      data-toggle="tab"
+                      id="sectors-tab"
+                      href="#reviews"
+                      th:text="#{reviews.name}"
+                    ></a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="TabContent">
+                  <div class="tab-pane fade show" role="tabpanel1" id="reviews">
+                    <p class="my-5" sec:authorize="isAuthenticated()">
+                      <a
+                        th:each="userReviewed : ${usersReviewed}"
+                        th:if="${!#strings.contains(usersReviewed, #authentication.name)}"
+                        class="btn btn-outline-primary"
+                        th:href="@{'/review/anime/' + ${anime.title} + '/add-review' + '/'}"
+                      >
+                        <i
+                          class="icon-plus ml-1"
+                          th:text="#{form.add-review.name}"
+                        ></i>
+                      </a>
+                    </p>
+                    <a
                       class="btn btn-outline-primary"
-                      th:href="@{'/review/anime/' + ${anime.title} + '/add-review' + '/'}"
+                      sec:authorize="isAnonymous()"
+                      th:href="@{/login}"
                     >
                       <i
-                        class="icon-plus ml-1"
-                        th:text="#{form.add-review.name}"
+                        class="icon-login ml-1"
+                        th:text="#{add-review.text.request-login}"
                       ></i>
                     </a>
-                  </p>
-                  <a
-                    class="btn btn-outline-primary"
-                    sec:authorize="isAnonymous()"
-                    th:href="@{/login}"
-                  >
-                    <i
-                      class="icon-login ml-1"
-                      th:text="#{add-review.text.request-login}"
-                    ></i>
-                  </a>
-                  <div class="reviews" th:each="review : ${anime.reviews}">
-                    <div class="review-item">
-                      <div
-                        class="align-items-sm-start"
-                        th:if="${#authentication.name == userReviewed or #authorization.expression('hasAnyAuthority(''ADMIN_ROLE'')')}"
-                      >
-                        <a
-                          class="btn btn-sm btn-outline-primary"
-                          th:href="@{'/review/anime/' + ${review.anime.title} + '/update-review/' + ${review.id} + '/'}"
+                    <div class="reviews" th:each="review : ${anime.reviews}">
+                      <div class="review-item">
+                        <div
+                          class="align-items-sm-start"
+                          th:if="${#authentication.name == review.user.username or #authorization.expression('hasAnyAuthority(''ADMIN_ROLE'')')}"
                         >
-                          <i class="icon-pencil ml-1"></i>
-                        </a>
-                        <a
-                          class="btn btn-sm btn-outline-danger"
-                          th:href="@{'/review/anime/' + ${review.anime.title} + '/delete-review/' + ${review.id} + '/'}"
-                        >
-                          <i class="icon-trash ml-1"></i>
-                        </a>
-                      </div>
-                      <span class="text-muted">
-                        <a
-                          th:href="@{'/user-profile/' + ${review.user.id}}"
-                          th:text="${review.user.username}"
-                        ></a
-                        >,
-                        <p
-                          th:text="${#dates.format(review.releaseDate, 'dd MMM yyyy - HH:mm')}"
-                        ></p>
-                      </span>
-                      <div class="card-text">
-                        <p
-                          class="value"
-                          id="rating"
-                          style="font-weight: bolder"
-                          th:text="${review.rating}"
-                        ></p>
-                        <p th:text="${review.content}"></p>
+                          <a
+                            class="btn btn-sm btn-outline-primary"
+                            th:href="@{'/review/anime/' + ${review.anime.title} + '/update-review/' + ${review.id} + '/'}"
+                          >
+                            <i class="icon-pencil ml-1"></i>
+                          </a>
+                          <a
+                            class="btn btn-sm btn-outline-danger"
+                            th:href="@{'/review/anime/' + ${review.anime.title} + '/delete-review/' + ${review.id} + '/'}"
+                          >
+                            <i class="icon-trash ml-1"></i>
+                          </a>
+                        </div>
+                        <span class="text-muted">
+                          <a
+                            th:href="@{'/user-profile/' + ${review.user.id}}"
+                            th:text="${review.user.username}"
+                          ></a
+                          >,
+                          <p
+                            th:text="${#dates.format(review.releaseDate, 'dd MMM yyyy - HH:mm')}"
+                          ></p>
+                        </span>
+                        <div class="card-text">
+                          <p
+                            class="value"
+                            id="rating"
+                            style="font-weight: bolder"
+                            th:text="${review.rating}"
+                          ></p>
+                          <p th:text="${review.content}"></p>
+                        </div>
                       </div>
                     </div>
                   </div>

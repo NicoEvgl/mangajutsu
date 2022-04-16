@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -63,12 +64,15 @@ public class AnimeController {
         List<FileModel> files = mangajutsuProxy.getAnimeFiles(title);
         List<ReviewModel> reviews = mangajutsuProxy.getAnimeReviews(title);
 
+        List<String> usersReviewed = new ArrayList<>();
+        for (ReviewModel review : reviews) {
+            usersReviewed.add(review.getUser().getUsername());
+        }
+
         anime.setFiles(files);
         anime.setReviews(reviews);
 
-        for (ReviewModel review : reviews) {
-            model.addAttribute("userReviewed", review.getUser().getUsername());
-        }
+        model.addAttribute("usersReviewed", usersReviewed);
         model.addAttribute("anime", anime);
         return "anime/anime_details";
     }
