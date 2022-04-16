@@ -28,6 +28,10 @@ public class FileEntity implements Serializable {
     private String url;
 
     @ManyToOne
+    @JoinColumn(name = "manga_id", referencedColumnName = "id", nullable = true)
+    private MangaEntity manga;
+
+    @ManyToOne
     @JoinColumn(name = "anime_id", referencedColumnName = "id", nullable = true)
     private AnimeEntity anime;
 
@@ -71,6 +75,14 @@ public class FileEntity implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public MangaEntity getManga() {
+        return manga;
+    }
+
+    public void setManga(MangaEntity manga) {
+        this.manga = manga;
     }
 
     public AnimeEntity getAnime() {

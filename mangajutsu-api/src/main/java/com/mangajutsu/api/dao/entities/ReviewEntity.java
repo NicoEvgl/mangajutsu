@@ -30,6 +30,10 @@ public class ReviewEntity implements Serializable {
     private Timestamp releaseDate;
 
     @ManyToOne
+    @JoinColumn(name = "manga_id", referencedColumnName = "id", nullable = true)
+    private MangaEntity manga;
+
+    @ManyToOne
     @JoinColumn(name = "anime_id", referencedColumnName = "id", nullable = true)
     private AnimeEntity anime;
 
@@ -69,6 +73,14 @@ public class ReviewEntity implements Serializable {
 
     public void setReleaseDate(Timestamp releaseDate) {
         this.releaseDate = releaseDate;
+    }
+
+    public MangaEntity getManga() {
+        return manga;
+    }
+
+    public void setManga(MangaEntity manga) {
+        this.manga = manga;
     }
 
     public AnimeEntity getAnime() {

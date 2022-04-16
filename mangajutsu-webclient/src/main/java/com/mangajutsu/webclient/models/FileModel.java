@@ -17,6 +17,7 @@ public class FileModel implements Serializable {
     private String url;
 
     private Resource resource;
+    private MangaModel manga;
     private AnimeModel anime;
     private MovieModel movie;
 
@@ -74,6 +75,14 @@ public class FileModel implements Serializable {
 
     public void setResource(Resource resource) {
         this.resource = resource;
+    }
+
+    public MangaModel getManga() {
+        return manga;
+    }
+
+    public void setManga(MangaModel manga) {
+        this.manga = manga;
     }
 
     public AnimeModel getAnime() {

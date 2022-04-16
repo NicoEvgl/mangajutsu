@@ -16,6 +16,7 @@ public class ReviewModel implements Serializable {
     private Timestamp updateDate;
 
     private UserModel user;
+    private MangaModel manga;
     private AnimeModel anime;
     private MovieModel movie;
 
@@ -63,6 +64,14 @@ public class ReviewModel implements Serializable {
 
     public void setUser(UserModel user) {
         this.user = user;
+    }
+
+    public MangaModel getManga() {
+        return manga;
+    }
+
+    public void setManga(MangaModel manga) {
+        this.manga = manga;
     }
 
     public AnimeModel getAnime() {

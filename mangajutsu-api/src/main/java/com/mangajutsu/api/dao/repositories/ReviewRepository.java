@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<ReviewEntity, Integer> {
+    List<ReviewEntity> findAllByManga_Title(String title, Sort sort);
+
     List<ReviewEntity> findAllByAnime_Title(String title, Sort sort);
 
     List<ReviewEntity> findAllByMovie_Title(String title, Sort sort);

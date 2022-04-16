@@ -46,6 +46,10 @@ public class UserEntity implements Serializable {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user")
+    private Set<MangaEntity> mangas;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
     private Set<AnimeEntity> animes;
 
     @JsonIgnore
@@ -144,6 +148,14 @@ public class UserEntity implements Serializable {
 
     public void setLoginDisabled(boolean loginDisabled) {
         this.loginDisabled = loginDisabled;
+    }
+
+    public Set<MangaEntity> getMangas() {
+        return mangas;
+    }
+
+    public void setMangas(Set<MangaEntity> mangas) {
+        this.mangas = mangas;
     }
 
     public Set<AnimeEntity> getAnimes() {
