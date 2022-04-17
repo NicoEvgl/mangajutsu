@@ -35,6 +35,10 @@ public class MangaEntity implements Serializable {
     private String status;
     @Column(name = "rating", nullable = false, columnDefinition = "float default 0")
     private float rating;
+    @Column(name = "release_date_vo", nullable = true, length = 50)
+    private String releaseDateVo;
+    @Column(name = "end_date_vo", nullable = true, length = 50)
+    private String endDateVo;
     @Column(name = "release_date", nullable = false, length = 50)
     private String releaseDate;
     @Column(name = "end_date", nullable = true, length = 50)
@@ -115,6 +119,22 @@ public class MangaEntity implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getReleaseDateVo() {
+        return releaseDateVo;
+    }
+
+    public void setReleaseDateVo(String releaseDateVo) {
+        this.releaseDateVo = releaseDateVo;
+    }
+
+    public String getEndDateVo() {
+        return endDateVo;
+    }
+
+    public void setEndDateVo(String endDateVo) {
+        this.endDateVo = endDateVo;
     }
 
     public String getReleaseDate() {

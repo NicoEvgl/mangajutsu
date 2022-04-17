@@ -17,6 +17,8 @@ public class MangaModel implements Serializable {
     @NotEmpty(message = "{add-manga.valid.status}")
     private String status;
     private float rating;
+    private String releaseDateVo;
+    private String endDateVo;
     @NotEmpty(message = "{add-manga.valid.release-date}")
     private String releaseDate;
     private String endDate;
@@ -85,6 +87,22 @@ public class MangaModel implements Serializable {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public String getReleaseDateVo() {
+        return releaseDateVo;
+    }
+
+    public void setReleaseDateVo(String releaseDateVo) {
+        this.releaseDateVo = releaseDateVo;
+    }
+
+    public String getEndDateVo() {
+        return endDateVo;
+    }
+
+    public void setEndDateVo(String endDateVo) {
+        this.endDateVo = endDateVo;
     }
 
     public String getReleaseDate() {

@@ -106,6 +106,8 @@ public class MangaServiceImpl implements MangaService {
         editedManga.setTitleVo(manga.getTitleVo());
         editedManga.setOrigin(manga.getOrigin());
         editedManga.setStatus(manga.getStatus());
+        editedManga.setReleaseDateVo(manga.getReleaseDateVo());
+        editedManga.setEndDateVo(manga.getEndDateVo());
         editedManga.setReleaseDate(manga.getReleaseDate());
         editedManga.setEndDate(manga.getEndDate());
         editedManga.setNbChapters(manga.getNbChapters());

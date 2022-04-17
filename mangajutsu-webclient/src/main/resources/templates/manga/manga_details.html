@@ -122,6 +122,25 @@
                       <div class="card-text">
                         <h7
                           class="attribute"
+                          th:text="#{form.object.release-date-vo}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.releaseDateVo}"></p>
+                      </div>
+                      <div
+                        class="card-text"
+                        th:if="${manga.status == 'Terminé'}"
+                      >
+                        <h7
+                          class="attribute"
+                          th:text="#{form.object.end-date-vo}"
+                          style="font-weight: bolder"
+                        ></h7>
+                        <p class="value" th:text="${manga.endDateVo}"></p>
+                      </div>
+                      <div class="card-text">
+                        <h7
+                          class="attribute"
                           th:text="#{form.object.release-date}"
                           style="font-weight: bolder"
                         ></h7>
