@@ -289,7 +289,7 @@
                 <ul class="nav nav-tabs" id="Tab">
                   <li class="nav-item">
                     <a
-                      class="nav-link"
+                      class="nav-link active"
                       role="tab"
                       data-toggle="tab"
                       id="sectors-tab"
@@ -299,7 +299,11 @@
                   </li>
                 </ul>
                 <div class="tab-content" id="TabContent">
-                  <div class="tab-pane fade show" role="tabpanel1" id="reviews">
+                  <div
+                    class="tab-pane fade show active"
+                    role="tabpanel1"
+                    id="reviews"
+                  >
                     <div th:each="userReviewed : ${usersReviewed}"></div>
                     <p class="my-5" sec:authorize="isAuthenticated()">
                       <a
